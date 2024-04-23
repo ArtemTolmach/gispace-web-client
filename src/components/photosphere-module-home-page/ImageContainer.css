@@ -1,0 +1,5 @@
+.main-container .image-container {
+    height: 100vh;
+    position: relative;
+    cursor: pointer;
+}

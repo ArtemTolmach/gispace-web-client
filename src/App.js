@@ -1,11 +1,8 @@
-import React from 'react';
-import MainContent from './components/MainContent';
+import RouterCustom from "./router/Router";
 
 function App() {
   return (
-    <div className="App">
-      <MainContent />
-    </div>
+    <RouterCustom />
   );
 }
 

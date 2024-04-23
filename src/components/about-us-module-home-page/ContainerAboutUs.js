@@ -1,5 +1,6 @@
 import React from 'react';
-import steps from "../assets/images/steps.png";
+import './ContainerAboutUs.css'
+import steps from "../../assets/images/steps.png";
 
 const AboutUsContainer = () => {
   return (

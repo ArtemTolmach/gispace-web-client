@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import * as PANOLENS from 'panolens';
-import imageUrl from "../assets/images/home-sphere.jpg";
+import imageUrl from "../../assets/images/home-sphere.jpg";
+import './ImageContainer.css'
 
 const ImageContainer = () => {
   const containerRef = useRef(null);

@@ -1,0 +1,110 @@
+.other-container .overview-container {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.overview-container .projects-container {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+.projects-container .one-project-container {
+    margin: 40px;
+    position: relative;
+    background: -o-linear-gradient(315deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.01));
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+    border-radius: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 65vh;
+    max-width: 70vh;
+    min-width: 200px;
+}
+
+.one-project-container .href-to-project {
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+
+.href-to-project .project-name {
+    color: #fff;
+    font-size: 35px;
+    font-family: Roboto, system-ui;
+    font-weight: 500;
+    text-align:left;
+    margin: 0 40px 0 40px;
+}
+
+.href-to-project .project-bio {
+    color: #89888E;
+    font-size: 25px;
+    font-family: Roboto, system-ui;
+    font-weight: 300;
+    text-align: left;
+    margin: 15px 40px 35px 40px;
+}
+
+.overview-container .caption {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-family: Roboto, system-ui;
+    font-size: 40px;
+    color: #fff;
+    position: relative;
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .other-container .overview-container{
+        margin-bottom: 12px;
+    }
+
+    .overview-container .caption {
+        font-size: 30px;
+    }
+
+    .projects-container .one-project-container {
+        margin: 20px 30px 10px 30px;
+    }
+
+    .wrapper-img-project {
+        margin: 6%;
+        max-height: 25vh;
+        height: auto;
+    }
+
+    .one-project-container .project-name {
+        font-size: 25px;
+        font-weight: 400;
+        margin: 0 25px 0 25px;
+        word-wrap: break-word;
+    }
+
+    .one-project-container .project-bio {
+        font-size: 18px;
+        margin: 12px 25px 25px 25px;
+    }
+
+
+}

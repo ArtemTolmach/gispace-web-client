@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './Header.css'
 
 const Header = ({ user, csrf_token }) => {
   useEffect(() => {

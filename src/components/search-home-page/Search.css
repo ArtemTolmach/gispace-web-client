@@ -1,0 +1,94 @@
+.search {
+    background: -o-linear-gradient(315deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+    -webkit-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 30px;
+    margin-top: 43vh;
+    min-height: 50px;
+    height: 4vh;
+    position: absolute;
+    z-index: 998;
+    width: 45%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 5px;
+}
+
+.search .search-icon {
+    margin-left: 15px;
+    color: #fff;
+    width: 27px;
+    height: 27px;
+}
+
+.search-input {
+    font-size: 20px;
+    font-family: Roboto, system-ui;
+    color: #fff;
+    margin-left: 7px;
+    outline: none;
+    border: none;
+    background: transparent;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 100%;
+}
+
+.search-input::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.search-input::-moz-placeholder {
+    color: #fff;
+}
+
+.search-input:-ms-input-placeholder {
+    color: #fff;
+}
+
+.search-input::-ms-input-placeholder {
+    color: #fff;
+}
+
+.search-input::placeholder {
+    color: #fff;
+}
+
+input[type="search"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+    background-image: url('../../assets/images/cross.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+@media (max-width: 900px) {
+    .search {
+        margin-top: 33vh;
+        min-height: 40px;
+        height: 2vh;
+        width: 80%;
+    }
+}

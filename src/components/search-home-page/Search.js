@@ -1,6 +1,6 @@
 import React from 'react';
-import search from "../assets/images/search.png";
-
+import search from "../../assets/images/search.png";
+import './Search.css'
 const SearchForm = () => {
   return (
     <form className="search">

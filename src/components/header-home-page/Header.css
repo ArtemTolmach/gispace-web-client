@@ -1,0 +1,195 @@
+header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: absolute;
+    top: 0;
+    background: transparent;
+    z-index: 999;
+    width: 100%;
+}
+
+header .logo {
+    margin: 2vh 0 0 10vh;
+    color: #fff;
+    font-size: 70px;
+    font-weight: 700;
+    font-family: Roboto, system-ui;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+header .menu-bar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    width: 100%;
+    margin-right: 10vh;
+}
+
+header .menu-bar .navigation {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    list-style-type: none;
+    margin: 0;
+    height: 40px;
+}
+
+header .menu-hamburger {
+    display: none;
+}
+
+.navigation .menu-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-right: 5vh;
+}
+
+.menu-item > a {
+    color: #fff;
+    font-size: 25px;
+    font-family: Roboto, system-ui;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 0;
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    header .logo {
+        margin: 2vh 0 0 3vh;
+        font-size: 40px;
+    }
+
+    header .menu-bar {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        background: -o-linear-gradient(315deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(20px);
+        right: -100%;
+        display: none;
+        margin: 0;
+    }
+
+    header .menu-bar.active {
+        right: 0;
+        overflow: hidden;
+        display: block;
+    }
+
+    header .menu-bar .navigation {
+        top: 15%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        list-style-type: none;
+        height: auto;
+    }
+
+    .navigation .menu-item {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        padding: 0;
+        margin-top: 8vh;
+    }
+
+    .menu-item a, button {
+        font-size: 35px;
+    }
+
+    header .menu-hamburger {
+        z-index: 10001;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        position: absolute;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: end;
+            -ms-flex-pack: end;
+                justify-content: flex-end;
+        margin: 3vh 0 0 0;
+        right: 3vh;
+        width: 41px;
+        height: 29px;
+    }
+
+    header .menu-hamburger span {
+        height: 4px;
+        width: 100%;
+        -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+                transform: scale(1);
+        background-color: #fff;
+        border-radius: 4px;
+    }
+
+    header .menu-hamburger::before, .menu-hamburger::after {
+        content: '';
+        position: absolute;
+        height: 4px;
+        width: 100%;
+        background-color: #fff;
+        -webkit-transition: all 0.2s ease 0s;
+        -o-transition: all 0.2s ease 0s;
+        transition: all 0.2s ease 0s;
+        border-radius: 4px;
+    }
+
+    header .menu-hamburger::before {
+        top: 0;
+    }
+
+    header .menu-hamburger::after {
+        bottom: 0;
+    }
+
+    header .menu-hamburger.active span {
+        -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+                transform: scale(0);
+    }
+
+    header .menu-hamburger.active::before {
+        top: 50%;
+        -webkit-transform: rotate(-45deg) translate(0, -50%);
+            -ms-transform: rotate(-45deg) translate(0, -50%);
+                transform: rotate(-45deg) translate(0, -50%);
+    }
+
+    header .menu-hamburger.active::after {
+        top: 42.5%;
+        -webkit-transform: rotate(45deg) translate(0, 50%);
+            -ms-transform: rotate(45deg) translate(0, 50%);
+                transform: rotate(45deg) translate(0, 50%);
+    }
+}

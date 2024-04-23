@@ -1,0 +1,61 @@
+html {
+    scroll-behavior: smooth;
+    background: #0C1122;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    overflow-y: auto;
+}
+
+body.no-scroll, html.no-scroll {
+    overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #0C1122;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #DB73EE;
+    border-radius: 20px;
+}
+
+.main-container {
+    display: block;
+    height: auto;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    position: relative;
+}
+
+.main-container .other-container {
+    position: relative;
+    display: block;
+    background: -webkit-gradient(linear,
+        left bottom, left top,
+        from(#0C1122),
+        color-stop(50%, #0C1122),
+        to(#060108)
+    );
+    background: -o-linear-gradient(bottom,
+        #0C1122 0%,
+        #0C1122 50%,
+        #060108 100%
+    );
+    background: linear-gradient(to top,
+        #0C1122 0%,
+        #0C1122 50%,
+        #060108 100%
+    );
+}
