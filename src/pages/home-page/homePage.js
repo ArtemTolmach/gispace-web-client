@@ -6,6 +6,8 @@ import ImageContainer from '../../components/photosphere-module-home-page/ImageC
 import AboutUs from '../../components/about-us-module-home-page/ContainerAboutUs';
 import OverviewContainer from '../../components/list-projects-module-home-page/OverViewContainer'; 
 
+import styles from './homePage.module.css';
+
 function HomePage() {
 
   const user = {
@@ -16,11 +18,11 @@ function HomePage() {
   const csrf_token = 'your_csrf_token_here';
 
   return (
-    <div className="main-container">
+    <div className={styles.mainContainer}>
         <Header user={user} csrf_token={csrf_token} />
         <Search />
         <ImageContainer />
-        <div className="other-container">
+        <div className={styles.otherContainer}>
             <OverviewContainer />
             <AboutUs />
         </div>

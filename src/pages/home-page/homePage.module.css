@@ -30,7 +30,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px;
 }
 
-.main-container {
+.mainContainer {
     display: block;
     height: auto;
     -webkit-box-align: center;
@@ -39,7 +39,7 @@ body::-webkit-scrollbar-thumb {
     position: relative;
 }
 
-.main-container .other-container {
+.mainContainer .otherContainer {
     position: relative;
     display: block;
     background: -webkit-gradient(linear,
