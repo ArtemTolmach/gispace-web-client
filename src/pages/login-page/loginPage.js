@@ -1,7 +1,7 @@
 import React from 'react';
 
-import LoginModal from '../../components/login-modal-login-page/loginModal';
-import ImageContainer from '../../components/photosphere-module-login-page/ImageContainer';
+import LoginModal from '@Components/login/login-modal/loginModal';
+import ImageContainer from '@Components/login/photosphere-module/ImageContainer';
 
 import styles from './loginPage.module.css';
 

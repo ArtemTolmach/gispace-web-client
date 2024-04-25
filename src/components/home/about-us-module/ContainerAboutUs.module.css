@@ -1,4 +1,4 @@
-.about-us-container .describe-gispy {
+.describeGispy {
     display: block;
     width: 90%;
     font-family: Roboto, system-ui;
@@ -10,7 +10,7 @@
     text-align: justify;
 }
 
-.other-container  .about-us-container {
+.aboutUsContainer {
     position: relative;
     display: -ms-grid;
     display: grid;
@@ -21,18 +21,18 @@
     place-items: center;
 }
 
-.about-us-container .img-steps {
+.imgSteps {
     width: 99vw;
 }
 
-.one-project-container .img-project {
+.imgProject {
     border-radius: 12px;
     max-width: 100%;
     height: 100%;
 
 }
 
-.wrapper-img-project {
+.wrapperImgProject {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,7 +40,7 @@
     margin: 3%;
 }
 
-.about-us-container .caption {
+.caption {
     display: block;
     width: 100%;
     text-align: center;
@@ -53,11 +53,11 @@
 }
 
 @media (max-width: 900px) {
-    .about-us-container .caption {
+    .caption {
         font-size: 30px;
     }
 
-    .about-us-container .describe-gispy {
+    .describeGispy {
         font-size: 18px;
         margin: 2vh 0 0 0;
         line-height: 30px;

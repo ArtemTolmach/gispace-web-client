@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
 import * as PANOLENS from 'panolens';
-import imageUrl from "../../assets/images/home-sphere.jpg";
-
+import imageUrl from "@Assets/images/register.jpg";
 import styles from './ImageContainer.module.css'
 
 const ImageContainer = () => {
@@ -22,11 +20,6 @@ const ImageContainer = () => {
       });
 
       viewer.add(panorama);
-      viewer.OrbitControls.noZoom = true;
-
-      if (window.innerWidth < 900) {
-        containerRef.current.style.pointerEvents = 'none';
-      }
 
       setInitialized(true);
     }

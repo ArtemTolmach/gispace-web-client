@@ -1,4 +1,4 @@
-import RouterCustom from "./router/Router";
+import RouterCustom from "@Router/Router";
 
 function App() {
   return (

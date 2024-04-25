@@ -4,7 +4,7 @@
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .2);
     -webkit-backdrop-filter: blur(15px);
-            backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
     color: #fff;
     border-radius: 12px;
     padding: 30px 40px;
@@ -20,14 +20,14 @@
     text-align: center;
 }
 
-.wrapper .input-box {
+.wrapper .inputBox {
     position: relative;
     width: 100%;
     height: 50px;
     margin: 30px 0;
 }
 
-.input-box input {
+.inputBox input {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -39,27 +39,27 @@
     padding: 20px 45px 20px 20px;
 }
 
-.input-box input::-webkit-input-placeholder {
+.inputBox input::-webkit-input-placeholder {
     color: #fff;
 }
 
-.input-box input::-moz-placeholder {
+.inputBox input::-moz-placeholder {
     color: #fff;
 }
 
-.input-box input:-ms-input-placeholder {
+.inputBox input:-ms-input-placeholder {
     color: #fff;
 }
 
-.input-box input::-ms-input-placeholder {
+.inputBox input::-ms-input-placeholder {
     color: #fff;
 }
 
-.input-box input::placeholder {
+.inputBox input::placeholder {
     color: #fff;
 }
 
-.input-box i {
+.inputBox i {
     position: absolute;
     right: 20px;
     top: 30%;
@@ -67,26 +67,6 @@
         -ms-transform: translate(-50%);
             transform: translate(-50%);
     font-size: 20px;
-}
-
-.wrapper .remember-forgot {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-
-.remember-forgot a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.remember-forgot a:hover {
-    text-decoration: underline;
 }
 
 .wrapper .btn {
@@ -98,32 +78,34 @@
     border-radius: 40px;
     -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
           box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     cursor: pointer;
     font-size: 16px;
     color: #333;
     font-weight: 600;
 }
 
-.wrapper .register-link {
+.registerLink {
     font-size: 14.5px;
     text-align: center;
     margin: 20px 0 15px;
 }
 
-.register-link p a {
+.registerLink p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
 }
 
-.register-link p a:hover {
+.registerLink p a:hover {
     text-decoration: underline;
 }
 
 @media screen and (max-width: 900px) {
-    .mainContainer .wrapper{
+    .wrapper{
         max-width: 95vw;
         max-height: 95vh;
+        top: 55%;
         width: 90%;
     }
 }

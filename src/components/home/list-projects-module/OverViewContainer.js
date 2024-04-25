@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './OverViewContainer.css'
+
+import styles from'./OverViewContainer.module.css'
 
 const OverViewContainer = () => {
   const [projects, setProjects] = useState(null);
@@ -12,6 +13,7 @@ const OverViewContainer = () => {
           throw new Error('Ошибка при получении данных');
         }
         const data = await response.json();
+        console.log(data);
         setProjects(data);
       } catch (error) {
         console.error('Ошибка:', error);
@@ -29,24 +31,24 @@ const OverViewContainer = () => {
 
   if (!projects) {
     return (    
-      <div className="overview-container">
-        <a className="caption">Проекты</a>
+      <div className={styles.overviewContainer}>
+        <a className={styles.caption}>Проекты</a>
       </div>
     );
   }
 
   return (
-    <div className="overview-container">
-      <a className="caption">Проекты</a>
-      <div className="projects-container">
+    <div className={styles.overviewContainer}>
+      <a className={styles.caption}>Проекты</a>
+      <div className={styles.projectsContainer}>
         {projects.map(project => (
-          <div key={project.id} className="one-project-container">
-            <a className="href-to-project" href={`/${project.name}/${project.main_location}/${project.id}`}>
-              <div className="wrapper-img-project">
-                <img className="img-project" src={project.cover} alt={project.name} />
+          <div key={project.id} className={styles.oneProjectContainer}>
+            <a className={styles.hrefToProject} href={`/${project.name}/${project.main_location}/${project.id}`}>
+              <div className={styles.wrapperImgProject}>
+                <img className={styles.imgProject} src={project.cover} alt={project.name} />
               </div>
-              <span className="project-name">{project.name}</span>
-              <span className="project-bio">{project.bio}</span>
+              <span className={styles.projectName}>{project.name}</span>
+              <span className={styles.projectBio}>{project.bio}</span>
             </a>
           </div>
         ))}

@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import './Header.css'
+
+import styles from './Header.module.css'
 
 const Header = ({ user, csrf_token }) => {
   useEffect(() => {
-    const menuHamburger = document.querySelector(".menu-hamburger");
-    const menuBar = document.querySelector(".menu-bar");
+    const menuHamburger = document.querySelector(".menuHamburger");
+    const menuBar = document.querySelector(".menuBar");
     const html = document.querySelector("html");
-    const menuItem = document.querySelector(".menu-item");
-
+    const menuItem = document.querySelector(".menuItem");
+    console.log(menuHamburger);
     if (menuHamburger) {
       menuHamburger.addEventListener('click', () => {
         menuHamburger.classList.toggle('active');
@@ -27,31 +28,31 @@ const Header = ({ user, csrf_token }) => {
 
   return (
     <header>
-      <a href="/" className="logo">Gispace</a>
-      <div className="menu-hamburger" id="burger-icon">
+      <a href="/" className={styles.logo}>Gispace</a>
+      <div className={styles.menuHamburger} id="burger-icon">
         <span></span>
       </div>
-      <div className="menu-bar">
-        <ul className="navigation">
-          <li className="menu-item">
+      <div className={styles.menuBar}>
+        <ul className={styles.navigation}>
+          <li className={styles.menuItem}>
             <a href="#about-us">О Нас</a>
           </li>
           {user.is_authenticated ? (
             <>
-              <li className="menu-item">
+              <li className={styles.menuItem}>
                 <a id="user-name" href="#">{user.username}</a>
               </li>
-              <form id="logout-form" className="menu-item" method="post" action="/logout">
+              <form id="logout-form" className={styles.menuItem} method="post" action="/logout">
                 <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
-                <a onclick="document.getElementById('logout-form').submit()">Выйти</a>
+                <a /*onclick={document.getElementById('logout-form').submit()}*/>Выйти</a>
               </form>
             </>
           ) : (
             <>
-              <li className="menu-item">
+              <li className={styles.menuItem}>
                 <a href="/login">Войти</a>
               </li>
-              <li className="menu-item">
+              <li className={styles.menuItem}>
                 <a href="/register">Регистрация</a>
               </li>
             </>
