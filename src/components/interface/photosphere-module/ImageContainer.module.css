@@ -1,0 +1,9 @@
+@import 'https://cdn.jsdelivr.net/npm/@photo-sphere-viewer/markers-plugin@5/index.css';
+
+.imageContainer {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    height: 100%;
+    position: relative;
+}

@@ -1,6 +1,14 @@
 {
   "dependencies": {
     "@craco/craco": "7.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-brands-svg-icons": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@photo-sphere-viewer/core": "5.7.1",
+    "@photo-sphere-viewer/markers-plugin": "5.7.1",
+    "@simonwep/pickr": "^1.9.0",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "13.5.0",
@@ -9,10 +17,12 @@
     "panolens": "0.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^5.1.0",
     "react-router-dom": "6.22.3",
     "react-scripts": "5.0.1",
     "style-loader": "4.0.0",
+    "sweetalert2": "^11.10.8",
     "three": "0.163.0",
     "url-loader": "4.1.1",
     "web-vitals": "3.5.2"
