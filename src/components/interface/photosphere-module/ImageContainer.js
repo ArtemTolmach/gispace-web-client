@@ -4,6 +4,8 @@ import { Viewer } from '@photo-sphere-viewer/core';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
 import Swal from 'sweetalert2';
 
+import AdminPanel from '@Components/interface/admin-panel/adminPanel';
+
 import infoImage from '@Assets/images/info.png';
 import moveImage from '@Assets/images/move.png';
 
@@ -11,6 +13,8 @@ import styles from './ImageContainer.module.css';
 const ImageContainer = ({ project, location, photosphere }) => {
   const containerRef = useRef(null);
   const [initialized, setInitialized] = useState(false);
+  const [viewer, setViewer] = useState(null);
+  const [markersPlugin, setMarkersPlugin] = useState(null);
 
   useEffect(() => {
     
@@ -23,12 +27,16 @@ const ImageContainer = ({ project, location, photosphere }) => {
                 }],
             ],
         });
-      
+
+        const markersPlugin = viewer.getPlugin(MarkersPlugin);
+
+        setViewer(viewer);
+        setMarkersPlugin(markersPlugin); 
+
         viewer.addEventListener('ready', () => {
             viewer.navbar.getButton('download').hide();
         }, { once: true });
 
-        const markersPlugin = viewer.getPlugin(MarkersPlugin);
 
         fetch(`http://127.0.0.1:8000/api/photosphere/${photosphere}/`)
             .then(response => response.json())
@@ -161,7 +169,9 @@ const ImageContainer = ({ project, location, photosphere }) => {
 
   return (
     <>
-      <div className={styles.imageContainer} ref={containerRef}></div>
+      <div className={styles.imageContainer} ref={containerRef}>
+            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} />
+      </div>
     </>
   );
 };
