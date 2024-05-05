@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pickr from '@simonwep/pickr';
 import '@simonwep/pickr/dist/themes/classic.min.css';
 
-import infoIcon from "@Assets/images/info-button-icon.png"; 
-import moveIcon from "@Assets/images/move-button-icon.png"; 
-import polygonIcon from "@Assets/images/polygon-button-icon.png"; 
-import lineIcon from "@Assets/images/line-button-icon.png"; 
-import videoIcon from "@Assets/images/video-button-icon.png"; 
-import imageIcon from "@Assets/images/image-button-icon.png"; 
+import infoIcon from "@Assets/images/info-button-icon.png";
+import moveIcon from "@Assets/images/move-button-icon.png";
+import polygonIcon from "@Assets/images/polygon-button-icon.png";
+import lineIcon from "@Assets/images/line-button-icon.png";
+import videoIcon from "@Assets/images/video-button-icon.png";
+import imageIcon from "@Assets/images/image-button-icon.png";
 
 import uploadIcon from "@Assets/images/upload-icon.png";
 import eyedropperIcon from "@Assets/images/eyedropper-icon.png";
@@ -16,7 +16,9 @@ import styles from "./adminPanel.module.css";
 const AdminPanel = ({ viewer, markersPlugin }) => {
     const [currentButton, setCurrentButton] = useState(null);
 
-    let modeInfoMarker, modeMoveMarker, addPolygonMarker, addVideoMarker, modeImageMarker, modePolyLineMarker = false;
+    let modeInfoMarker, modeMoveMarker, addPolygonMarker, addVideoMarker, modeImageMarker = false;
+
+    const [modePolyLineMarker, setModePolyLineMarker] = useState(true);
 
     const [infoForm, setInfoForm] = useState(false);
     const [polygoneForm, setPolygoneForm] = useState(false);
@@ -33,14 +35,14 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     const [arrayDictsImages, setArrayDictsImages] = useState([]);
 
     const [position, setPosition] = useState(null);
-    
+
     const resetModes = () => {
         modeInfoMarker = false;
         modeMoveMarker = false;
         addPolygonMarker = false;
         addVideoMarker = false;
         modeImageMarker = false;
-        modePolyLineMarker = false;
+        setModePolyLineMarker(false);
 
         setInfoForm(false);
         setPolygoneForm(false);
@@ -82,7 +84,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     }
 
     document.addEventListener('keypress', handleKeyPress);
-{/* 
+    {/* 
     function createColorPicker(idColorPicker) {
         Pickr.create({
             el: idColorPicker,
@@ -194,7 +196,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
             }
         }
     }
-    
+
     function clickHandler({ data }) {
         console.log('кликхенДОЕР')
         const outputPosition = {
@@ -236,12 +238,17 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
 
         } else if (modePolyLineMarker) {
             let coordinateClick = [data.yaw, data.pitch];
-            arrayPolyLine.push(coordinateClick);
-            createTemporaryMarker(arrayPolyLine);
+            setArrayPolyLine((arr) => [...arr, coordinateClick])
             console.log('Я срабатываю для линии снова, мод не выключился');
         }
     }
-     
+
+    useEffect(() => {
+        if (modePolyLineMarker) {
+            createTemporaryMarker(arrayPolyLine);
+        }
+    }, [arrayPolyLine])
+
 
     const handleClick = (target) => {
         if (target.classList.contains(styles.ActiveItem) && currentButton === target) {
@@ -279,7 +286,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                     break;
                 case 'polyline-button':
                     resetModes();
-                    modePolyLineMarker = true;
+                    setModePolyLineMarker(true);
                     break;
                 case 'polygon-button':
                     resetModes();
@@ -396,16 +403,16 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         formData.append('enable_chroma_key', checkBox);
         formData.append('color_chroma_key', colorChromoKeyValue);
 
-            const response = await fetch(`/api/photospheres/video-points/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                renderMarkers();
-            }
+        const response = await fetch(`/api/photospheres/video-points/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            body: formData,
+        });
+        if (response.ok) {
+            renderMarkers();
+        }
     };
 
     const createImagePoint = async (arrayDictsImages) => {
@@ -417,16 +424,16 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         formData.append('image', file);
         formData.append('coordinates', JSON.stringify(arrayDictsImages));
 
-            const response = await fetch(`/api/photospheres/image-points/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                renderMarkers();
-            }
+        const response = await fetch(`/api/photospheres/image-points/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+            body: formData,
+        });
+        if (response.ok) {
+            renderMarkers();
+        }
     };
 
     const createPolyLinePoint = async (arrayPolyLine) => {
@@ -481,7 +488,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
 
         resetModes();
         currentButton.classList.remove(styles.ActiveItem);
-        {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/}
+        {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/ }
     }
 
     function handleMovePoint(outputPosition) {
@@ -572,7 +579,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         viewer.removeEventListener('click', clickHandler);
         adminPanel.classList.add(styles.open);
         setPolygoneForm(true);
-        
+
         {/* 
         function submitPolygoneMarkerClickHandler() {
             deleteTemporaryMarkers();
@@ -590,7 +597,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         submitPolygonPointBtn.addEventListener('click', submitPolygoneMarkerClickHandler);
         */}
     }
-    
+
 
     return (
         <>
@@ -601,26 +608,26 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                         handleClick(target);
                     }
                 }}>
-                    <div id="info-button" className={styles.buttonItem} > 
-                        <img className={styles.imageItem} src={infoIcon}/> 
+                    <div id="info-button" className={styles.buttonItem} >
+                        <img className={styles.imageItem} src={infoIcon} />
                     </div>
-                    <div id="move-button" className={styles.buttonItem} > 
-                        <img className={styles.imageItem} src={moveIcon}/> 
+                    <div id="move-button" className={styles.buttonItem} >
+                        <img className={styles.imageItem} src={moveIcon} />
                     </div>
                     <div id="polygon-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={polygonIcon}/>
+                        <img className={styles.imageItem} src={polygonIcon} />
                     </div>
                     <div id="polyline-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={lineIcon}/>
+                        <img className={styles.imageItem} src={lineIcon} />
                     </div>
                     <div id="video-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={videoIcon}/>
+                        <img className={styles.imageItem} src={videoIcon} />
                     </div>
                     <div id="image-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={imageIcon}/>
+                        <img className={styles.imageItem} src={imageIcon} />
                     </div>
                 </div>
-                
+
                 <div className={styles.adminAddPoint}>
                     {moveForm && (
                         <div className={styles.formMovePoint}>
@@ -628,8 +635,8 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
 
                             <div className={styles.dropdown}>
                                 <div className={styles.select}>
-                                <span className={styles.selected}>Фотосфера не выбрана</span>
-                                <div className={styles.caret}></div>
+                                    <span className={styles.selected}>Фотосфера не выбрана</span>
+                                    <div className={styles.caret}></div>
                                 </div>
                                 <ul className={styles.menu}></ul>
                             </div>
@@ -643,7 +650,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                             <h1>Создать точку информации</h1>
 
                             <div className={styles.inputBox}>
-                                <input type="text" placeholder="Название" id={styles.titleInputInfo}/>
+                                <input type="text" placeholder="Название" id={styles.titleInputInfo} />
                             </div>
 
                             <div className={styles.areaBox}>
@@ -653,17 +660,17 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                             <button type="submit" className={styles.submitInfoBtn} onClick={submitInfoMarkerClickHandler}>Создать</button>
                         </div>
                     )}
-                    
+
                     {imageForm && (
                         <div className={styles.formImagePoint}>
                             <h1>Создать точку изображения</h1>
 
                             <label htmlFor="input-file-image" id={styles.dropAreaImage}>
-                                <input type="file" accept="image/*" id={styles.inputFileImage} hidden/>
+                                <input type="file" accept="image/*" id={styles.inputFileImage} hidden />
 
                                 <div id={styles.imageView}>
-                                    <img src={uploadIcon}/>
-                                    <p>Перенесите сюда изображение или нажмите <br/> для загрузки изображения</p>
+                                    <img src={uploadIcon} />
+                                    <p>Перенесите сюда изображение или нажмите <br /> для загрузки изображения</p>
                                 </div>
                             </label>
 
@@ -677,30 +684,30 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
 
                             <div className={styles.chromakeySwitch}>
                                 <p>Вырезать хромакей</p>
-                                <input type="checkbox" id="chromakey-switch-video"/>
+                                <input type="checkbox" id="chromakey-switch-video" />
                                 <label htmlFor="chromakey-switch-video" className={styles.button}></label>
                             </div>
 
                             <div className={styles.chromakeyInput}>
                                 <p>Выберите цвет хромакея на видео</p>
-                                <div className={styles.chromakeyEyedrop} style={{background: 'rgb(167, 34, 244)'}} id="chromakey-color">
-                                    <img id="eyedropper" src={eyedropperIcon}/>
+                                <div className={styles.chromakeyEyedrop} style={{ background: 'rgb(167, 34, 244)' }} id="chromakey-color">
+                                    <img id="eyedropper" src={eyedropperIcon} />
                                 </div>
                             </div>
 
                             <label htmlFor="input-file-video" id={styles.dropAreaVideo}>
-                                <input type="file" accept="video/*" id={styles.inputFileVideo} hidden/>
+                                <input type="file" accept="video/*" id={styles.inputFileVideo} hidden />
 
                                 <div id={styles.videoView}>
-                                    <img src={uploadIcon}/>
-                                    <p>Перенесите сюда видео или нажмите <br/> для загрузки видео</p>
+                                    <img src={uploadIcon} />
+                                    <p>Перенесите сюда видео или нажмите <br /> для загрузки видео</p>
                                 </div>
                             </label>
 
                             <button type="submit" className={styles.submitVideoBtn}>Создать</button>
                         </div>
                     )}
-                    
+
                     {polygoneForm && (
                         <div className={styles.formPolygonePoint}>
                             <h1>Создать точку полигона</h1>
@@ -720,7 +727,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                                             </div>
                                         </div>
 
-                                        <input type="range" className={styles.rangeInput} id="range-input-fill-polygone" min="0" max="1" defaultValue="0.5" step="0.1"/>
+                                        <input type="range" className={styles.rangeInput} id="range-input-fill-polygone" min="0" max="1" defaultValue="0.5" step="0.1" />
                                     </div>
                                 </div>
                             </div>
@@ -741,13 +748,13 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                                             </div>
                                         </div>
 
-                                        <input type="range" className={styles.rangeInput} id="range-input-stroke-polygone" min="0" max="10" defaultValue="5" step="1"/>
+                                        <input type="range" className={styles.rangeInput} id="range-input-stroke-polygone" min="0" max="10" defaultValue="5" step="1" />
                                     </div>
                                 </div>
                             </div>
 
                             <div className={styles.inputBox}>
-                                <input type="text" placeholder="Название" id="title-input-polygone"/>
+                                <input type="text" placeholder="Название" id="title-input-polygone" />
                             </div>
 
                             <div className={styles.areaBox}>
@@ -778,13 +785,13 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                                             </div>
                                         </div>
 
-                                        <input type="range" className={styles.rangeInput} id="range-input-polyline-stroke" min="0" max="10" defaultValue="5" step="1"/>
+                                        <input type="range" className={styles.rangeInput} id="range-input-polyline-stroke" min="0" max="10" defaultValue="5" step="1" />
                                     </div>
                                 </div>
                             </div>
 
                             <div className={styles.inputBox}>
-                                <input type="text" placeholder="Название" id="title-input-polyline"/>
+                                <input type="text" placeholder="Название" id="title-input-polyline" />
                             </div>
 
                             <div className={styles.areaBox}>
