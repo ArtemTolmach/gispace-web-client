@@ -170,7 +170,7 @@ const ImageContainer = ({ project, location, photosphere }) => {
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
-            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} />
+            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere}/>
       </div>
     </>
   );

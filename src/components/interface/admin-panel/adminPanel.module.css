@@ -101,7 +101,7 @@
 }
 
 .submitInfoBtn, .submitMoveBtn, .submitImageBtn, .submitVideoBtn, .submitPolygonBtn, .submitPolylineBtn {
-    width: 310;
+    width: 310px;
     height: 50px;
     background: #fff;
     border: none;
@@ -181,7 +181,7 @@
     margin: 20px 0 30px 0;
 }
 
-#title-input-info {
+#titleInputInfo {
     width: 100%;
     height: 100%;
     background: transparent;
@@ -216,7 +216,7 @@
     color: #fff;
 }
 
-#description-input-info {
+#descriptionInputInfo {
     width: 380px;
     height: 250px;
     background: transparent;
@@ -257,7 +257,7 @@
     resize: vertical;
 }
 
-#drop-area-image, #drop-area-video {
+#dropAreaImage, #dropAreaVideo {
     width: 433px;
     height: 245px;
     text-align: center;
@@ -270,15 +270,15 @@
     max-height: 263px;
 }
 
-#drop-area-image {
+#dropAreaImage {
     margin: 30px 0 60px 0;
 }
 
-#drop-area-video {
+#dropAreaVideo {
     margin-bottom: 15px;
 }
 
-#image-view, #video-view {
+#imageView, #videoView {
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -287,16 +287,16 @@
     background-size: cover;
 }
 
-#image-view img, #video-view img {
+#imageView img, #videoView img {
     width: 55px;
     margin-top: 60px;
 }
 
-#image-view p, #video-view p {
+#imageView p, #videoView p {
     color: #fff;
 }
 
-#video-view video {
+#videoView video {
     border-radius: 20px;
 }
 
@@ -386,14 +386,6 @@ input:checked + .button::before {
 
 .chromakeySwitch input {
     display: none;
-}
-
-#result {
-    padding: 0.2rem 1rem;
-    margin: 0 1rem;
-    font-size: 1rem;
-    border-left: 1rem solid transparent;
-    border-left-color: transparent;
 }
 
 .fillPolygone .pickr .pcrButton, .strokePolygone .pickr .pcrButton, .strokePolyline .pickr .pcrButton {

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Pickr from '@simonwep/pickr';
+import '@simonwep/pickr/dist/themes/classic.min.css';
 
 import infoIcon from "@Assets/images/info-button-icon.png"; 
 import moveIcon from "@Assets/images/move-button-icon.png"; 
@@ -13,16 +15,8 @@ import styles from "./adminPanel.module.css";
 
 const AdminPanel = ({ viewer, markersPlugin }) => {
     const [currentButton, setCurrentButton] = useState(null);
-    {/*const markersPlugin = viewer.getPlugin(MarkersPlugin);*/}
 
     let modeInfoMarker, modeMoveMarker, addPolygonMarker, addVideoMarker, modeImageMarker, modePolyLineMarker = false;
-
-    {/*const [modeInfoMarker, setModeInfoMarker] = useState(false);
-    const [modeMoveMarker, setModeMoveMarker] = useState(false);
-    const [addPolygonMarker, setAddPolygonMarker] = useState(false);
-    const [addVideoMarker, setAddVideoMarker] = useState(false);
-    const [modeImageMarker, setModeImageMarker] = useState(false);
-    const [modePolyLineMarker, setModePolyLineMarker] = useState(false);*/}
 
     const [infoForm, setInfoForm] = useState(false);
     const [polygoneForm, setPolygoneForm] = useState(false);
@@ -37,6 +31,8 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     const [arrayImage, setArrayImage] = useState([]);
     const [arrayDictsVideo, setArrayDictsVideo] = useState([]);
     const [arrayDictsImages, setArrayDictsImages] = useState([]);
+
+    const [position, setPosition] = useState(null);
     
     const resetModes = () => {
         modeInfoMarker = false;
@@ -45,13 +41,6 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         addVideoMarker = false;
         modeImageMarker = false;
         modePolyLineMarker = false;
-
-        {/*setModeInfoMarker(false);
-        setModeMoveMarker(false);
-        setAddPolygonMarker(false);
-        setAddVideoMarker(false);
-        setModeImageMarker(false);
-        setModePolyLineMarker(false);*/}
 
         setInfoForm(false);
         setPolygoneForm(false);
@@ -66,7 +55,11 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         setArrayImage([]);
         setArrayDictsVideo([]);
         setArrayDictsImages([]);
-           
+
+        console.log(arrayPolygon);
+        console.log(arrayPolyLine);
+        console.log(modePolyLineMarker);
+
     }
 
     function deleteTemporaryMarkers() {
@@ -79,15 +72,71 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     function handleKeyPress(event) {
         if (event.keyCode === 13) {
             if (modePolyLineMarker) {
-                 handlePolyLinePoint();
+                resetModes();
+                handlePolyLinePoint();
             } else if (addPolygonMarker) {
-                 handlePolygonPoint();
+                resetModes();
+                handlePolygonPoint();
             }
         }
     }
 
     document.addEventListener('keypress', handleKeyPress);
+{/* 
+    function createColorPicker(idColorPicker) {
+        Pickr.create({
+            el: idColorPicker,
+            theme: 'classic',
+            components: {
+                preview: true,
+                hue: true,
+                interaction: {
+                    hex: true,
+                    rgba: true,
+                    input: true,
+                    clear: true,
+                    save: true
+                }
+            }
+        });
+    }
 
+    function createSlider(thumb, number, line, input, maxValue) {
+        const rangeThumb = document.getElementById(thumb);
+        const rangeNumber = document.getElementById(number);
+        const rangeLine = document.getElementById(line);
+        const rangeInput = document.getElementById(input);
+
+        function rangeInputSlider() {
+            rangeNumber.textContent = rangeInput.value;
+
+            const thumbPosition = rangeInput.value / rangeInput.max;
+
+            rangeThumb.style.left = (thumbPosition * 90) + '%';
+
+            rangeLine.style.width = (rangeInput.value * maxValue) + '%';
+
+            rangeInput.addEventListener('input', rangeInputSlider);
+        }
+
+        rangeInputSlider();
+    }
+
+
+    const pickrPolygonFill = createColorPicker(styles.colorPickerFill);
+    const pickrFillPolygoneButton = document.querySelector(`${styles.fillPolygone} ${styles.pcrButton}`);
+    pickrFillPolygoneButton.id = (styles.colorPickerButtonFillPolygone);
+
+    const pickrPolygonStroke = createColorPicker('.color-picker-stroke');
+    const pickrStrokePolygoneButton = document.querySelector('.stroke-polygone .pcr-button');
+    pickrStrokePolygoneButton.id = 'color-picker-button-stroke-polygone';
+
+    createSlider('range-thumb-fill-polygone', 'range-number-fill-polygone',
+        'range-line-fill-polygone', 'range-input-fill-polygone', 100);
+
+    createSlider('range-thumb-stroke-polygone', 'range-number-stroke-polygone',
+        'range-line-stroke-polygone', 'range-input-stroke-polygone', 10);
+*/}
     function createTemporaryMarker(sequenceCoordinates) {
         if (sequenceCoordinates.length === 1) {
             deleteTemporaryMarkers()
@@ -147,6 +196,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     }
     
     function clickHandler({ data }) {
+        console.log('кликхенДОЕР')
         const outputPosition = {
             yaw: data.yaw,
             pitch: data.pitch,
@@ -155,6 +205,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         if (modeInfoMarker) {
             console.log(outputPosition);
             handleAddInfoPoint(outputPosition);
+            console.log('Я срабатываю для линии снова, мод не выключился');
         } else if (modeMoveMarker) {
             handleMovePoint(outputPosition);
         } else if (addPolygonMarker) {
@@ -181,10 +232,13 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                 });
                 handleImagePoint();
             }
+            console.log('Я срабатываю для линии снова, мод не выключился');
+
         } else if (modePolyLineMarker) {
             let coordinateClick = [data.yaw, data.pitch];
             arrayPolyLine.push(coordinateClick);
             createTemporaryMarker(arrayPolyLine);
+            console.log('Я срабатываю для линии снова, мод не выключился');
         }
     }
      
@@ -192,6 +246,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     const handleClick = (target) => {
         if (target.classList.contains(styles.ActiveItem) && currentButton === target) {
             resetModes();
+            console.log('ДЕЛАЮ РЕСЕТ');
             adminPanel.classList.remove(styles.open);
             currentButton.classList.remove(styles.ActiveItem);
             viewer.addEventListener('click', clickHandler);
@@ -200,9 +255,8 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         } else {
             if (currentButton) {
                 currentButton.classList.remove(styles.ActiveItem);
-                resetModes();
             }
-
+            resetModes();
             target.classList.add(styles.ActiveItem);
             setCurrentButton(target);
             console.log(target);
@@ -241,27 +295,193 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         }
     }
 
+    const createInfoPoint = async (outputPosition) => {
+        const description = document.getElementById(styles.descriptionInputInfo).value;
+        const title = document.getElementById(styles.titleInputInfo).value;
+
+        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/information-points/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': window.csrfToken,
+            },
+            body: JSON.stringify({
+                photo_sphere: window.imageID,
+                yaw: outputPosition.yaw,
+                pitch: outputPosition.pitch,
+                title: title,
+                description: description,
+            }),
+        });
+
+        if (response.ok) {
+            renderMarkers();
+        }
+    };
+
+    const createMovePoint = async (outputPosition) => {
+        const targetSphereId = document.querySelector('.selected').getAttribute('data-sphere-id');
+
+        const response = await fetch(`/api/photospheres/move-points/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({
+                photo_sphere: window.imageID,
+                yaw: outputPosition.yaw,
+                pitch: outputPosition.pitch,
+                target_photo_sphere: targetSphereId,
+            }),
+        });
+
+        if (response.ok) {
+            renderMarkers();
+        }
+    };
+
+    const createPolygonPoint = async (arrayPolygon) => {
+        const colorStroke = document.getElementById('color-picker-button-stroke-polygone');
+        const colorValueStroke = colorStroke.style.getPropertyValue('--pcr-color');
+
+        const colorFill = document.getElementById('color-picker-button-fill-polygone');
+        const colorValueFill = colorFill.style.getPropertyValue('--pcr-color');
+
+        const spanElementFill = document.getElementById('range-number-fill-polygone');
+        const spanValueFill = spanElementFill.textContent || spanElementFill.innerText;
+
+        const spanElementStroke = document.getElementById('range-number-stroke-polygone');
+        const spanValueStroke = spanElementStroke.textContent || spanElementStroke.innerText;
+
+        const inputPolygone = document.getElementById('title-input-polygone').value;
+        const descriptionPolygone = document.getElementById('description-input-polygone').value;
+
+        const response = await fetch(`/api/photospheres/polygon-points/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({
+                photo_sphere: window.imageID,
+                coordinates: arrayPolygon,
+                fill: colorValueFill,
+                stroke: colorValueStroke,
+                stroke_width: spanValueStroke,
+                opacity: spanValueFill,
+                title: inputPolygone,
+                description: descriptionPolygone
+            }),
+        });
+
+        if (response.ok) {
+            renderMarkers();
+        }
+    };
+
+    const createVideoPoint = async (arrayDictsVideo) => {
+        const videoInput = document.getElementById('input-file-video');
+        const file = videoInput.files[0];
+
+        const colorChromoKey = document.getElementById('chromakey-color');
+        const colorChromoKeyValue = colorChromoKey.style.getPropertyValue('background');
+
+        const checkBox = document.getElementById('chromakey-switch-video').checked;
+
+        const formData = new FormData();
+        formData.append('photo_sphere', window.imageID);
+        formData.append('video', file);
+        formData.append('coordinates', JSON.stringify(arrayDictsVideo));
+        formData.append('enable_chroma_key', checkBox);
+        formData.append('color_chroma_key', colorChromoKeyValue);
+
+            const response = await fetch(`/api/photospheres/video-points/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                },
+                body: formData,
+            });
+            if (response.ok) {
+                renderMarkers();
+            }
+    };
+
+    const createImagePoint = async (arrayDictsImages) => {
+        const imageInput = document.getElementById('input-file-image');
+        const file = imageInput.files[0];
+
+        const formData = new FormData();
+        formData.append('photo_sphere', window.imageID);
+        formData.append('image', file);
+        formData.append('coordinates', JSON.stringify(arrayDictsImages));
+
+            const response = await fetch(`/api/photospheres/image-points/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                },
+                body: formData,
+            });
+            if (response.ok) {
+                renderMarkers();
+            }
+    };
+
+    const createPolyLinePoint = async (arrayPolyLine) => {
+        const title = document.getElementById('title-input-polyline').value;
+        const description = document.getElementById('description-input-polyline').value;
+
+        const spanElement = document.getElementById('range-number-polyline-stroke');
+        const spanValue = spanElement.textContent;
+
+        const colorPolyLine = document.getElementById('color-picker-button-inside');
+        const rgbaValue = colorPolyLine.style.getPropertyValue('--pcr-color');
+
+        const response = await fetch(`/api/photospheres/polyline-points/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({
+                photo_sphere: window.imageID,
+                coordinates: arrayPolyLine,
+                stroke: rgbaValue,
+                stroke_linecap: 'round',
+                stroke_linejoin: 'round',
+                stroke_width: spanValue,
+                title: title,
+                description: description,
+            }),
+        });
+        if (response.ok) {
+            renderMarkers();
+        }
+    };
+
+    const submitInfoPointBtn = document.querySelector('.submit-info-btn');
+
     function handleAddInfoPoint(outputPosition) {
         viewer.removeEventListener('click', clickHandler);
         adminPanel.classList.add(styles.open);
         setInfoForm(true);
-        {/*
-        function submitInfoMarkerClickHandler() {
-            createInfoPoint(outputPosition);
+        setPosition(outputPosition);
+    }
 
-            const inputs = document.querySelectorAll('#title-input-info, #description-input-info');
-            inputs.forEach(input => input.value = '');
+    function submitInfoMarkerClickHandler(position) {
+        createInfoPoint(position);
+        setPosition(null);
 
-            adminPanel.classList.remove('open');
+        const inputs = document.querySelectorAll(styles.titleInputInfo, styles.descriptionInputInfo);
+        inputs.forEach(input => input.value = '');
 
-            submitInfoPointBtn.removeEventListener('click', submitInfoMarkerClickHandler);
+        adminPanel.classList.remove(styles.open);
 
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitInfoPointBtn.addEventListener('click', submitInfoMarkerClickHandler);
-    */}
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+        {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/}
     }
 
     function handleMovePoint(outputPosition) {
@@ -423,14 +643,14 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                             <h1>Создать точку информации</h1>
 
                             <div className={styles.inputBox}>
-                                <input type="text" placeholder="Название" id="title-input-info"/>
+                                <input type="text" placeholder="Название" id={styles.titleInputInfo}/>
                             </div>
 
-                            <div className="area-box">
-                                <textarea placeholder="Описание" id="description-input-info"></textarea>
+                            <div className={styles.areaBox}>
+                                <textarea placeholder="Описание" id={styles.descriptionInputInfo}></textarea>
                             </div>
 
-                            <button type="submit" className={styles.submitInfoBtn}>Создать</button>
+                            <button type="submit" className={styles.submitInfoBtn} onClick={submitInfoMarkerClickHandler}>Создать</button>
                         </div>
                     )}
                     
@@ -438,10 +658,10 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                         <div className={styles.formImagePoint}>
                             <h1>Создать точку изображения</h1>
 
-                            <label htmlFor="input-file-image" id="drop-area-image">
-                                <input type="file" accept="image/*" id="input-file-image" hidden/>
+                            <label htmlFor="input-file-image" id={styles.dropAreaImage}>
+                                <input type="file" accept="image/*" id={styles.inputFileImage} hidden/>
 
-                                <div id="image-view">
+                                <div id={styles.imageView}>
                                     <img src={uploadIcon}/>
                                     <p>Перенесите сюда изображение или нажмите <br/> для загрузки изображения</p>
                                 </div>
@@ -468,10 +688,10 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                                 </div>
                             </div>
 
-                            <label htmlFor="input-file-video" id="drop-area-video">
-                                <input type="file" accept="video/*" id="input-file-video" hidden/>
+                            <label htmlFor="input-file-video" id={styles.dropAreaVideo}>
+                                <input type="file" accept="video/*" id={styles.inputFileVideo} hidden/>
 
-                                <div id="video-view">
+                                <div id={styles.videoView}>
                                     <img src={uploadIcon}/>
                                     <p>Перенесите сюда видео или нажмите <br/> для загрузки видео</p>
                                 </div>
