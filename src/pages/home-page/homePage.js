@@ -12,7 +12,7 @@ function HomePage() {
 
   const user = {
     username: 'exampleUser',
-    is_authenticated: false,
+    is_authenticated: true,
   };
 
   const csrf_token = 'your_csrf_token_here';

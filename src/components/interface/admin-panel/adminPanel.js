@@ -211,6 +211,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
         } else if (addPolygonMarker) {
             let coordinateClick = [data.yaw, data.pitch];
             arrayPolygon.push(coordinateClick);
+            console.log(arrayPolygon);
             createTemporaryMarker(arrayPolygon);
         } else if (addVideoMarker) {
             let coordinateClick = [data.yaw, data.pitch];

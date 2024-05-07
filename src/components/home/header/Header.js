@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 
@@ -6,10 +6,28 @@ import styles from './Header.module.css'
 
 const Header = ({ user, csrf_token }) => {
   const [nav, setNav] = useState(false);
+  const [name, setName] = useState('');
 
   const clickMenuItem = () => {
     setNav(false);
   };
+
+  useEffect(() => {
+    (
+      async () => {
+        const response = await fetch('http://127.0.0.1:8000/user', {
+          headers:{ 'Content-Type': 'application/json'},
+          credentials: 'include'
+        });
+
+        const content = await response.json();
+
+        console.log(content);
+
+        setName(content.name);
+      }
+    )();
+  });
 
   return (
     <header className={styles.header}>
@@ -24,10 +42,10 @@ const Header = ({ user, csrf_token }) => {
             <li className={styles.menuItem} onClick={clickMenuItem}>
               <a href="#about-us">О Нас</a>
             </li>
-            {user.is_authenticated ? (
+            {name ? (
               <>
                 <li className={styles.menuItem}>
-                  <a id="user-name" href="#">{user.username}</a>
+                  <a id="user-name" href="#">{name}</a>
                 </li>
                 <form id="logout-form" className={styles.menuItem} method="post" action="/logout">
                   <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
