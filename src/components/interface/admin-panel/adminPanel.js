@@ -9,11 +9,14 @@ import lineIcon from "@Assets/images/line-button-icon.png";
 import videoIcon from "@Assets/images/video-button-icon.png"; 
 import imageIcon from "@Assets/images/image-button-icon.png"; 
 
-import uploadIcon from "@Assets/images/upload-icon.png";
-import eyedropperIcon from "@Assets/images/eyedropper-icon.png";
 import styles from "./adminPanel.module.css";
 
-const AdminPanel = ({ viewer, markersPlugin }) => {
+import Eyedropper from "@Components/interface/eyedropper/eyedropper"
+import Dropdown from "@Components/interface/dropdown/Dropdown";
+import VideoDropArea from "@Components/interface/videoDrop/videoDrop";
+import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
+
+const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
     const [currentButton, setCurrentButton] = useState(null);
 
     let modeInfoMarker, modeMoveMarker, addPolygonMarker, addVideoMarker, modeImageMarker, modePolyLineMarker = false;
@@ -33,6 +36,8 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
     const [arrayDictsImages, setArrayDictsImages] = useState([]);
 
     const [position, setPosition] = useState(null);
+
+    const [selected, setSelected] = useState("Выберите фотосферу");
     
     const resetModes = () => {
         modeInfoMarker = false;
@@ -295,6 +300,13 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
             }
         }
     }
+
+    function getCookie(name) {
+        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return cookieValue ? cookieValue.pop() : '';
+    }
+
+    const csrfToken = getCookie('csrftoken');
 
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;
@@ -627,13 +639,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                         <div className={styles.formMovePoint}>
                             <h1>Создать точку перемещения</h1>
 
-                            <div className={styles.dropdown}>
-                                <div className={styles.select}>
-                                <span className={styles.selected}>Фотосфера не выбрана</span>
-                                <div className={styles.caret}></div>
-                                </div>
-                                <ul className={styles.menu}></ul>
-                            </div>
+                            <Dropdown selected={selected} setSelected={setSelected}/>
 
                             <button type="submit" className={styles.submitMoveBtn}>Создать</button>
                         </div>
@@ -659,14 +665,7 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                         <div className={styles.formImagePoint}>
                             <h1>Создать точку изображения</h1>
 
-                            <label htmlFor="input-file-image" id={styles.dropAreaImage}>
-                                <input type="file" accept="image/*" id={styles.inputFileImage} hidden/>
-
-                                <div id={styles.imageView}>
-                                    <img src={uploadIcon}/>
-                                    <p>Перенесите сюда изображение или нажмите <br/> для загрузки изображения</p>
-                                </div>
-                            </label>
+                            <ImageDropArea/>
 
                             <button type="submit" className={styles.submitImageBtn}>Создать</button>
                         </div>
@@ -682,21 +681,9 @@ const AdminPanel = ({ viewer, markersPlugin }) => {
                                 <label htmlFor="chromakey-switch-video" className={styles.button}></label>
                             </div>
 
-                            <div className={styles.chromakeyInput}>
-                                <p>Выберите цвет хромакея на видео</p>
-                                <div className={styles.chromakeyEyedrop} style={{background: 'rgb(167, 34, 244)'}} id="chromakey-color">
-                                    <img id="eyedropper" src={eyedropperIcon}/>
-                                </div>
-                            </div>
+                            <Eyedropper />
 
-                            <label htmlFor="input-file-video" id={styles.dropAreaVideo}>
-                                <input type="file" accept="video/*" id={styles.inputFileVideo} hidden/>
-
-                                <div id={styles.videoView}>
-                                    <img src={uploadIcon}/>
-                                    <p>Перенесите сюда видео или нажмите <br/> для загрузки видео</p>
-                                </div>
-                            </label>
+                            <VideoDropArea/>
 
                             <button type="submit" className={styles.submitVideoBtn}>Создать</button>
                         </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './loginModal.module.css';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 
 const loginModal = () => {
   const[email, setEmail ]= useState('');
@@ -48,12 +48,12 @@ const loginModal = () => {
         </div>
 
         <div className={styles.rememberForgot}>
-          <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+          <Link to="/password_reset">Забыли пароль?</Link>
         </div>
 
         <button type="submit" className={styles.btn}>Вход</button>
         <div className={styles.registerLink}>
-          <p>Нет аккаунта? <a href="{% url 'register' %}">Регистрация</a> </p>
+          <p>Нет аккаунта? <Link to="/register">Регистрация</Link> </p>
         </div>
       </form>
     </div>

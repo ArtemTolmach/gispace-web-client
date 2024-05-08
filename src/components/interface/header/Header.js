@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { Link } from "react-router-dom";
 
 import styles from './Header.module.css'
 
-const Header = ({ user, csrf_token, project, location, photosphere }) => {
+const Header = ({ name ,project, location, photosphere }) => {
   const [nav, setNav] = useState(false);
   const [locations, setLocations] = useState([]);
   const [photoSpheres, setPhotoSpheres] = useState([]);
@@ -39,7 +40,7 @@ const Header = ({ user, csrf_token, project, location, photosphere }) => {
     <header className={styles.headerInterface}>
       <div className={styles.container}>
         <div className={styles.box}>
-          <a href="/" className={styles.logo}>Gispace</a>
+          <Link to="/" className={styles.logo}>Gispace</Link>
           <ul
             className={
               nav ? [styles.menu, styles.active].join(' ') : [styles.menu]
@@ -47,7 +48,7 @@ const Header = ({ user, csrf_token, project, location, photosphere }) => {
             >
             <ul className={styles.menuHeader}>
               <li className={styles.menuItem}>
-                <a  className={styles.subBtn} href="#" id="sub-btn-projects" onClick={toogleDropdownLocation}>Локации<i className="fas fa-angle-down"></i> </a>
+                <Link  className={styles.subBtn} id="sub-btn-projects" onClick={toogleDropdownLocation}>Локации<i className="fas fa-angle-down"></i> </Link>
                 {isOpenLocation && (
                   <ul className={styles.subMenu} id="sub-menu-locations">
                     {locations.map(location => (
@@ -61,7 +62,7 @@ const Header = ({ user, csrf_token, project, location, photosphere }) => {
                 )}
               </li>
               <li className={styles.menuItem}>
-                <a  className={styles.subBtn} href="#" id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы<i className="fas fa-angle-down"></i> </a>
+                <Link  className={styles.subBtn} id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы<i className="fas fa-angle-down"></i> </Link>
                 {isOpenPhotosphere && (
                   <ul className={styles.subMenu} id="sub-menu-photospheres">
                     {photoSpheres.map(photoSphere => (
@@ -75,23 +76,23 @@ const Header = ({ user, csrf_token, project, location, photosphere }) => {
                 )}
               </li>
             </ul>
-            {user.is_authenticated ? (
+            {name ? (
               <ul className={styles.authContainer}>
                 <li className={styles.menuItem}>
-                  <a id="user-name" href="#">{user.username}</a>
+                  <a id="user-name">{name}</a>
                 </li>
                 <form id="logout-form" className={styles.menuItem} method="post" action="/logout">
-                  <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
-                  <a /*onclick={document.getElementById('logout-form').submit()}*/>Выйти</a>
+                  <input type="hidden"/>
+                  <a>Выйти</a>
                 </form>
               </ul>
             ) : (
               <ul className={styles.authContainer}>
                 <li className={styles.menuItem}>
-                  <a href="/register">Регистрация</a>
+                  <Link to="/register">Регистрация</Link>
                 </li>
                 <li className={styles.menuItem}>
-                  <a href="/login">Войти</a>
+                  <Link to="/login">Войти</Link>
                 </li>
               </ul>
             )}

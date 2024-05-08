@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './registerModal.module.css';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const loginModal = () => {
   const[name, setName ]= useState('');
@@ -56,7 +56,7 @@ const loginModal = () => {
 
         <button type="submit" className={styles.btn}>Регистрация</button>
         <div className={styles.registerLink}>
-          <p>Уже есть аккаунт? <a href="#">Войти</a> </p>
+          <p>Уже есть аккаунт? <Link to="/login">Войти</Link> </p>
         </div>
       </form>
     </div>

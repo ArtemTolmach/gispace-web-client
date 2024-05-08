@@ -1,39 +1,35 @@
 import React, { useState, useEffect } from 'react';
-
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+import { Link } from "react-router-dom";
 
 import styles from './Header.module.css'
 
-const Header = ({ user, csrf_token }) => {
+const Header = ({ name }) => {
   const [nav, setNav] = useState(false);
-  const [name, setName] = useState('');
 
   const clickMenuItem = () => {
     setNav(false);
   };
 
-  useEffect(() => {
-    (
-      async () => {
-        const response = await fetch('http://127.0.0.1:8000/user', {
-          headers:{ 'Content-Type': 'application/json'},
-          credentials: 'include'
-        });
+  const logout = async (e) => {
+    e.preventDefault();
 
-        const content = await response.json();
+    const res = await fetch('http://127.0.0.1:8000/logout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      credentials: 'include',
+    });
 
-        console.log(content);
+    console.log('Выход');
+    console.log(res);
 
-        setName(content.name);
-      }
-    )();
-  });
+  }
 
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.box}>
-          <a href="/" className={styles.logo}>Gispace</a>
+          <Link to="/" className={styles.logo}>Gispace</Link>
           <ul
             className={
               nav ? [styles.menu, styles.active].join(' ') : [styles.menu]
@@ -47,18 +43,18 @@ const Header = ({ user, csrf_token }) => {
                 <li className={styles.menuItem}>
                   <a id="user-name" href="#">{name}</a>
                 </li>
-                <form id="logout-form" className={styles.menuItem} method="post" action="/logout">
-                  <input type="hidden" name="csrfmiddlewaretoken" value={csrf_token} />
-                  <a /*onclick={document.getElementById('logout-form').submit()}*/>Выйти</a>
+                <form id="logout-form" className={styles.menuItem}>
+                  <input type="hidden" />
+                  <a onClick={logout}>Выйти</a>
                 </form>
               </>
             ) : (
               <>
                 <li className={styles.menuItem}>
-                  <a href="/login">Войти</a>
+                  <Link to="/login">Войти</Link>
                 </li>
                 <li className={styles.menuItem}>
-                  <a href="/register">Регистрация</a>
+                  <Link to="/register">Регистрация</Link>
                 </li>
               </>
             )}

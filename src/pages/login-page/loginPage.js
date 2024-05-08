@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import LoginModal from '@Components/login/login-modal/loginModal';
 import ImageContainer from '@Components/login/photosphere-module/ImageContainer';
@@ -10,7 +11,7 @@ function LoginPage() {
   return (
     <div className={styles.mainContainer}>
         <ImageContainer />
-        <a className={styles.logo} href="#">Gispace</a>
+        <Link className={styles.logo} href="/">Gispace</Link>
         <LoginModal />
     </div>
   );

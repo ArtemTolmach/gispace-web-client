@@ -97,6 +97,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
 
                     });
 
+                    console.log(data.polygon_points);
+
                     data.polygon_points.forEach(point => {
                         markersPlugin.addMarker({
                             id: point.id.toString(),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from '@Components/home/header/Header';
 import Search from '@Components/home/search/Search';
@@ -9,17 +9,28 @@ import OverviewContainer from '@Components/home/list-projects-module/OverViewCon
 import styles from './homePage.module.css';
 
 function HomePage() {
+  const [name, setName] = useState('');
 
-  const user = {
-    username: 'exampleUser',
-    is_authenticated: true,
-  };
+  useEffect(() => {
+    (
+      async () => {
+        const response = await fetch('http://127.0.0.1:8000/user', {
+          headers:{ 'Content-Type': 'application/json'},
+          credentials: 'include'
+        });
 
-  const csrf_token = 'your_csrf_token_here';
+        const content = await response.json();
+
+        console.log(content);
+
+        setName(content.name);
+      }
+    )();
+  });
 
   return (
     <div className={styles.mainContainer}>
-        <Header user={user} csrf_token={csrf_token} />
+        <Header name={name}/>
         <Search />
         <ImageContainer />
         <div className={styles.otherContainer}>

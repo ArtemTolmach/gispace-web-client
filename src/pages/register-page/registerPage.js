@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 import ImageContainer from '@Components/register/photosphere-module/ImageContainer';
 import RegisterModal from '@Components/register/register-modal/registerModal';
@@ -10,7 +11,7 @@ function RegisterPage() {
   return (
     <div className={styles.mainContainer}>
         <ImageContainer />
-        <a className={styles.logo} href="#">Gispace</a>
+        <Link className={styles.logo} to="/">Gispace</Link>
         <RegisterModal />
     </div>
   );

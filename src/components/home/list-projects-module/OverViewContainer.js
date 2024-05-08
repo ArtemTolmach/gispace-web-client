@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 import styles from'./OverViewContainer.module.css'
 
@@ -43,13 +44,13 @@ const OverViewContainer = () => {
       <div className={styles.projectsContainer}>
         {projects.map(project => (
           <div key={project.id} className={styles.oneProjectContainer}>
-            <a className={styles.hrefToProject} href={`/${project.name}/${project.main_location}/${project.id}`}>
+            <Link className={styles.hrefToProject} to={`/interface/${project.name}/${project.main_location}/${project.id}`}>
               <div className={styles.wrapperImgProject}>
                 <img className={styles.imgProject} src={project.cover} alt={project.name} />
               </div>
               <span className={styles.projectName}>{project.name}</span>
               <span className={styles.projectBio}>{project.bio}</span>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

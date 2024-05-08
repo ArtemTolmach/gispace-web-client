@@ -1,0 +1,43 @@
+
+
+.chromakeyInput .chromakeyEyedrop {
+    height: 60px;
+    width: 120px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    margin: 0 0 0 30px;
+    border-radius: 30px;
+}
+
+.chromakeyInput p {
+    color: #E6E6E7;
+    font-size: 15px;
+    margin: 0;
+    width: 110px;
+}
+
+.chromakeyInput {
+    max-width: 480px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    margin: 0 0 15px 0;
+    width: 260px;
+}
