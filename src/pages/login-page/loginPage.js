@@ -11,7 +11,7 @@ function LoginPage() {
   return (
     <div className={styles.mainContainer}>
         <ImageContainer />
-        <Link className={styles.logo} href="/">Gispace</Link>
+        <Link className={styles.logo} to="/">Gispace</Link>
         <LoginModal />
     </div>
   );

@@ -6,13 +6,8 @@
     -webkit-box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     border-radius: 30px;
-    margin-top: 43vh;
-    min-height: 50px;
-    height: 4vh;
-    position: absolute;
+    position: relative;
     z-index: 998;
-    width: 45%;
-    left: 50%;
     -webkit-transform: translateX(-50%);
         -ms-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -22,7 +17,7 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    padding: 5px;
+    padding: 15px;
 }
 
 .searchIcon {
@@ -84,11 +79,134 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-right: 15px;
 }
 
+.suggestions::-webkit-scrollbar-thumb {
+    background-color: #5d5d5d;
+    border-radius: 5px;
+}
+
+.suggestions::-webkit-scrollbar {
+    width: 10px;
+}
+
+.suggestions {
+    width: 90%;
+    bottom: 32%;
+    position: relative;
+    max-height: 50vh;
+    line-height: 50px;
+    border-radius: 0 0 10px 10px;
+    transition: 0.3s;
+    background: #20232aba;
+    backdrop-filter: blur(50px);
+    z-index: 1;
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+
+}
+
+.suggestionItem {
+    padding: 7px 0 7px 7px;
+    -webkit-box-shadow: inset 0px -30px 5px -30px rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0px -30px 5px -30px rgba(255, 255, 255, 0.2);
+}
+
+.suggestionImgProject {
+    position: relative;
+    height: 10vh;
+}
+
+.suggestionHrefToProject {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    text-decoration: none;
+}
+
+.suggestionText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    height: 10vh;
+}
+
+.suggestionProjectName {
+    color: #fff;
+    font-size: 25px;
+    font-family: Roboto, system-ui;
+    font-weight: 500;
+    text-align: left;
+    margin: 0 0 0 20px;
+    height: 4vh;
+}
+
+.suggestionProjectBio {
+    color: #89888E;
+    font-size: 20px;
+    font-family: Roboto, system-ui;
+    font-weight: 100;
+    text-align: left;
+    margin: 0 0 0 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 42vh;
+}
+
+.hide {
+    display: none;
+}
+
+.searchContainer {
+    margin-top: 43vh;
+    min-height: 50px;
+    height: 4vh;
+    position: absolute;
+    width: 45%;
+    left: 50%;
+}
+
 @media (max-width: 900px) {
+    .suggestions {
+        width: 31vh;
+        bottom: 40%;
+        max-height: 55vh;
+    }
+
+    .suggestionImgProject {
+        position: relative;
+        height: 6vh;
+    }
+
+    .suggestionText {
+        height: unset;
+    }
+
+    .suggestionProjectName {
+        height: unset;
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .suggestionProjectBio {
+        height: unset;
+        font-size: 15px;
+        line-height: 20px;
+        max-width: 20vh;
+    }
+
     .search {
+        padding: 10px;
+        width: 34vh;
+    }
+
+    .searchContainer {
         margin-top: 33vh;
         min-height: 40px;
         height: 2vh;
-        width: 80%;
     }
 }

@@ -3,7 +3,7 @@ import styles from './Dropdown.module.css';
 
 const Dropdown = ({ selected, setSelected }) => {
     const [isActive, setIsActive] = useState(false);
-    const options = ['react','vue'];
+    const options = ['react','vue', 'react','vue', 'react','vue'];
 
     return (
         <div className={styles.dropdown}>
@@ -11,9 +11,9 @@ const Dropdown = ({ selected, setSelected }) => {
                 {selected} 
             </div>
             {isActive && (
-                <div className={styles.dropdownContent}>
+                <ul className={styles.dropdownContent}>
                     {options.map((option, index) => (
-                        <div 
+                        <li 
                             key={index}
                             onClick={() => {
                                 setSelected(option);
@@ -22,9 +22,9 @@ const Dropdown = ({ selected, setSelected }) => {
                             className={styles.dropdownItem} 
                         >
                             {option}
-                        </div>
+                        </li>
                     ))}
-                </div>
+                </ul>
             )}
         </div>
     );

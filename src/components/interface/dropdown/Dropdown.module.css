@@ -1,10 +1,35 @@
 .dropdown {
+    /*
     width: 200px;
     position: relative;
     user-select: none;
+    */
+    min-width: 15em;
+    position: relative;
+    margin: 50px 0 150px 0;
 }
 
 .dropdownBtn {
+    background: #23252B;
+    color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 0.5em;
+    padding: 1em;
+    cursor: pointer;
+    -webkit-transition: background 0.3s;
+    -o-transition: background 0.3s;
+    transition: background 0.3s;
+    width: 330px;
+    height: 56px;
+    /*
     padding: 15px 20px;
     background: #fff;
     box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
@@ -13,18 +38,42 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
+    cursor: pointer;*/
 }
 
 .dropdownContent {
+    list-style: none;
+    padding: 0.2em 0.5em;
+    background: #23252B;
+    border: 1px #23252B solid;
+    -webkit-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+    border-radius: 0.5em;
+    color: #9fa5b5;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    width: 100%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    z-index: 1;
+    overflow-y: auto;
+    height: 130px;
+    /*
     position: absolute;
     top: 110%;
     padding: 15px;
-    background: #fff;
+    background: #23252B;
     box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
     font-weight: 500;
-    color: #333;
+    color: #fff;
     width: 100%;
+    border-radius: 0.5em;
+    max-height: 100px;*/
 }
 
 .dropdownItem {
@@ -33,6 +82,15 @@
     transition: all 0.2s;
 }
 
-.dropdownItem:hover {
-    background: #fcfcfc;
+.dropdownContent::-webkit-scrollbar {
+    width: 0.1em;
 }
+
+.dropdownContent::-webkit-scrollbar-thumb {
+    background-color: #5d5d5d;
+}
+
+.dropdownContent::-webkit-scrollbar-track {
+    background: #323741;
+}
+

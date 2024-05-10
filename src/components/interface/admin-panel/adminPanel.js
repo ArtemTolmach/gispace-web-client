@@ -15,6 +15,8 @@ import Eyedropper from "@Components/interface/eyedropper/eyedropper"
 import Dropdown from "@Components/interface/dropdown/Dropdown";
 import VideoDropArea from "@Components/interface/videoDrop/videoDrop";
 import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
+import RangeInput from "@Components/interface/rangeInput/rangeInput";
+import ColorPicker from "@Components/interface/colorPicker/colorPicker";
 
 const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
     const [currentButton, setCurrentButton] = useState(null);
@@ -88,44 +90,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
 
     document.addEventListener('keypress', handleKeyPress);
 {/* 
-    function createColorPicker(idColorPicker) {
-        Pickr.create({
-            el: idColorPicker,
-            theme: 'classic',
-            components: {
-                preview: true,
-                hue: true,
-                interaction: {
-                    hex: true,
-                    rgba: true,
-                    input: true,
-                    clear: true,
-                    save: true
-                }
-            }
-        });
-    }
-
-    function createSlider(thumb, number, line, input, maxValue) {
-        const rangeThumb = document.getElementById(thumb);
-        const rangeNumber = document.getElementById(number);
-        const rangeLine = document.getElementById(line);
-        const rangeInput = document.getElementById(input);
-
-        function rangeInputSlider() {
-            rangeNumber.textContent = rangeInput.value;
-
-            const thumbPosition = rangeInput.value / rangeInput.max;
-
-            rangeThumb.style.left = (thumbPosition * 90) + '%';
-
-            rangeLine.style.width = (rangeInput.value * maxValue) + '%';
-
-            rangeInput.addEventListener('input', rangeInputSlider);
-        }
-
-        rangeInputSlider();
-    }
 
 
     const pickrPolygonFill = createColorPicker(styles.colorPickerFill);
@@ -301,12 +265,136 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         }
     }
 
-    function getCookie(name) {
-        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return cookieValue ? cookieValue.pop() : '';
+    const csrfToken = 'csrftoken';
+    const submitInfoPointBtn = document.querySelector('.submit-info-btn');
+
+    function handleAddInfoPoint(outputPosition) {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setInfoForm(true);
+        setPosition(outputPosition);
+
+        function submitInfoMarkerClickHandler(position) {
+            createInfoPoint(position);
+            setPosition(null);
+    
+            const inputs = document.querySelectorAll(styles.titleInputInfo, styles.descriptionInputInfo);
+            inputs.forEach(input => input.value = '');
+    
+            adminPanel.classList.remove(styles.open);
+    
+            resetModes();
+            currentButton.classList.remove(styles.ActiveItem);
+            {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/}
+        }
     }
 
-    const csrfToken = getCookie('csrftoken');
+    function handleMovePoint(outputPosition) {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setMoveForm(true);
+
+        {/*
+        function submitMoveMarkerClickHandler() {
+            createMovePoint(outputPosition);
+
+            adminPanel.classList.remove('open');
+
+            submitMovePointBtn.removeEventListener('click', submitMoveMarkerClickHandler);
+
+            resetModes();
+            currentButton.classList.remove('ActiveItem');
+            viewer.addEventListener('click', clickHandler).then(renderMarkers());
+        }
+        submitMovePointBtn.addEventListener('click', submitMoveMarkerClickHandler);
+         */}
+    }
+
+    function handleVideoPoint() {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setVideoForm(true);
+
+        {/*}
+        function submitVideoMarkerClickHandler() {
+            createVideoPoint(arrayDictsVideo);
+
+            adminPanel.classList.remove('open');
+
+            submitVideoPointBtn.removeEventListener('click', submitVideoMarkerClickHandler);
+
+            resetModes();
+            currentButton.classList.remove('ActiveItem');
+            viewer.addEventListener('click', clickHandler).then(renderMarkers());
+        }
+        submitVideoPointBtn.addEventListener('click', submitVideoMarkerClickHandler);
+        */}
+    }
+
+    function handleImagePoint() {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setImageForm(true);
+
+        {/*
+        function submitImageMarkerClickHandler() {
+            createImagePoint(arrayDictsImages);
+
+            adminPanel.classList.remove('open');
+
+            submitImagePointBtn.removeEventListener('click', submitImageMarkerClickHandler);
+
+            resetModes();
+            currentButton.classList.remove('ActiveItem');
+            viewer.addEventListener('click', clickHandler).then(renderMarkers());
+        }
+        submitImagePointBtn.addEventListener('click', submitImageMarkerClickHandler);
+         */}
+    }
+
+    function handlePolyLinePoint() {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setPolyLineForm(true);
+
+        {/* 
+        function submitPolyLineMarkerClickHandler() {
+            createPolyLinePoint(arrayPolyLine);
+
+            adminPanel.classList.remove('open');
+
+            submitPolyLinePointBtn.removeEventListener('click', submitPolyLineMarkerClickHandler);
+
+            resetModes();
+            currentButton.classList.remove('ActiveItem');
+            viewer.addEventListener('click', clickHandler).then(renderMarkers());
+        }
+        submitPolyLinePointBtn.addEventListener('click', submitPolyLineMarkerClickHandler);
+        */}
+    }
+
+    function handlePolygonPoint() {
+        viewer.removeEventListener('click', clickHandler);
+        adminPanel.classList.add(styles.open);
+        setPolygoneForm(true);
+        
+        {/* 
+        function submitPolygoneMarkerClickHandler() {
+            deleteTemporaryMarkers();
+
+            createPolygonPoint(arrayPolygon);
+
+            adminPanel.classList.remove('open');
+
+            submitPolygonPointBtn.removeEventListener('click', submitPolygoneMarkerClickHandler);
+
+            resetModes();
+            currentButton.classList.remove('ActiveItem');
+            viewer.addEventListener('click', clickHandler).then(renderMarkers());
+        }
+        submitPolygonPointBtn.addEventListener('click', submitPolygoneMarkerClickHandler);
+        */}
+
 
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;
@@ -474,134 +562,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         }
     };
 
-    const submitInfoPointBtn = document.querySelector('.submit-info-btn');
-
-    function handleAddInfoPoint(outputPosition) {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setInfoForm(true);
-        setPosition(outputPosition);
-    }
-
-    function submitInfoMarkerClickHandler(position) {
-        createInfoPoint(position);
-        setPosition(null);
-
-        const inputs = document.querySelectorAll(styles.titleInputInfo, styles.descriptionInputInfo);
-        inputs.forEach(input => input.value = '');
-
-        adminPanel.classList.remove(styles.open);
-
-        resetModes();
-        currentButton.classList.remove(styles.ActiveItem);
-        {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/}
-    }
-
-    function handleMovePoint(outputPosition) {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setMoveForm(true);
-
-        {/*
-        function submitMoveMarkerClickHandler() {
-            createMovePoint(outputPosition);
-
-            adminPanel.classList.remove('open');
-
-            submitMovePointBtn.removeEventListener('click', submitMoveMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitMovePointBtn.addEventListener('click', submitMoveMarkerClickHandler);
-         */}
-    }
-
-    function handleVideoPoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setVideoForm(true);
-
-        {/*}
-        function submitVideoMarkerClickHandler() {
-            createVideoPoint(arrayDictsVideo);
-
-            adminPanel.classList.remove('open');
-
-            submitVideoPointBtn.removeEventListener('click', submitVideoMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitVideoPointBtn.addEventListener('click', submitVideoMarkerClickHandler);
-        */}
-    }
-
-    function handleImagePoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setImageForm(true);
-
-        {/*
-        function submitImageMarkerClickHandler() {
-            createImagePoint(arrayDictsImages);
-
-            adminPanel.classList.remove('open');
-
-            submitImagePointBtn.removeEventListener('click', submitImageMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitImagePointBtn.addEventListener('click', submitImageMarkerClickHandler);
-         */}
-    }
-
-    function handlePolyLinePoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setPolyLineForm(true);
-
-        {/* 
-        function submitPolyLineMarkerClickHandler() {
-            createPolyLinePoint(arrayPolyLine);
-
-            adminPanel.classList.remove('open');
-
-            submitPolyLinePointBtn.removeEventListener('click', submitPolyLineMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitPolyLinePointBtn.addEventListener('click', submitPolyLineMarkerClickHandler);
-        */}
-    }
-
-    function handlePolygonPoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setPolygoneForm(true);
-        
-        {/* 
-        function submitPolygoneMarkerClickHandler() {
-            deleteTemporaryMarkers();
-
-            createPolygonPoint(arrayPolygon);
-
-            adminPanel.classList.remove('open');
-
-            submitPolygonPointBtn.removeEventListener('click', submitPolygoneMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitPolygonPointBtn.addEventListener('click', submitPolygoneMarkerClickHandler);
-        */}
     }
     
 
@@ -694,44 +654,17 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                             <h1>Создать точку полигона</h1>
                             <div className={styles.fillPolygone}>
                                 <p>Цвет заливки полигона</p>
-                                <div className={styles.colorPickerFill}></div>
+
                                 <p>Прозрачность полигона</p>
-                                <div className={styles.range}>
-                                    <div className={styles.rangeContent}>
-                                        <div className={styles.rangeSlider}>
-                                            <div className={styles.rangeSliderLine} id={styles.rangeLineFillPolygone}></div>
-                                        </div>
-
-                                        <div className={styles.rangeThumb} id="range-thumb-fill-polygone">
-                                            <div className={styles.rangeValue}>
-                                                <span className={styles.rangeValueNumber} id="range-number-fill-polygone">0.5</span>
-                                            </div>
-                                        </div>
-
-                                        <input type="range" className={styles.rangeInput} id="range-input-fill-polygone" min="0" max="1" defaultValue="0.5" step="0.1"/>
-                                    </div>
-                                </div>
+                                <RangeInput id="fill-polygone" min={0} max={1} step={0.1} startValue={0.5} percent={100} />
                             </div>
 
                             <div className={styles.strokePolygone}>
                                 <p>Цвет границы полигона</p>
                                 <div className={styles.colorPickerStroke}></div>
                                 <p>Ширина границы</p>
-                                <div className={styles.range}>
-                                    <div className={styles.rangeContent}>
-                                        <div className={styles.rangeSlider}>
-                                            <div className={styles.rangeSliderLine} id="range-line-stroke-polygone"></div>
-                                        </div>
+                                <RangeInput id="stroke-polygone" min={0} max={10} step={1} startValue={5} percent={10} />
 
-                                        <div className={styles.rangeThumb} id="range-thumb-stroke-polygone">
-                                            <div className={styles.rangeValue}>
-                                                <span className={styles.rangeValueNumber} id="range-number-stroke-polygone">5</span>
-                                            </div>
-                                        </div>
-
-                                        <input type="range" className={styles.rangeInput} id="range-input-stroke-polygone" min="0" max="10" defaultValue="5" step="1"/>
-                                    </div>
-                                </div>
                             </div>
 
                             <div className={styles.inputBox}>
@@ -754,21 +687,8 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                                 <p>Цвет линии</p>
                                 <div className={styles.colorPickerStrokePolyline}></div>
                                 <p>Ширина линии</p>
-                                <div className={styles.range}>
-                                    <div className={styles.rangeContent}>
-                                        <div className={styles.rangeSlider}>
-                                            <div className={styles.rangeSliderLine} id="range-line-polyline-stroke"></div>
-                                        </div>
+                                <RangeInput id="polyline-stroke" min={0} max={10} step={1} startValue={5} percent={10} />
 
-                                        <div className={styles.rangeThumb} id="range-thumb-polyline-stroke">
-                                            <div className={styles.rangeValue}>
-                                                <span className={styles.rangeValueNumber} id="range-number-polyline-stroke">5</span>
-                                            </div>
-                                        </div>
-
-                                        <input type="range" className={styles.rangeInput} id="range-input-polyline-stroke" min="0" max="10" defaultValue="5" step="1"/>
-                                    </div>
-                                </div>
                             </div>
 
                             <div className={styles.inputBox}>
