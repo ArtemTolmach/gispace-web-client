@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import search from "@Assets/images/search.png";
 
-import styles from './Search.module.css'
+import styles from './Search.module.scss'
 
 const SearchForm = () => {
   const [projects, setProjects] = useState(null);

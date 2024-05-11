@@ -5,7 +5,7 @@ import Header from '@Components/interface/header/Header';
 
 import { useParams } from 'react-router-dom';
 
-import styles from './interfacePage.module.css';
+import styles from './interfacePage.module.scss';
 
 function interfacePage() {
   const [name, setName] = useState('');

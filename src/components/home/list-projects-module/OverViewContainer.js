@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import styles from'./OverViewContainer.module.css'
+import styles from'./OverViewContainer.module.scss'
 
 const OverViewContainer = () => {
   const [projects, setProjects] = useState(null);

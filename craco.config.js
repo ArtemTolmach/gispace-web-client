@@ -12,4 +12,9 @@ module.exports = {
       '@So_on': path.resolve(__dirname, 'src/so_on'),
     }
   },
+  style: {
+    modules: {
+      localIdentName: '[name]__[local]___[hash:base64:5]',
+    },
+  },
 };

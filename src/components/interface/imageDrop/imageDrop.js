@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import styles from './imageDrop.module.css';
+import styles from './imageDrop.module.scss';
 import uploadIcon from "@Assets/images/upload-icon.png";
 
 function ImageUploader() {
@@ -35,7 +35,7 @@ function ImageUploader() {
             <div id={styles.imageView} onClick={handleImageViewClick}>
                 {!imageLink && (
                     <>
-                        <img src={uploadIcon} alt="Upload" style={{ width: '55px', marginTop: '55px' }}/>
+                        <img src={uploadIcon} alt="Upload" style={{ width: '55px', marginTop: '30px' }}/>
                         <p>Перенесите сюда изображение или нажмите для загрузки изображения</p>
                     </>
                 )}

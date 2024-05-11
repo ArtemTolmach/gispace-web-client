@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import styles from './videoDrop.module.css';
+import styles from './videoDrop.module.scss';
 import uploadIcon from "@Assets/images/upload-icon.png";
 
 function VideoUploader() {

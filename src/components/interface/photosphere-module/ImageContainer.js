@@ -9,7 +9,7 @@ import AdminPanel from '@Components/interface/admin-panel/adminPanel';
 import infoImage from '@Assets/images/info.png';
 import moveImage from '@Assets/images/move.png';
 
-import styles from './ImageContainer.module.css';
+import styles from './ImageContainer.module.scss';
 const ImageContainer = ({ project, location, photosphere }) => {
   const containerRef = useRef(null);
   const [initialized, setInitialized] = useState(false);

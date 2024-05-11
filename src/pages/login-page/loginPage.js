@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LoginModal from '@Components/login/login-modal/loginModal';
 import ImageContainer from '@Components/login/photosphere-module/ImageContainer';
 
-import styles from './loginPage.module.css';
+import styles from './loginPage.module.scss';
 
 function LoginPage() {
   

@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import * as PANOLENS from 'panolens';
 import imageUrl from "@Assets/images/home-sphere.jpg";
 
-import styles from './ImageContainer.module.css'
+import styles from './ImageContainer.module.scss'
 
 const ImageContainer = () => {
   const containerRef = useRef(null);

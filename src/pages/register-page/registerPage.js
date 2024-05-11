@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ImageContainer from '@Components/register/photosphere-module/ImageContainer';
 import RegisterModal from '@Components/register/register-modal/registerModal';
 
-import styles from './registerPage.module.css';
+import styles from './registerPage.module.scss';
 
 function RegisterPage() {
   

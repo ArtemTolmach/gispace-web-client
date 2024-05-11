@@ -9,7 +9,7 @@ import lineIcon from "@Assets/images/line-button-icon.png";
 import videoIcon from "@Assets/images/video-button-icon.png"; 
 import imageIcon from "@Assets/images/image-button-icon.png"; 
 
-import styles from "./adminPanel.module.css";
+import styles from "./adminPanel.module.scss";
 
 import Eyedropper from "@Components/interface/eyedropper/eyedropper"
 import Dropdown from "@Components/interface/dropdown/Dropdown";

@@ -6,7 +6,7 @@ import ImageContainer from '@Components/home/photosphere-module/ImageContainer';
 import AboutUs from '@Components/home/about-us-module/ContainerAboutUs';
 import OverviewContainer from '@Components/home/list-projects-module/OverViewContainer'; 
 
-import styles from './homePage.module.css';
+import styles from './homePage.module.scss';
 
 function HomePage() {
   const [name, setName] = useState('');

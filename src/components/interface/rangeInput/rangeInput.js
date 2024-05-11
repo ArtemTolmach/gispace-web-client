@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from './rangeInput.module.css';
+import styles from './rangeInput.module.scss';
 
 const RangeInput = ({ id, min, max, step, startValue, percent }) => {
   useEffect(() => {

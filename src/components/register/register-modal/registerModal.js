@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './registerModal.module.css';
+import styles from './registerModal.module.scss';
 import { Link } from 'react-router-dom';
 
 const loginModal = () => {

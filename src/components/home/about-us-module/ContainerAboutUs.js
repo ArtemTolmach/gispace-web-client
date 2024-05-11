@@ -1,7 +1,7 @@
 import React from 'react';
 import steps from '@Assets/images/steps.png'
 
-import styles from './ContainerAboutUs.module.css'
+import styles from './ContainerAboutUs.module.scss'
 
 const AboutUsContainer = () => {
   return (

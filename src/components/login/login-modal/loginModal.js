@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './loginModal.module.css';
+import styles from './loginModal.module.scss';
 import { Navigate, Link } from 'react-router-dom';
 
 const loginModal = () => {

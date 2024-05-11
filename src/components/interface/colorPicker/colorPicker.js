@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import styles from "./colorPicker.module.css";
+import styles from "./colorPicker.module.scss";
 
 function ColorPicker(idColorPicker){
 
