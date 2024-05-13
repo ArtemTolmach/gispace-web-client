@@ -2,15 +2,17 @@ import React, { useState, useRef } from 'react';
 import styles from './videoDrop.module.scss';
 import uploadIcon from "@Assets/images/upload-icon.png";
 
-function VideoUploader() {
+function VideoUploader({ onVideoChange }) {
     const [videoKey, setVideoKey] = useState(Date.now());
     const [videoLink, setVideoLink] = useState('');
     const inputFileRef = useRef(null);
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
+        const file = event.currentTarget.files[0];;
         setVideoLink(URL.createObjectURL(file));
         setVideoKey(Date.now());
+
+        onVideoChange(file);
     };
 
     const handleDragOver = (event) => {
@@ -30,7 +32,7 @@ function VideoUploader() {
 
     return (
         <div id={styles.dropAreaVideo} onDragOver={handleDragOver} onDrop={handleDrop}>
-            <input key={Date.now()} type="file" accept="video/*" ref={inputFileRef} id={styles.inputFileVideo} hidden onChange={handleFileChange} />
+            <input key={Date.now()} type="file" accept="video/*" ref={inputFileRef} id="input-file-video" hidden onChange={handleFileChange} />
 
             <div id={styles.videoView} onClick={handleVideoViewClick}>
                 {!videoLink && (

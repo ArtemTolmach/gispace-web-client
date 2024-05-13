@@ -2,15 +2,17 @@ import React, { useState, useRef } from 'react';
 import styles from './imageDrop.module.scss';
 import uploadIcon from "@Assets/images/upload-icon.png";
 
-function ImageUploader() {
+function ImageUploader({ onImageChange }) {
     const [imageKey, setImageKey] = useState(Date.now());
     const [imageLink, setImageLink] = useState('');
     const inputFileRef = useRef(null);
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
+        const file = event.currentTarget.files[0];;
         setImageLink(URL.createObjectURL(file));
         setImageKey(Date.now());
+
+        onImageChange(file);
     };
 
     const handleDragOver = (event) => {

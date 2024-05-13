@@ -1,34 +1,16 @@
 .colorPickerContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    z-index: 111;
+    right: 510px;
 }
 
-.colorDisplay{
-    width: 300px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 5px solid hsl(0, 0%, 80%);
-    border-radius: 25px;
-    margin-bottom: 25px;
-    transition: 0.25s ease;
-}
-.colorDisplay p{
-    color: hsl(0, 0%, 20%);
-    font-size: 2rem;
-    text-align: center;
-}
-label{
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-input[type="color"]{
-    width: 75px;
-    height: 50px;
-    padding: 5px;
+.colorButton{
+    position: relative;
+    width: 65px;
+    height: 35px;
+    background-color: #fff;
     border-radius: 10px;
-    border: 3px solid hsl(0, 0%, 80%);
+    margin: 0 30px 0 10px;
 }

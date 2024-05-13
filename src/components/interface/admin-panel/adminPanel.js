@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import Pickr from '@simonwep/pickr';
-import '@simonwep/pickr/dist/themes/classic.min.css';
+import React, { useState, useEffect } from "react";
 
-import infoIcon from "@Assets/images/info-button-icon.png"; 
-import moveIcon from "@Assets/images/move-button-icon.png"; 
-import polygonIcon from "@Assets/images/polygon-button-icon.png"; 
-import lineIcon from "@Assets/images/line-button-icon.png"; 
-import videoIcon from "@Assets/images/video-button-icon.png"; 
-import imageIcon from "@Assets/images/image-button-icon.png"; 
+import infoIcon from "@Assets/images/info-button-icon.png";
+import moveIcon from "@Assets/images/move-button-icon.png";
+import polygonIcon from "@Assets/images/polygon-button-icon.png";
+import lineIcon from "@Assets/images/line-button-icon.png";
+import videoIcon from "@Assets/images/video-button-icon.png";
+import imageIcon from "@Assets/images/image-button-icon.png";
 
 import styles from "./adminPanel.module.scss";
 
@@ -18,10 +16,28 @@ import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
 import RangeInput from "@Components/interface/rangeInput/rangeInput";
 import ColorPicker from "@Components/interface/colorPicker/colorPicker";
 
-const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
+const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized }) => {
     const [currentButton, setCurrentButton] = useState(null);
+    const [positionData, setPosition] = useState({});
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [targetSphereId, setTargetSphereId] = useState(null);
 
-    let modeInfoMarker, modeMoveMarker, addPolygonMarker, addVideoMarker, modeImageMarker, modePolyLineMarker = false;
+
+    const handleVideoChange = (video) => {
+        setSelectedVideo(video);
+    };
+
+    const handleImageChange = (image) => {
+        setSelectedImage(image);
+    };
+
+    const [modeMoveMarker, setModeMoveMarker] = useState(false);
+    const [modeInfoMarker, setModeInfoMarker] = useState(false);
+    const [modePolyLineMarker, setModePolyLineMarker] = useState(false);
+    const [modePolygonMarker, setModePolygonMarker] = useState(false);
+    const [modeVideoMarker, setModeVideoMarker] = useState(false);
+    const [modeImageMarker, setModeImageMarker] = useState(false);
 
     const [infoForm, setInfoForm] = useState(false);
     const [polygoneForm, setPolygoneForm] = useState(false);
@@ -37,17 +53,18 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
     const [arrayDictsVideo, setArrayDictsVideo] = useState([]);
     const [arrayDictsImages, setArrayDictsImages] = useState([]);
 
-    const [position, setPosition] = useState(null);
 
     const [selected, setSelected] = useState("Выберите фотосферу");
-    
+
     const resetModes = () => {
-        modeInfoMarker = false;
-        modeMoveMarker = false;
-        addPolygonMarker = false;
-        addVideoMarker = false;
-        modeImageMarker = false;
-        modePolyLineMarker = false;
+        console.log('Сработал');
+
+        setModeInfoMarker(false);
+        setModeMoveMarker(false);
+        setModePolygonMarker(false);
+        setModeVideoMarker(false);
+        setModeImageMarker(false);
+        setModePolyLineMarker(false);
 
         setInfoForm(false);
         setPolygoneForm(false);
@@ -62,11 +79,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         setArrayImage([]);
         setArrayDictsVideo([]);
         setArrayDictsImages([]);
-
-        console.log(arrayPolygon);
-        console.log(arrayPolyLine);
-        console.log(modePolyLineMarker);
-
     }
 
     function deleteTemporaryMarkers() {
@@ -79,33 +91,19 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
     function handleKeyPress(event) {
         if (event.keyCode === 13) {
             if (modePolyLineMarker) {
-                resetModes();
+                setPolygoneForm(false);
+                setModePolyLineMarker(false);
                 handlePolyLinePoint();
-            } else if (addPolygonMarker) {
-                resetModes();
+            } else if (modePolygonMarker) {
+                setPolyLineForm(false);
+                setModePolygonMarker(false);
                 handlePolygonPoint();
             }
         }
     }
 
     document.addEventListener('keypress', handleKeyPress);
-{/* 
 
-
-    const pickrPolygonFill = createColorPicker(styles.colorPickerFill);
-    const pickrFillPolygoneButton = document.querySelector(`${styles.fillPolygone} ${styles.pcrButton}`);
-    pickrFillPolygoneButton.id = (styles.colorPickerButtonFillPolygone);
-
-    const pickrPolygonStroke = createColorPicker('.color-picker-stroke');
-    const pickrStrokePolygoneButton = document.querySelector('.stroke-polygone .pcr-button');
-    pickrStrokePolygoneButton.id = 'color-picker-button-stroke-polygone';
-
-    createSlider('range-thumb-fill-polygone', 'range-number-fill-polygone',
-        'range-line-fill-polygone', 'range-input-fill-polygone', 100);
-
-    createSlider('range-thumb-stroke-polygone', 'range-number-stroke-polygone',
-        'range-line-stroke-polygone', 'range-input-stroke-polygone', 10);
-*/}
     function createTemporaryMarker(sequenceCoordinates) {
         if (sequenceCoordinates.length === 1) {
             deleteTemporaryMarkers()
@@ -163,101 +161,105 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
             }
         }
     }
-    
-    function clickHandler({ data }) {
-        console.log('кликхенДОЕР')
-        const outputPosition = {
-            yaw: data.yaw,
-            pitch: data.pitch,
-        };
 
-        if (modeInfoMarker) {
-            console.log(outputPosition);
-            handleAddInfoPoint(outputPosition);
-            console.log('Я срабатываю для линии снова, мод не выключился');
-        } else if (modeMoveMarker) {
-            handleMovePoint(outputPosition);
-        } else if (addPolygonMarker) {
-            let coordinateClick = [data.yaw, data.pitch];
-            arrayPolygon.push(coordinateClick);
-            console.log(arrayPolygon);
-            createTemporaryMarker(arrayPolygon);
-        } else if (addVideoMarker) {
-            let coordinateClick = [data.yaw, data.pitch];
-            arrayVideo.push(coordinateClick);
-            createTemporaryMarker(arrayVideo);
-            if (arrayVideo.length === 4) {
-                arrayVideo.forEach((array, index) => {
-                    arrayDictsVideo[index] = { yaw: array[0], pitch: array[1] }
-                });
-                handleVideoPoint();
-            }
-        } else if (modeImageMarker) {
-            let coordinateClick = [data.yaw, data.pitch];
-            arrayImage.push(coordinateClick);
-            createTemporaryMarker(arrayImage);
-            if (arrayImage.length === 4) {
-                arrayImage.forEach((array, index) => {
-                    arrayDictsImages[index] = { yaw: array[0], pitch: array[1] }
-                });
-                handleImagePoint();
-            }
-            console.log('Я срабатываю для линии снова, мод не выключился');
+    useEffect(() => {
+        if (initialized && viewer) {
+            function clickHandler({ data }) {
 
-        } else if (modePolyLineMarker) {
-            let coordinateClick = [data.yaw, data.pitch];
-            arrayPolyLine.push(coordinateClick);
-            createTemporaryMarker(arrayPolyLine);
-            console.log('Я срабатываю для линии снова, мод не выключился');
+                const outputPosition = {
+                    yaw: data.yaw,
+                    pitch: data.pitch,
+                };
+                console.log(outputPosition);
+
+                if (modeInfoMarker) {
+                    handleAddInfoPoint(outputPosition);
+                } else if (modeMoveMarker) {
+                    handleMovePoint(outputPosition);
+                } else if (modePolygonMarker) {
+                    let coordinateClick = [data.yaw, data.pitch];
+                    arrayPolygon.push(coordinateClick);
+                    console.log('Полигон массив',arrayPolygon);
+                    createTemporaryMarker(arrayPolygon);
+                } else if (modeVideoMarker) {
+                    let coordinateClick = [data.yaw, data.pitch];
+                    console.log('Видео массив',arrayVideo);
+                    arrayVideo.push(coordinateClick);
+                    createTemporaryMarker(arrayVideo);
+                    if (arrayVideo.length === 4) {
+                        arrayVideo.forEach((array, index) => {
+                            arrayDictsVideo[index] = { yaw: array[0], pitch: array[1] }
+                        });
+                        handleVideoPoint();
+                    }
+                } else if (modeImageMarker) {
+                    let coordinateClick = [data.yaw, data.pitch];
+                    arrayImage.push(coordinateClick);
+                    console.log('Изображение массив',arrayImage);
+                    createTemporaryMarker(arrayImage);
+                    if (arrayImage.length === 4) {
+                        arrayImage.forEach((array, index) => {
+                            arrayDictsImages[index] = { yaw: array[0], pitch: array[1] }
+                        });
+                        handleImagePoint();
+                    }
+                } else if (modePolyLineMarker) {
+                    let coordinateClick = [data.yaw, data.pitch];
+                    arrayPolyLine.push(coordinateClick);
+                    console.log('Линия массив',arrayPolyLine);
+                    createTemporaryMarker(arrayPolyLine);
+                }
+            }
+
+            viewer.addEventListener('click', clickHandler);
+
+            return () => {
+                viewer.removeEventListener('click', clickHandler);
+            };
         }
-    }
-     
+    }, [modeInfoMarker, modeMoveMarker, modePolygonMarker, modeVideoMarker, modeImageMarker, modePolyLineMarker, viewer, initialized]);
 
     const handleClick = (target) => {
         if (target.classList.contains(styles.ActiveItem) && currentButton === target) {
             resetModes();
-            console.log('ДЕЛАЮ РЕСЕТ');
             adminPanel.classList.remove(styles.open);
             currentButton.classList.remove(styles.ActiveItem);
-            viewer.addEventListener('click', clickHandler);
             setCurrentButton(null);
             deleteTemporaryMarkers();
         } else {
             if (currentButton) {
                 currentButton.classList.remove(styles.ActiveItem);
+                resetModes();
             }
-            resetModes();
             target.classList.add(styles.ActiveItem);
             setCurrentButton(target);
-            console.log(target);
             adminPanel.classList.remove(styles.open);
-            viewer.addEventListener('click', clickHandler);
             deleteTemporaryMarkers()
 
             switch (target.id) {
                 case 'move-button':
                     resetModes();
-                    modeMoveMarker = true;
+                    setModeMoveMarker(true);
                     break;
                 case 'image-button':
                     resetModes();
-                    modeImageMarker = true;
+                    setModeImageMarker(true);
                     break;
                 case 'info-button':
                     resetModes();
-                    modeInfoMarker = true;
+                    setModeInfoMarker(true);
                     break;
                 case 'polyline-button':
                     resetModes();
-                    modePolyLineMarker = true;
+                    setModePolyLineMarker(true);
                     break;
                 case 'polygon-button':
                     resetModes();
-                    addPolygonMarker = true;
+                    setModePolygonMarker(true);
                     break;
                 case 'video-button':
                     resetModes();
-                    addVideoMarker = true;
+                    setModeVideoMarker(true);
                     break;
                 default:
                     break;
@@ -265,172 +267,146 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         }
     }
 
-    const csrfToken = 'csrftoken';
-    const submitInfoPointBtn = document.querySelector('.submit-info-btn');
+    console.log('Рендер Админ панелти');
 
-    function handleAddInfoPoint(outputPosition) {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setInfoForm(true);
-        setPosition(outputPosition);
+    const getCookie = (name) => {
+        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return cookieValue ? cookieValue.pop() : '';
+    };
 
-        function submitInfoMarkerClickHandler(position) {
-            createInfoPoint(position);
-            setPosition(null);
-    
-            const inputs = document.querySelectorAll(styles.titleInputInfo, styles.descriptionInputInfo);
-            inputs.forEach(input => input.value = '');
-    
-            adminPanel.classList.remove(styles.open);
-    
-            resetModes();
-            currentButton.classList.remove(styles.ActiveItem);
-            {/*viewer.addEventListener('click', clickHandler).then(renderMarkers());*/}
-        }
-    }
-
-    function handleMovePoint(outputPosition) {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setMoveForm(true);
-
-        {/*
-        function submitMoveMarkerClickHandler() {
-            createMovePoint(outputPosition);
-
-            adminPanel.classList.remove('open');
-
-            submitMovePointBtn.removeEventListener('click', submitMoveMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitMovePointBtn.addEventListener('click', submitMoveMarkerClickHandler);
-         */}
-    }
-
-    function handleVideoPoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setVideoForm(true);
-
-        {/*}
-        function submitVideoMarkerClickHandler() {
-            createVideoPoint(arrayDictsVideo);
-
-            adminPanel.classList.remove('open');
-
-            submitVideoPointBtn.removeEventListener('click', submitVideoMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitVideoPointBtn.addEventListener('click', submitVideoMarkerClickHandler);
-        */}
-    }
-
-    function handleImagePoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setImageForm(true);
-
-        {/*
-        function submitImageMarkerClickHandler() {
-            createImagePoint(arrayDictsImages);
-
-            adminPanel.classList.remove('open');
-
-            submitImagePointBtn.removeEventListener('click', submitImageMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitImagePointBtn.addEventListener('click', submitImageMarkerClickHandler);
-         */}
-    }
-
-    function handlePolyLinePoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setPolyLineForm(true);
-
-        {/* 
-        function submitPolyLineMarkerClickHandler() {
-            createPolyLinePoint(arrayPolyLine);
-
-            adminPanel.classList.remove('open');
-
-            submitPolyLinePointBtn.removeEventListener('click', submitPolyLineMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitPolyLinePointBtn.addEventListener('click', submitPolyLineMarkerClickHandler);
-        */}
-    }
-
-    function handlePolygonPoint() {
-        viewer.removeEventListener('click', clickHandler);
-        adminPanel.classList.add(styles.open);
-        setPolygoneForm(true);
-        
-        {/* 
-        function submitPolygoneMarkerClickHandler() {
-            deleteTemporaryMarkers();
-
-            createPolygonPoint(arrayPolygon);
-
-            adminPanel.classList.remove('open');
-
-            submitPolygonPointBtn.removeEventListener('click', submitPolygoneMarkerClickHandler);
-
-            resetModes();
-            currentButton.classList.remove('ActiveItem');
-            viewer.addEventListener('click', clickHandler).then(renderMarkers());
-        }
-        submitPolygonPointBtn.addEventListener('click', submitPolygoneMarkerClickHandler);
-        */}
-
+    const csrftoken = 'RUpsLtYsV12OMLMADQeSgA5qXUYNttWz';
 
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;
         const title = document.getElementById(styles.titleInputInfo).value;
 
+
         const response = await fetch(`http://127.0.0.1:8000/api/photospheres/information-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': window.csrfToken,
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                photo_sphere: window.imageID,
+                photo_sphere: photosphere,
                 yaw: outputPosition.yaw,
                 pitch: outputPosition.pitch,
                 title: title,
                 description: description,
             }),
         });
+        console.log(photosphere);
+        console.log(outputPosition.yaw);
+        console.log(outputPosition.pitch);
+        console.log(title);
+        console.log(description);
+
 
         if (response.ok) {
             renderMarkers();
         }
     };
 
-    const createMovePoint = async (outputPosition) => {
-        const targetSphereId = document.querySelector('.selected').getAttribute('data-sphere-id');
 
-        const response = await fetch(`/api/photospheres/move-points/`, {
+    function handleAddInfoPoint(outputPosition) {
+        adminPanel.classList.add(styles.open);
+        setInfoForm(true);
+        setPosition(outputPosition);
+    }
+
+    function submitInfoMarkerClickHandler() {
+        createInfoPoint(positionData);
+
+        const inputs = document.querySelectorAll(styles.titleInputInfo, styles.descriptionInputInfo);
+        inputs.forEach(input => input.value = '');
+
+        adminPanel.classList.remove(styles.open);
+
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
+
+    const createVideoPoint = async () => {
+        const colorChromoKey = document.getElementById("chromakey-color");
+        const colorChromoKeyValue = colorChromoKey.style.getPropertyValue('background');
+
+        const checkBox = document.getElementById("chromakey-switch-video").checked;
+
+        const formData = new FormData();
+        formData.append('photo_sphere', photosphere);
+        formData.append('video', selectedVideo);
+        formData.append('coordinates', JSON.stringify(arrayDictsVideo));
+        formData.append('enable_chroma_key', checkBox);
+        formData.append('color_chroma_key', colorChromoKeyValue);
+
+            const response = await fetch(`http://127.0.0.1:8000/api/photospheres/video-points/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                body: formData,
+            });
+            if (response.ok) {
+                renderMarkers();
+            }
+    };
+
+    function handleVideoPoint() {
+        adminPanel.classList.add(styles.open);
+        setVideoForm(true);
+    }
+
+    function submitVideoMarkerClickHandler() {
+        createVideoPoint(arrayDictsVideo);
+
+        adminPanel.classList.remove(styles.open);
+
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
+
+    const createImagePoint = async () => {
+
+        const formData = new FormData();
+        formData.append('photo_sphere', photosphere);
+        formData.append('image', selectedImage);
+        formData.append('coordinates', JSON.stringify(arrayDictsImages));
+
+            const response = await fetch(`http://127.0.0.1:8000/api/photospheres/image-points/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                body: formData,
+            });
+            if (response.ok) {
+                renderMarkers();
+            }
+    };
+
+    function handleImagePoint() {
+        adminPanel.classList.add(styles.open);
+        setImageForm(true);
+    }
+
+    function submitImageMarkerClickHandler() {
+        createImagePoint(arrayDictsImages);
+
+        adminPanel.classList.remove(styles.open);
+
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
+
+    const createMovePoint = async (outputPosition) => {
+        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/move-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                photo_sphere: window.imageID,
+                photo_sphere: photosphere,
                 yaw: outputPosition.yaw,
                 pitch: outputPosition.pitch,
                 target_photo_sphere: targetSphereId,
@@ -442,93 +418,20 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         }
     };
 
-    const createPolygonPoint = async (arrayPolygon) => {
-        const colorStroke = document.getElementById('color-picker-button-stroke-polygone');
-        const colorValueStroke = colorStroke.style.getPropertyValue('--pcr-color');
+    function handleMovePoint(outputPosition) {
+        adminPanel.classList.add(styles.open);
+        setMoveForm(true);
+        setPosition(outputPosition);
+    }
 
-        const colorFill = document.getElementById('color-picker-button-fill-polygone');
-        const colorValueFill = colorFill.style.getPropertyValue('--pcr-color');
+    function submitMoveMarkerClickHandler() {
+        createMovePoint(positionData);
 
-        const spanElementFill = document.getElementById('range-number-fill-polygone');
-        const spanValueFill = spanElementFill.textContent || spanElementFill.innerText;
+        adminPanel.classList.remove(styles.open);
 
-        const spanElementStroke = document.getElementById('range-number-stroke-polygone');
-        const spanValueStroke = spanElementStroke.textContent || spanElementStroke.innerText;
-
-        const inputPolygone = document.getElementById('title-input-polygone').value;
-        const descriptionPolygone = document.getElementById('description-input-polygone').value;
-
-        const response = await fetch(`/api/photospheres/polygon-points/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            body: JSON.stringify({
-                photo_sphere: window.imageID,
-                coordinates: arrayPolygon,
-                fill: colorValueFill,
-                stroke: colorValueStroke,
-                stroke_width: spanValueStroke,
-                opacity: spanValueFill,
-                title: inputPolygone,
-                description: descriptionPolygone
-            }),
-        });
-
-        if (response.ok) {
-            renderMarkers();
-        }
-    };
-
-    const createVideoPoint = async (arrayDictsVideo) => {
-        const videoInput = document.getElementById('input-file-video');
-        const file = videoInput.files[0];
-
-        const colorChromoKey = document.getElementById('chromakey-color');
-        const colorChromoKeyValue = colorChromoKey.style.getPropertyValue('background');
-
-        const checkBox = document.getElementById('chromakey-switch-video').checked;
-
-        const formData = new FormData();
-        formData.append('photo_sphere', window.imageID);
-        formData.append('video', file);
-        formData.append('coordinates', JSON.stringify(arrayDictsVideo));
-        formData.append('enable_chroma_key', checkBox);
-        formData.append('color_chroma_key', colorChromoKeyValue);
-
-            const response = await fetch(`/api/photospheres/video-points/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                renderMarkers();
-            }
-    };
-
-    const createImagePoint = async (arrayDictsImages) => {
-        const imageInput = document.getElementById('input-file-image');
-        const file = imageInput.files[0];
-
-        const formData = new FormData();
-        formData.append('photo_sphere', window.imageID);
-        formData.append('image', file);
-        formData.append('coordinates', JSON.stringify(arrayDictsImages));
-
-            const response = await fetch(`/api/photospheres/image-points/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': csrfToken,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                renderMarkers();
-            }
-    };
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
 
     const createPolyLinePoint = async (arrayPolyLine) => {
         const title = document.getElementById('title-input-polyline').value;
@@ -537,19 +440,19 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         const spanElement = document.getElementById('range-number-polyline-stroke');
         const spanValue = spanElement.textContent;
 
-        const colorPolyLine = document.getElementById('color-picker-button-inside');
-        const rgbaValue = colorPolyLine.style.getPropertyValue('--pcr-color');
+        const colorElement = document.getElementById('color-picker-polygone-fill');
+        const colorPolyline = colorElement.style.getPropertyValue('background');
 
-        const response = await fetch(`/api/photospheres/polyline-points/`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polyline-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
+                'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                photo_sphere: window.imageID,
+                photo_sphere: photosphere,
                 coordinates: arrayPolyLine,
-                stroke: rgbaValue,
+                stroke: colorPolyline,
                 stroke_linecap: 'round',
                 stroke_linejoin: 'round',
                 stroke_width: spanValue,
@@ -562,8 +465,84 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
         }
     };
 
+    function handlePolyLinePoint() {
+        adminPanel.classList.add(styles.open);
+        setPolyLineForm(true);
     }
-    
+
+    function submitPolyLineMarkerClickHandler() {
+        createPolyLinePoint(arrayPolyLine);
+
+        adminPanel.classList.remove(styles.open);
+
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
+
+    const createPolygonPoint = async (arrayPolygon) => {
+        const colorStroke = document.getElementById('color-picker-polygone-fill');
+        const colorValueStroke = colorStroke.style.getPropertyValue('background');
+        console.log(colorValueStroke);
+
+        const spanElementFill = document.getElementById('range-number-fill-polygone');
+        const spanValueFill = spanElementFill.textContent;
+        console.log(spanValueFill);
+
+        const spanElementStroke = document.getElementById('range-number-stroke-polygone');
+        const spanValueStroke = spanElementStroke.textContent;
+        console.log(spanValueStroke);
+
+        const inputPolygone = document.getElementById('title-input-polygone').value;
+        const descriptionPolygone = document.getElementById('description-input-polygone').value;
+        console.log(inputPolygone);
+        console.log(descriptionPolygone);
+
+        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polygon-points/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                photo_sphere: 2,
+                coordinates: arrayPolygon,
+                fill: 'rgba(59, 66, 138, 1)',
+                stroke: 'rgba(59, 66, 138, 1)',
+                stroke_width: spanValueStroke,
+                opacity: spanValueFill,
+                title: inputPolygone,
+                description: descriptionPolygone
+            }),
+        });
+        console.log('Сфера',photosphere);
+        console.log('Массив',arrayPolygon);
+        console.log(spanValueStroke);
+        console.log(spanValueFill);
+        console.log(inputPolygone);
+        console.log(descriptionPolygone);
+
+
+        if (response.ok) {
+            renderMarkers();
+        }
+    };
+
+    function handlePolygonPoint() {
+        adminPanel.classList.add(styles.open);
+        setPolygoneForm(true);
+    }
+
+    function submitPolygoneMarkerClickHandler() {
+        deleteTemporaryMarkers();
+
+        createPolygonPoint(arrayPolygon);
+        adminPanel.classList.remove(styles.open);
+
+        resetModes();
+        currentButton.classList.remove(styles.ActiveItem);
+    }
+
+
 
     return (
         <>
@@ -574,11 +553,11 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                         handleClick(target);
                     }
                 }}>
-                    <div id="info-button" className={styles.buttonItem} > 
-                        <img className={styles.imageItem} src={infoIcon}/> 
+                    <div id="info-button" className={styles.buttonItem} >
+                        <img className={styles.imageItem} src={infoIcon}/>
                     </div>
-                    <div id="move-button" className={styles.buttonItem} > 
-                        <img className={styles.imageItem} src={moveIcon}/> 
+                    <div id="move-button" className={styles.buttonItem} >
+                        <img className={styles.imageItem} src={moveIcon}/>
                     </div>
                     <div id="polygon-button" className={styles.buttonItem} >
                         <img className={styles.imageItem} src={polygonIcon}/>
@@ -593,15 +572,15 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                         <img className={styles.imageItem} src={imageIcon}/>
                     </div>
                 </div>
-                
+
                 <div className={styles.adminAddPoint}>
                     {moveForm && (
                         <div className={styles.formMovePoint}>
                             <h1>Создать точку перемещения</h1>
 
-                            <Dropdown selected={selected} setSelected={setSelected}/>
+                            <Dropdown selected={selected} setSelected={setSelected} photosphere={photosphere} setTargetSphereId={setTargetSphereId}/>
 
-                            <button type="submit" className={styles.submitMoveBtn}>Создать</button>
+                            <button type="submit" className={styles.submitMoveBtn} onClick={submitMoveMarkerClickHandler}>Создать</button>
                         </div>
                     )}
 
@@ -620,14 +599,14 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                             <button type="submit" className={styles.submitInfoBtn} onClick={submitInfoMarkerClickHandler}>Создать</button>
                         </div>
                     )}
-                    
+
                     {imageForm && (
                         <div className={styles.formImagePoint}>
                             <h1>Создать точку изображения</h1>
 
-                            <ImageDropArea/>
+                            <ImageDropArea onImageChange={handleImageChange}/>
 
-                            <button type="submit" className={styles.submitImageBtn}>Создать</button>
+                            <button type="submit" className={styles.submitImageBtn} onClick={submitImageMarkerClickHandler}>Создать</button>
                         </div>
                     )}
 
@@ -643,25 +622,25 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
 
                             <Eyedropper />
 
-                            <VideoDropArea/>
+                            <VideoDropArea onVideoChange={handleVideoChange} />
 
-                            <button type="submit" className={styles.submitVideoBtn}>Создать</button>
+                            <button type="submit" className={styles.submitVideoBtn} onClick={submitVideoMarkerClickHandler}>Создать</button>
                         </div>
                     )}
-                    
+
                     {polygoneForm && (
                         <div className={styles.formPolygonePoint}>
                             <h1>Создать точку полигона</h1>
                             <div className={styles.fillPolygone}>
                                 <p>Цвет заливки полигона</p>
-
+                                <ColorPicker id={'polygone-fill'} />
                                 <p>Прозрачность полигона</p>
                                 <RangeInput id="fill-polygone" min={0} max={1} step={0.1} startValue={0.5} percent={100} />
                             </div>
 
                             <div className={styles.strokePolygone}>
                                 <p>Цвет границы полигона</p>
-                                <div className={styles.colorPickerStroke}></div>
+                                <ColorPicker id={'polygone-stroke'} />
                                 <p>Ширина границы</p>
                                 <RangeInput id="stroke-polygone" min={0} max={10} step={1} startValue={5} percent={10} />
 
@@ -675,7 +654,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                                 <textarea placeholder="Описание" id="description-input-polygone"></textarea>
                             </div>
 
-                            <button type="submit" className={styles.submitPolygonBtn}>Создать</button>
+                            <button type="submit" className={styles.submitPolygonBtn} onClick={submitPolygoneMarkerClickHandler}>Создать</button>
                         </div>
                     )}
 
@@ -685,7 +664,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
 
                             <div className={styles.strokePolyline}>
                                 <p>Цвет линии</p>
-                                <div className={styles.colorPickerStrokePolyline}></div>
+                                <ColorPicker id={'polygone-fill'} />
                                 <p>Ширина линии</p>
                                 <RangeInput id="polyline-stroke" min={0} max={10} step={1} startValue={5} percent={10} />
 
@@ -699,7 +678,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere }) => {
                                 <textarea placeholder="Описание" id="description-input-polyline"></textarea>
                             </div>
 
-                            <button type="submit" className={styles.submitPolylineBtn}>Создать</button>
+                            <button type="submit" className={styles.submitPolylineBtn} onClick={submitPolyLineMarkerClickHandler}>Создать</button>
                         </div>
                     )}
                 </div>

@@ -10,12 +10,13 @@ import infoImage from '@Assets/images/info.png';
 import moveImage from '@Assets/images/move.png';
 
 import styles from './ImageContainer.module.scss';
+
 const ImageContainer = ({ project, location, photosphere }) => {
   const containerRef = useRef(null);
   const [initialized, setInitialized] = useState(false);
   const [viewer, setViewer] = useState(null);
   const [markersPlugin, setMarkersPlugin] = useState(null);
-
+    console.log('Рендер Главной имаге')
   useEffect(() => {
     
     if (!initialized && containerRef.current) {
@@ -163,16 +164,14 @@ const ImageContainer = ({ project, location, photosphere }) => {
                 });
             });
             
-
         setInitialized(true);
     }
   }, [initialized, containerRef]);
 
-
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
-            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere}/>
+            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
       </div>
     </>
   );

@@ -1,9 +1,4 @@
 .dropdown {
-    /*
-    width: 200px;
-    position: relative;
-    user-select: none;
-    */
     min-width: 15em;
     position: relative;
     margin: 50px 0 150px 0;
@@ -29,16 +24,6 @@
     transition: background 0.3s;
     width: 330px;
     height: 56px;
-    /*
-    padding: 15px 20px;
-    background: #fff;
-    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    font-weight: bold;
-    color: #333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;*/
 }
 
 .dropdownContent {
@@ -62,18 +47,7 @@
     transition: 0.2s;
     z-index: 1;
     overflow-y: auto;
-    height: 130px;
-    /*
-    position: absolute;
-    top: 110%;
-    padding: 15px;
-    background: #23252B;
-    box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
-    font-weight: 500;
-    color: #fff;
-    width: 100%;
-    border-radius: 0.5em;
-    max-height: 100px;*/
+    max-height: 130px;
 }
 
 .dropdownItem {
@@ -93,4 +67,3 @@
 .dropdownContent::-webkit-scrollbar-track {
     background: #323741;
 }
-
