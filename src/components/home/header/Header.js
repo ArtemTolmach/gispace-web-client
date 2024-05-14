@@ -11,6 +11,13 @@ const Header = ({ name }) => {
     setNav(false);
   };
 
+  const scrollToAboutUs = () => {
+    const aboutUsElement = document.getElementById('about-us');
+    if (aboutUsElement) {
+      aboutUsElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const logout = async (e) => {
     e.preventDefault();
 
@@ -36,7 +43,7 @@ const Header = ({ name }) => {
             }
           >
             <li className={styles.menuItem} onClick={clickMenuItem}>
-              <a href="#about-us">О Нас</a>
+              <Link onClick={scrollToAboutUs}>О Нас</Link>
             </li>
             {name ? (
               <>

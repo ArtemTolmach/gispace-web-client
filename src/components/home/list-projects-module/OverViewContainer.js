@@ -16,11 +16,11 @@ const OverViewContainer = () => {
         const data = await response.json();
         console.log(data);
         setProjects(data);
+        console.log(data);
       } catch (error) {
         console.error('Ошибка:', error);
       }
     };
-    
     fetchProjects();
   }, []); 
 
@@ -44,7 +44,7 @@ const OverViewContainer = () => {
       <div className={styles.projectsContainer}>
         {projects.map(project => (
           <div key={project.id} className={styles.oneProjectContainer}>
-            <Link className={styles.hrefToProject} to={`/interface/${project.name}/${project.main_location}/${project.id}`}>
+            <Link className={styles.hrefToProject} to={`/interface/${project.name}/${project.main_location.id}/${project.main_location.main_sphere}`}>
               <div className={styles.wrapperImgProject}>
                 <img className={styles.imgProject} src={project.cover} alt={project.name} />
               </div>

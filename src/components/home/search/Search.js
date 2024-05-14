@@ -54,7 +54,7 @@ const SearchForm = () => {
         {searched && filteredProjects ? (
           filteredProjects.map(project => (
             <li key={project.id} className={styles.suggestionItem}>
-              <Link className={styles.suggestionHrefToProject} to={`/interface/${project.name}/${project.main_location}/${project.id}`}>
+              <Link className={styles.suggestionHrefToProject} to={`/interface/${project.name}/${project.main_location.id}/${project.main_location.main_sphere}`}>
                 <img className={styles.suggestionImgProject} src={project.cover} alt={project.name} />
                 <div className={styles.suggestionText}>
                   <span className={styles.suggestionProjectName}>{project.name}</span>

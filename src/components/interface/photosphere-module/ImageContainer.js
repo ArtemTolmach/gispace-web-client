@@ -17,29 +17,9 @@ const ImageContainer = ({ project, location, photosphere }) => {
   const [viewer, setViewer] = useState(null);
   const [markersPlugin, setMarkersPlugin] = useState(null);
     console.log('Рендер Главной имаге')
-  useEffect(() => {
-    
-    if (!initialized && containerRef.current) {
-        const viewer = new Viewer({
-            container: containerRef.current,
-            plugins: [
-                [MarkersPlugin, {
-                    defaultHoverScale: true,
-                }],
-            ],
-        });
 
-        const markersPlugin = viewer.getPlugin(MarkersPlugin);
-
-        setViewer(viewer);
-        setMarkersPlugin(markersPlugin); 
-
-        viewer.addEventListener('ready', () => {
-            viewer.navbar.getButton('download').hide();
-        }, { once: true });
-
-
-        fetch(`http://127.0.0.1:8000/api/photosphere/${photosphere}/`)
+  function renderMarkers(viewer, markersPlugin){
+    fetch(`http://127.0.0.1:8000/api/photosphere/${photosphere}/`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -83,18 +63,24 @@ const ImageContainer = ({ project, location, photosphere }) => {
                             }
                         });
 
-                        function markerClickHandler() {
-                            Swal.fire({
-                                title: point.title,
-                                html: point.description,
-                                icon: 'info',
-                                confirmButtonText: 'OK'
-                            });
-                        }
+                        if (point.title !== '' || point.description !== '') {
+                            
+                            function markerClickHandler() {
+                                Swal.fire({
+                                    title: point.title,
+                                    html: point.description,
+                                    icon: 'info',
+                                    confirmButtonText: 'OK',
+                                    customClass: {
+                                        popup: styles.customSwal,
+                                      },
+                                });
+                            }
 
-                        const element = markersPlugin.markers[point.id.toString()].element
-                        element.addEventListener('click', markerClickHandler);
-                        element.addEventListener('touchstart', markerClickHandler);
+                            const element = markersPlugin.markers[point.id.toString()].element
+                            element.addEventListener('click', markerClickHandler);
+                            element.addEventListener('touchstart', markerClickHandler);
+                        }
 
                     });
 
@@ -115,8 +101,27 @@ const ImageContainer = ({ project, location, photosphere }) => {
                                 pointerEvents: 'auto',
                             },
                         });
-                    });
+                        
+                        if (point.title !== '' || point.description !== '') {
 
+                            function markerClickHandler() {
+                                Swal.fire({
+                                    title: point.title,
+                                    html: point.description,
+                                    icon: 'info',
+                                    confirmButtonText: 'OK',
+                                    customClass: {
+                                        popup: styles.customSwal,
+                                      },
+                                });
+                            }
+    
+                            const element = markersPlugin.markers[point.id.toString()].element
+                            element.addEventListener('click', markerClickHandler);
+                            element.addEventListener('touchstart', markerClickHandler);
+                        }
+                    });
+                    
                     data.video_points.forEach(point => {
                         markersPlugin.addMarker({
                             id: point.id.toString(),
@@ -128,8 +133,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
                             },
                             chromaKey: {
                                 enabled: point.enable_chroma_key,
-                                color: point.color_chroma_key,
-                                similarity: 0.3,
+                                color: (`${point.color_chroma_key}`),
+                                similarity: 0.2,
                             },
                         });
                     });
@@ -160,18 +165,60 @@ const ImageContainer = ({ project, location, photosphere }) => {
                                 pointerEvents: 'auto',
                             }
                         });
+                        
+                        if (point.title !== '' || point.description !== '') {
+
+                            function markerClickHandler() {
+                                Swal.fire({
+                                    title: point.title,
+                                    html: point.description,
+                                    icon: 'info',
+                                    confirmButtonText: 'OK',
+                                    customClass: {
+                                        popup: styles.customSwal,
+                                      },
+                                });
+                            }
+    
+                            const element = markersPlugin.markers[point.id.toString()].element
+                            element.addEventListener('click', markerClickHandler);
+                            element.addEventListener('touchstart', markerClickHandler);
+                        }
                     });
                 });
             });
-            
-        setInitialized(true);
+  }
+
+  useEffect(() => {
+
+    if (!initialized && containerRef.current) {
+        const viewer = new Viewer({
+            container: containerRef.current,
+            plugins: [
+                [MarkersPlugin, {
+                    defaultHoverScale: true,
+                }],
+            ],
+        });
+
+        const markersPlugin = viewer.getPlugin(MarkersPlugin);
+
+        setViewer(viewer);
+        setMarkersPlugin(markersPlugin);
+
+        viewer.addEventListener('ready', () => {
+            viewer.navbar.getButton('download').hide();
+        }, { once: true });
+
+        renderMarkers(viewer, markersPlugin);
+
     }
-  }, [initialized, containerRef]);
+  }, [containerRef]);
 
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
-            <AdminPanel viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
+            <AdminPanel renderMarkers={renderMarkers} viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './loginModal.module.scss';
 import { Navigate, Link } from 'react-router-dom';
+import { FaUser, FaLock } from "react-icons/fa";
 
 const loginModal = () => {
   const[email, setEmail ]= useState('');
@@ -34,17 +35,17 @@ const loginModal = () => {
         <h1>Вход</h1>
 
         <div className={styles.inputBox}>
-          <input type="email" name="email" placeholder="Электронная почта" maxLength="254" id="id_email" required
-              onChange={e => setEmail(e.target.value)}
+          <input type="text" name="username" placeholder="Имя пользователя" maxLength="254" id="id_username" required
+            onChange={e => setName(e.target.value)}
           />
-          <i className='bx bx-envelope'></i>
+          <FaUser className={styles.icon} />
         </div>
 
         <div className={styles.inputBox}>
           <input type="password" placeholder="Пароль" name="password1" autoComplete="new-password" id="id_password1" required
               onChange={e => setPassword(e.target.value)}
           />
-          <i className='bx bxs-lock-alt' ></i>
+          <FaLock className={styles.icon} />
         </div>
 
         <div className={styles.rememberForgot}>

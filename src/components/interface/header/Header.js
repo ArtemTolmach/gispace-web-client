@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss'
 
@@ -11,6 +13,9 @@ const Header = ({ name ,project, location, photosphere }) => {
   const [photoSpheres, setPhotoSpheres] = useState([]);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenPhotosphere, setIsOpenPhotosphere] = useState(false);
+  const validIds = ['sub-btn-projects', 'sub-btn-photospheres', 'svg', 'svg1'];
+
+  const subMenuRef = useRef(null);
 
   const clickMenuItem = () => {
     setNav(false);
@@ -26,6 +31,15 @@ const Header = ({ name ,project, location, photosphere }) => {
     setIsOpenLocation(false);
   }
 
+  const handleClickOutside = (event) => {
+    if (subMenuRef.current && !subMenuRef.current.contains(event.target) && !validIds.includes(event.target.id)) {
+      console.log(event);
+      setIsOpenLocation(false);
+      setIsOpenPhotosphere(false);
+    }
+  };
+  
+
   useEffect(() => {
     fetch('http://127.0.0.1:8000/api/locations/' + project + '/')
       .then(response => response.json())
@@ -34,7 +48,13 @@ const Header = ({ name ,project, location, photosphere }) => {
     fetch('http://127.0.0.1:8000/api/photospheres/' + location + '/')
       .then(response => response.json())
       .then(data => setPhotoSpheres(data));
-  }, []);
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [project, location]);
 
   return (
     <header className={styles.headerInterface}>
@@ -48,9 +68,9 @@ const Header = ({ name ,project, location, photosphere }) => {
             >
             <ul className={styles.menuHeader}>
               <li className={styles.menuItem}>
-                <Link  className={styles.subBtn} id="sub-btn-projects" onClick={toogleDropdownLocation}>Локации<i className="fas fa-angle-down"></i> </Link>
+                <Link  className={styles.subBtn} id="sub-btn-projects" onClick={toogleDropdownLocation}>Локации <FontAwesomeIcon id='svg' icon={faAngleDown}/></Link>
                 {isOpenLocation && (
-                  <ul className={styles.subMenu} id="sub-menu-locations">
+                  <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-locations">
                     {locations.map(location => (
                       <li key={location.id} className={styles.subItem}>
                         <a href={`/interface/${project}/${location.id}/${location.main_sphere}/`}>
@@ -62,9 +82,9 @@ const Header = ({ name ,project, location, photosphere }) => {
                 )}
               </li>
               <li className={styles.menuItem}>
-                <Link  className={styles.subBtn} id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы<i className="fas fa-angle-down"></i> </Link>
+                <Link  className={styles.subBtn} id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы <FontAwesomeIcon id='svg1' icon={faAngleDown}/></Link>
                 {isOpenPhotosphere && (
-                  <ul className={styles.subMenu} id="sub-menu-photospheres">
+                  <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-photospheres">
                     {photoSpheres.map(photoSphere => (
                       <li key={photoSphere.id} className={styles.subItem}>
                         <a href={`/interface/${project}/${location}/${photoSphere.id}/`}>

@@ -10,7 +10,8 @@ import styles from './interfacePage.module.scss';
 function interfacePage() {
   const [name, setName] = useState('');
   const { project, location, photosphere } = useParams();
-
+  
+{/*
   useEffect(() => {
     (
       async () => {
@@ -27,6 +28,7 @@ function interfacePage() {
       }
     )();
   });
+*/}
 
   return (
     <div className={styles.mainContainer}>

@@ -16,7 +16,7 @@ import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
 import RangeInput from "@Components/interface/rangeInput/rangeInput";
 import ColorPicker from "@Components/interface/colorPicker/colorPicker";
 
-const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized }) => {
+const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized, renderMarkers }) => {
     const [currentButton, setCurrentButton] = useState(null);
     const [positionData, setPosition] = useState({});
     const [selectedVideo, setSelectedVideo] = useState(null);
@@ -163,7 +163,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
     }
 
     useEffect(() => {
-        if (initialized && viewer) {
+        if (viewer) {
             function clickHandler({ data }) {
 
                 const outputPosition = {
@@ -217,7 +217,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
                 viewer.removeEventListener('click', clickHandler);
             };
         }
-    }, [modeInfoMarker, modeMoveMarker, modePolygonMarker, modeVideoMarker, modeImageMarker, modePolyLineMarker, viewer, initialized]);
+    }, [modeInfoMarker, modeMoveMarker, modePolygonMarker, modeVideoMarker, modeImageMarker, modePolyLineMarker, viewer]);
 
     const handleClick = (target) => {
         if (target.classList.contains(styles.ActiveItem) && currentButton === target) {
@@ -303,7 +303,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
 
 
         if (response.ok) {
-            renderMarkers();
+            renderMarkers(viewer, markersPlugin);
         }
     };
 
@@ -311,6 +311,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
     function handleAddInfoPoint(outputPosition) {
         adminPanel.classList.add(styles.open);
         setInfoForm(true);
+        setModeInfoMarker(false);
         setPosition(outputPosition);
     }
 
@@ -325,7 +326,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
         resetModes();
         currentButton.classList.remove(styles.ActiveItem);
     }
-
+ 
     const createVideoPoint = async () => {
         const colorChromoKey = document.getElementById("chromakey-color");
         const colorChromoKeyValue = colorChromoKey.style.getPropertyValue('background');
@@ -347,13 +348,14 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
                 body: formData,
             });
             if (response.ok) {
-                renderMarkers();
+                renderMarkers(viewer, markersPlugin);
             }
     };
 
     function handleVideoPoint() {
         adminPanel.classList.add(styles.open);
         setVideoForm(true);
+        setModeVideoMarker(false);
     }
 
     function submitVideoMarkerClickHandler() {
@@ -380,20 +382,19 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
                 body: formData,
             });
             if (response.ok) {
-                renderMarkers();
+                renderMarkers(viewer, markersPlugin);
             }
     };
 
     function handleImagePoint() {
         adminPanel.classList.add(styles.open);
         setImageForm(true);
+        setModeImageMarker(false);
     }
 
     function submitImageMarkerClickHandler() {
         createImagePoint(arrayDictsImages);
-
         adminPanel.classList.remove(styles.open);
-
         resetModes();
         currentButton.classList.remove(styles.ActiveItem);
     }
@@ -414,13 +415,14 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
         });
 
         if (response.ok) {
-            renderMarkers();
+            renderMarkers(viewer, markersPlugin);
         }
     };
 
     function handleMovePoint(outputPosition) {
         adminPanel.classList.add(styles.open);
         setMoveForm(true);
+        setModeMoveMarker(false);
         setPosition(outputPosition);
     }
 
@@ -440,7 +442,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
         const spanElement = document.getElementById('range-number-polyline-stroke');
         const spanValue = spanElement.textContent;
 
-        const colorElement = document.getElementById('color-picker-polygone-fill');
+        const colorElement = document.getElementById('color-picker-polyline-fill');
         const colorPolyline = colorElement.style.getPropertyValue('background');
 
         const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polyline-points/`, {
@@ -461,13 +463,14 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
             }),
         });
         if (response.ok) {
-            renderMarkers();
+            renderMarkers(viewer, markersPlugin);
         }
     };
 
     function handlePolyLinePoint() {
         adminPanel.classList.add(styles.open);
         setPolyLineForm(true);
+        setModePolyLineMarker(false);
     }
 
     function submitPolyLineMarkerClickHandler() {
@@ -480,7 +483,11 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
     }
 
     const createPolygonPoint = async (arrayPolygon) => {
-        const colorStroke = document.getElementById('color-picker-polygone-fill');
+        const colorFill = document.getElementById('color-picker-polygone-fill');
+        const colorValueFill = colorFill.style.getPropertyValue('background');
+        console.log(colorValueFill);
+
+        const colorStroke = document.getElementById('color-picker-polygone-stroke');
         const colorValueStroke = colorStroke.style.getPropertyValue('background');
         console.log(colorValueStroke);
 
@@ -504,10 +511,10 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
                 'X-CSRFToken': csrftoken,
             },
             body: JSON.stringify({
-                photo_sphere: 2,
+                photo_sphere: photosphere,
                 coordinates: arrayPolygon,
-                fill: 'rgba(59, 66, 138, 1)',
-                stroke: 'rgba(59, 66, 138, 1)',
+                fill: colorValueFill,
+                stroke: colorValueStroke,
                 stroke_width: spanValueStroke,
                 opacity: spanValueFill,
                 title: inputPolygone,
@@ -523,7 +530,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
 
 
         if (response.ok) {
-            renderMarkers();
+            renderMarkers(viewer, markersPlugin);
         }
     };
 
@@ -578,24 +585,23 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
                         <div className={styles.formMovePoint}>
                             <h1>Создать точку перемещения</h1>
 
-                            <Dropdown selected={selected} setSelected={setSelected} photosphere={photosphere} setTargetSphereId={setTargetSphereId}/>
+                            <Dropdown selected={selected} setSelected={setSelected} location={location} photosphere={photosphere} setTargetSphereId={setTargetSphereId}/>
 
                             <button type="submit" className={styles.submitMoveBtn} onClick={submitMoveMarkerClickHandler}>Создать</button>
                         </div>
                     )}
-
                     {infoForm && (
                         <div className={styles.formInfoPoint}>
                             <h1>Создать точку информации</h1>
-
+                
                             <div className={styles.inputBox}>
                                 <input type="text" placeholder="Название" id={styles.titleInputInfo}/>
                             </div>
-
+                
                             <div className={styles.areaBox}>
                                 <textarea placeholder="Описание" id={styles.descriptionInputInfo}></textarea>
                             </div>
-
+                
                             <button type="submit" className={styles.submitInfoBtn} onClick={submitInfoMarkerClickHandler}>Создать</button>
                         </div>
                     )}
@@ -664,7 +670,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized 
 
                             <div className={styles.strokePolyline}>
                                 <p>Цвет линии</p>
-                                <ColorPicker id={'polygone-fill'} />
+                                <ColorPicker id={'polyline-fill'} />
                                 <p>Ширина линии</p>
                                 <RangeInput id="polyline-stroke" min={0} max={10} step={1} startValue={5} percent={10} />
 

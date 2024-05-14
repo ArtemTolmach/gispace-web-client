@@ -29,7 +29,7 @@ body {
 
 .logo{
     position: fixed;
-    top: 2vh;
+    top: 3vh;
     left: 7vh;
     color: #fff;
     font-size: 70px;
@@ -43,6 +43,7 @@ body {
     .logo {
         left: 50%;
         transform: translateX(-50%);
+        top: 9vh;
     }
 }
 

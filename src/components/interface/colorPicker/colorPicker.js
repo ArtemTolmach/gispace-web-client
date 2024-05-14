@@ -9,8 +9,17 @@ export default function ColorPickerGfg({ id }) {
     const colorPickerRef = useRef(null);
 
     const changeColorButton = (newColor) => {
-        document.getElementById(`color-picker-${id}`).style.background = newColor.hex;
+        const roundedR = Math.round(newColor.rgb.r);
+        const roundedG = Math.round(newColor.rgb.g);
+        const roundedB = Math.round(newColor.rgb.b);
+        console.log(newColor);
+        console.log(`rgba(${roundedR}, ${roundedG}, ${roundedB}, 1)`);
+        document.getElementById(`color-picker-${id}`).style.background = `rgba(${roundedR}, ${roundedG}, ${roundedB}, 0.99)`;
     };
+
+    useEffect(() => {
+        document.getElementById(`color-picker-${id}`).style.background = `rgba(23, 35, 56, 0.99)`;
+    },[])
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -53,6 +62,7 @@ export default function ColorPickerGfg({ id }) {
             <div
                 className={styles.colorButton}
                 id={`color-picker-${id}`}
+                background='rgba(23, 35, 56, 0.99)'
                 onClick={() => setColorPickerActive(!colorPickerActive)}
             ></div>
         </div>

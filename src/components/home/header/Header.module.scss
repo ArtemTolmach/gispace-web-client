@@ -84,6 +84,7 @@ header {
     }
 
     .menu {
+        backdrop-filter: blur(26px);
         display: block;
         flex-direction: column;
         justify-content: center;
