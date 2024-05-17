@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import Header from '@Components/home/header/Header';
 import Search from '@Components/home/search/Search';
@@ -9,28 +9,10 @@ import OverviewContainer from '@Components/home/list-projects-module/OverViewCon
 import styles from './homePage.module.scss';
 
 function HomePage() {
-  const [name, setName] = useState('');
-
-  useEffect(() => {
-    (
-      async () => {
-        const response = await fetch('http://127.0.0.1:8000/user', {
-          headers:{ 'Content-Type': 'application/json'},
-          credentials: 'include'
-        });
-
-        const content = await response.json();
-
-        console.log(content);
-
-        setName(content.name);
-      }
-    )();
-  });
 
   return (
     <div className={styles.mainContainer}>
-        <Header name={name}/>
+        <Header />
         <Search />
         <ImageContainer />
         <div className={styles.otherContainer}>

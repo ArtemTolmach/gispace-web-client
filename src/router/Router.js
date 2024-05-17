@@ -4,6 +4,7 @@ import HomePage from "@Pages/home-page/homePage";
 import InterfacePage from "@Pages/interface-page/interfacePage";
 import LoginPage from "@Pages/login-page/loginPage";
 import RegisterPage from "@Pages/register-page/registerPage";
+import { AuthProvider } from "../context/AuthContext"
 
 function RouterCustom() {
   
@@ -15,13 +16,15 @@ function RouterCustom() {
 
   return (
     <Router>
-      <Routes>
-        <Route path={ROUTES.home} element={<HomePage />} />
-        <Route path="/interface/:project/:location/:photosphere" element={<InterfacePage />} />
-        <Route path={ROUTES.login} element={<LoginPage />} />
-        <Route path={ROUTES.register} element={<RegisterPage />} />
-        <Route path="*" element={<HomePage />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path={ROUTES.home} element={<HomePage />} />
+          <Route path="/interface/:project/:location/:photosphere" element={<InterfacePage />} />
+          <Route path={ROUTES.login} element={<LoginPage />} />
+          <Route path={ROUTES.register} element={<RegisterPage />} />
+          <Route path="*" element={<HomePage />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }

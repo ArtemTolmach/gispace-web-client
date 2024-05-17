@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 
 import styles from './Header.module.scss'
+import AuthContext from '../../../context/AuthContext';
 
-const Header = ({ name }) => {
+const Header = () => {
   const [nav, setNav] = useState(false);
+  let {user, logoutUser} = useContext(AuthContext)
 
   const clickMenuItem = () => {
     setNav(false);
@@ -17,20 +19,6 @@ const Header = ({ name }) => {
       aboutUsElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  const logout = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch('http://127.0.0.1:8000/logout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      credentials: 'include',
-    });
-
-    console.log('Выход');
-    console.log(res);
-
-  }
 
   return (
     <header className={styles.header}>
@@ -45,14 +33,14 @@ const Header = ({ name }) => {
             <li className={styles.menuItem} onClick={clickMenuItem}>
               <Link onClick={scrollToAboutUs}>О Нас</Link>
             </li>
-            {name ? (
+            {user ? (
               <>
                 <li className={styles.menuItem}>
-                  <a id="user-name" href="#">{name}</a>
+                  <a id="user-name" href="#">{user.username}</a>
                 </li>
                 <form id="logout-form" className={styles.menuItem}>
                   <input type="hidden" />
-                  <a onClick={logout}>Выйти</a>
+                  <a onClick={logoutUser}>Выйти</a>
                 </form>
               </>
             ) : (

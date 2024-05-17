@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
@@ -6,8 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss'
+import AuthContext from '../../../context/AuthContext';
 
-const Header = ({ name ,project, location, photosphere }) => {
+const Header = ({ project, location, photosphere }) => {
+  let {user, logoutUser} = useContext(AuthContext)
+
   const [nav, setNav] = useState(false);
   const [locations, setLocations] = useState([]);
   const [photoSpheres, setPhotoSpheres] = useState([]);
@@ -33,7 +36,6 @@ const Header = ({ name ,project, location, photosphere }) => {
 
   const handleClickOutside = (event) => {
     if (subMenuRef.current && !subMenuRef.current.contains(event.target) && !validIds.includes(event.target.id)) {
-      console.log(event);
       setIsOpenLocation(false);
       setIsOpenPhotosphere(false);
     }
@@ -96,14 +98,14 @@ const Header = ({ name ,project, location, photosphere }) => {
                 )}
               </li>
             </ul>
-            {name ? (
+            {user ? (
               <ul className={styles.authContainer}>
                 <li className={styles.menuItem}>
-                  <a id="user-name">{name}</a>
+                  <a id="user-name">{user.username}</a>
                 </li>
                 <form id="logout-form" className={styles.menuItem} method="post" action="/logout">
                   <input type="hidden"/>
-                  <a>Выйти</a>
+                  <a onClick={logoutUser}>Выйти</a>
                 </form>
               </ul>
             ) : (

@@ -10,13 +10,11 @@ const Dropdown = ({ selected, setSelected, location, setTargetSphereId, photosph
         const res = fetch('http://127.0.0.1:8000/api/photospheres/' + location)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 setOptions(data);
             })
             .catch(error => {
                 console.error('Error fetching dropdown items:', error);
             });
-        console.log(res);
     }, [isActive]); 
 
     return (

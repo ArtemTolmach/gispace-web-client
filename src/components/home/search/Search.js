@@ -17,7 +17,6 @@ const SearchForm = () => {
           throw new Error('Ошибка при получении данных');
         }
         const data = await response.json();
-        console.log(data);
         setProjects(data);
       } catch (error) {
         console.error('Ошибка:', error);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import infoIcon from "@Assets/images/info-button-icon.png";
 import moveIcon from "@Assets/images/move-button-icon.png";
@@ -15,15 +15,20 @@ import VideoDropArea from "@Components/interface/videoDrop/videoDrop";
 import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
 import RangeInput from "@Components/interface/rangeInput/rangeInput";
 import ColorPicker from "@Components/interface/colorPicker/colorPicker";
+import AuthContext from "../../../context/AuthContext";
+import { getCookie } from 'react-use-cookie';
 
-const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized, renderMarkers }) => {
+const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarkers }) => {
     const [currentButton, setCurrentButton] = useState(null);
     const [positionData, setPosition] = useState({});
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [targetSphereId, setTargetSphereId] = useState(null);
 
+    const CSR = getCookie('csrftoken');
+    console.log(CSR);
 
+    console.log('reg');
     const handleVideoChange = (video) => {
         setSelectedVideo(video);
     };
@@ -57,8 +62,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
     const [selected, setSelected] = useState("Выберите фотосферу");
 
     const resetModes = () => {
-        console.log('Сработал');
-
         setModeInfoMarker(false);
         setModeMoveMarker(false);
         setModePolygonMarker(false);
@@ -170,7 +173,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                     yaw: data.yaw,
                     pitch: data.pitch,
                 };
-                console.log(outputPosition);
 
                 if (modeInfoMarker) {
                     handleAddInfoPoint(outputPosition);
@@ -179,11 +181,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 } else if (modePolygonMarker) {
                     let coordinateClick = [data.yaw, data.pitch];
                     arrayPolygon.push(coordinateClick);
-                    console.log('Полигон массив',arrayPolygon);
                     createTemporaryMarker(arrayPolygon);
                 } else if (modeVideoMarker) {
                     let coordinateClick = [data.yaw, data.pitch];
-                    console.log('Видео массив',arrayVideo);
                     arrayVideo.push(coordinateClick);
                     createTemporaryMarker(arrayVideo);
                     if (arrayVideo.length === 4) {
@@ -195,7 +195,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 } else if (modeImageMarker) {
                     let coordinateClick = [data.yaw, data.pitch];
                     arrayImage.push(coordinateClick);
-                    console.log('Изображение массив',arrayImage);
                     createTemporaryMarker(arrayImage);
                     if (arrayImage.length === 4) {
                         arrayImage.forEach((array, index) => {
@@ -206,7 +205,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 } else if (modePolyLineMarker) {
                     let coordinateClick = [data.yaw, data.pitch];
                     arrayPolyLine.push(coordinateClick);
-                    console.log('Линия массив',arrayPolyLine);
                     createTemporaryMarker(arrayPolyLine);
                 }
             }
@@ -267,14 +265,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
         }
     }
 
-    console.log('Рендер Админ панелти');
-
-    const getCookie = (name) => {
-        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return cookieValue ? cookieValue.pop() : '';
-    };
-
-    const csrftoken = 'RUpsLtYsV12OMLMADQeSgA5qXUYNttWz';
+    let {authTokens} = useContext(AuthContext)
 
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;
@@ -286,6 +277,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
+                'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
                 photo_sphere: photosphere,
@@ -295,12 +287,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 description: description,
             }),
         });
-        console.log(photosphere);
-        console.log(outputPosition.yaw);
-        console.log(outputPosition.pitch);
-        console.log(title);
-        console.log(description);
-
 
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
@@ -344,6 +330,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,
+                    'Authorization': 'Bearer ' + authTokens.access
                 },
                 body: formData,
             });
@@ -378,6 +365,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,
+                    'Authorization': 'Bearer ' + authTokens.access
                 },
                 body: formData,
             });
@@ -405,6 +393,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
+                'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
                 photo_sphere: photosphere,
@@ -450,6 +439,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
+                'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
                 photo_sphere: photosphere,
@@ -485,30 +475,25 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
     const createPolygonPoint = async (arrayPolygon) => {
         const colorFill = document.getElementById('color-picker-polygone-fill');
         const colorValueFill = colorFill.style.getPropertyValue('background');
-        console.log(colorValueFill);
 
         const colorStroke = document.getElementById('color-picker-polygone-stroke');
         const colorValueStroke = colorStroke.style.getPropertyValue('background');
-        console.log(colorValueStroke);
 
         const spanElementFill = document.getElementById('range-number-fill-polygone');
         const spanValueFill = spanElementFill.textContent;
-        console.log(spanValueFill);
 
         const spanElementStroke = document.getElementById('range-number-stroke-polygone');
         const spanValueStroke = spanElementStroke.textContent;
-        console.log(spanValueStroke);
 
         const inputPolygone = document.getElementById('title-input-polygone').value;
         const descriptionPolygone = document.getElementById('description-input-polygone').value;
-        console.log(inputPolygone);
-        console.log(descriptionPolygone);
 
         const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polygon-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
+                'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
                 photo_sphere: photosphere,
@@ -521,13 +506,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                 description: descriptionPolygone
             }),
         });
-        console.log('Сфера',photosphere);
-        console.log('Массив',arrayPolygon);
-        console.log(spanValueStroke);
-        console.log(spanValueFill);
-        console.log(inputPolygone);
-        console.log(descriptionPolygone);
-
 
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
@@ -548,8 +526,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
         resetModes();
         currentButton.classList.remove(styles.ActiveItem);
     }
-
-
 
     return (
         <>
@@ -649,7 +625,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                                 <ColorPicker id={'polygone-stroke'} />
                                 <p>Ширина границы</p>
                                 <RangeInput id="stroke-polygone" min={0} max={10} step={1} startValue={5} percent={10} />
-
                             </div>
 
                             <div className={styles.inputBox}>
@@ -673,7 +648,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, initialized,
                                 <ColorPicker id={'polyline-fill'} />
                                 <p>Ширина линии</p>
                                 <RangeInput id="polyline-stroke" min={0} max={10} step={1} startValue={5} percent={10} />
-
                             </div>
 
                             <div className={styles.inputBox}>

@@ -1,50 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './loginModal.module.scss';
 import { Navigate, Link } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
+import AuthContext from '../../../context/AuthContext';
 
 const loginModal = () => {
-  const[email, setEmail ]= useState('');
-  const[password, setPassword ]= useState('');
-  const [redirect, setRedirect]= useState(false);
-
-  const submit = async (e) => {
-    e.preventDefault();
-
-    await fetch('http://127.0.0.1:8000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      credentials: 'include',
-      body: JSON.stringify({
-        email,
-        password
-      })
-    });
-
-    setRedirect(true);
-  }
+  let {loginUser} = useContext(AuthContext)
   
-  if (redirect) {
-      return <Navigate to="/"/>;
-  }
-
   return (
     <div className={styles.wrapper}>
-      <form onSubmit={submit}>
-        <input type="hidden" name="csrfmiddlewaretoken" value="{% csrf_token %}" />
+      <form onSubmit={loginUser}>
         <h1>Вход</h1>
 
         <div className={styles.inputBox}>
-          <input type="text" name="username" placeholder="Имя пользователя" maxLength="254" id="id_username" required
-            onChange={e => setName(e.target.value)}
-          />
+          <input type="text" name="username" placeholder="Имя пользователя" maxLength="254" id="id_username" required/>
           <FaUser className={styles.icon} />
         </div>
 
         <div className={styles.inputBox}>
-          <input type="password" placeholder="Пароль" name="password1" autoComplete="new-password" id="id_password1" required
-              onChange={e => setPassword(e.target.value)}
-          />
+          <input type="password" placeholder="Пароль" name="password" autoComplete="new-password" id="id_password1" required/>
           <FaLock className={styles.icon} />
         </div>
 

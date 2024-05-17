@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 
 import { Viewer } from '@photo-sphere-viewer/core';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
@@ -10,19 +10,19 @@ import infoImage from '@Assets/images/info.png';
 import moveImage from '@Assets/images/move.png';
 
 import styles from './ImageContainer.module.scss';
+import AuthContext from '../../../context/AuthContext';
 
 const ImageContainer = ({ project, location, photosphere }) => {
   const containerRef = useRef(null);
   const [initialized, setInitialized] = useState(false);
   const [viewer, setViewer] = useState(null);
+  let {is_superuser} = useContext(AuthContext);
   const [markersPlugin, setMarkersPlugin] = useState(null);
-    console.log('Рендер Главной имаге')
 
   function renderMarkers(viewer, markersPlugin){
     fetch(`http://127.0.0.1:8000/api/photosphere/${photosphere}/`)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 const panorama = data.image_path;
 
                 viewer.setPanorama(panorama).then(() => {
@@ -83,8 +83,6 @@ const ImageContainer = ({ project, location, photosphere }) => {
                         }
 
                     });
-
-                    console.log(data.polygon_points);
 
                     data.polygon_points.forEach(point => {
                         markersPlugin.addMarker({
@@ -218,7 +216,9 @@ const ImageContainer = ({ project, location, photosphere }) => {
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
-            <AdminPanel renderMarkers={renderMarkers} viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
+            {Boolean(is_superuser) && window.innerWidth >= 1100 &&(
+                <AdminPanel renderMarkers={renderMarkers} viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
+            )}
       </div>
     </>
   );
