@@ -16,7 +16,6 @@ import ImageDropArea from "@Components/interface/imageDrop/imageDrop";
 import RangeInput from "@Components/interface/rangeInput/rangeInput";
 import ColorPicker from "@Components/interface/colorPicker/colorPicker";
 import AuthContext from "../../../context/AuthContext";
-import { getCookie } from 'react-use-cookie';
 
 const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarkers }) => {
     const [currentButton, setCurrentButton] = useState(null);
@@ -263,8 +262,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
     let {authTokens} = useContext(AuthContext)
 
-    const csrftoken = 'V52xBCNLs0fpfQvrgJATTuvmRT0et14v';
-
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;
         const title = document.getElementById(styles.titleInputInfo).value;
@@ -274,7 +271,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
                 'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
@@ -327,7 +323,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             const response = await fetch(`http://127.0.0.1:8000/api/photospheres/video-points/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrftoken,
                     'Authorization': 'Bearer ' + authTokens.access
                 },
                 body: formData,
@@ -362,7 +357,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             const response = await fetch(`http://127.0.0.1:8000/api/photospheres/image-points/`, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrftoken,
                     'Authorization': 'Bearer ' + authTokens.access
                 },
                 body: formData,
@@ -390,7 +384,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
                 'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
@@ -436,7 +429,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
                 'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
@@ -490,7 +482,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken,
                 'Authorization': 'Bearer ' + authTokens.access
             },
             body: JSON.stringify({
