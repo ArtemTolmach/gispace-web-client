@@ -190,8 +190,11 @@ const ImageContainer = ({ project, location, photosphere }) => {
   useEffect(() => {
 
     if (!initialized && containerRef.current) {
+        const defaultZoomLvl = window.innerWidth < 900 ? 1 : 50;
+
         const viewer = new Viewer({
             container: containerRef.current,
+            defaultZoomLvl: defaultZoomLvl,
             plugins: [
                 [MarkersPlugin, {
                     defaultHoverScale: true,
