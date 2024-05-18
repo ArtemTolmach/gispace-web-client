@@ -15,46 +15,44 @@ export const AuthProvider = ({ children }) => {
 
   const navigate = useNavigate()
 
-  let loginUser = async (e )=> {
-    e.preventDefault()
+  let loginUser = async (data) => {
     let response = await fetch('http://127.0.0.1:8000/api/token/', {
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body:JSON.stringify({'username':e.target.username.value, 'password':e.target.password.value})
-    })
-    let data = await response.json()
-    
-    if(response.status === 200){
-        setAuthTokens(data)
-        setUser(jwtDecode(data.access))
-        setSuperUser(jwtDecode(data.access).is_superuser)
-        localStorage.setItem('authTokens', JSON.stringify(data))
-        navigate('/')
-    }else{
-        alert('Something went wrong!')
-    }
-  }
+        body: JSON.stringify({ 'username': data.username, 'password': data.password })
+    });
+    let result = await response.json();
 
-  let registerUser = async (e )=> {
-    e.preventDefault()
+    if (response.status === 200) {
+        setAuthTokens(result);
+        setUser(jwtDecode(result.access));
+        setSuperUser(jwtDecode(result.access).is_superuser);
+        localStorage.setItem('authTokens', JSON.stringify(result));
+        navigate('/');
+    } else {
+        alert('Что-то пошло не так!');
+    }
+  };
+
+  let registerUser = async (data)=> {
     let response = await fetch('http://127.0.0.1:8000/register', {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
         },
         body:JSON.stringify({
-            username :e.target.username.value,
-            email :e.target.email.value,
-            password :e.target.password.value
+            username :data.username,
+            email :data.email,
+            password :data.password
         })
     })
     
     if(response.status === 200){
         navigate('/login/')
     }else{
-        alert('Something went wrong!')
+        alert('Что-то пошло не так!');
     }
   }
 

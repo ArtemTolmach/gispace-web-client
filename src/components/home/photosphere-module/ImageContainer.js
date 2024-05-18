@@ -14,11 +14,13 @@ const ImageContainer = () => {
 
       const panorama = new PANOLENS.ImagePanorama(imageUrl);
 
+      const controlButtons = window.innerWidth < 900 ? [] : ['fullscreen'];
+
       const viewer = new PANOLENS.Viewer({
         container: containerRef.current,
         autoRotate: true,
         autoRotateSpeed: 1,
-        controlButtons: ['fullscreen'],
+        controlButtons: controlButtons
       });
 
       viewer.add(panorama);

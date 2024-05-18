@@ -25,10 +25,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
     const [selectedImage, setSelectedImage] = useState(null);
     const [targetSphereId, setTargetSphereId] = useState(null);
 
-    const CSR = getCookie('csrftoken');
-    console.log(CSR);
-
-    console.log('reg');
     const handleVideoChange = (video) => {
         setSelectedVideo(video);
     };
@@ -266,6 +262,8 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
     }
 
     let {authTokens} = useContext(AuthContext)
+
+    const csrftoken = 'V52xBCNLs0fpfQvrgJATTuvmRT0et14v';
 
     const createInfoPoint = async (outputPosition) => {
         const description = document.getElementById(styles.descriptionInputInfo).value;

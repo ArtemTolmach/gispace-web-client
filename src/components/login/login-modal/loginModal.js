@@ -1,30 +1,63 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import styles from './loginModal.module.scss';
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
 import AuthContext from '../../../context/AuthContext';
+import { useForm } from 'react-hook-form';
 
-const loginModal = () => {
-  let {loginUser} = useContext(AuthContext)
+const LoginModal = () => {
+  const { 
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur"
+  });
+
+  let { loginUser } = useContext(AuthContext);
   
   return (
     <div className={styles.wrapper}>
-      <form onSubmit={loginUser}>
+      <form onSubmit={handleSubmit(loginUser)}>
         <h1>Вход</h1>
 
         <div className={styles.inputBox}>
-          <input type="text" name="username" placeholder="Имя пользователя" maxLength="254" id="id_username" required/>
+          <input 
+            {...register('username', { 
+              required: 'Имя пользователя обязательно',              
+              minLength: {
+                value: 5,
+                message: 'Минимум 5 символов',
+              }
+            })} 
+            type="text" 
+            name="username" 
+            placeholder="Имя пользователя" 
+            maxLength="254" 
+            id="id_username" 
+          />
           <FaUser className={styles.icon} />
         </div>
-
+        {errors.username && <p className={styles.error}>{errors.username.message}</p>}
         <div className={styles.inputBox}>
-          <input type="password" placeholder="Пароль" name="password" autoComplete="new-password" id="id_password1" required/>
+          <input 
+            {...register('password', { 
+              required: 'Пароль обязателен',
+              minLength: {
+                value: 8,
+                message: 'Минимум 8 символов',
+              },
+              pattern: { value: /^[A-Za-z0-9]+$/, message: 'Пароль должен содержать только буквы и цифры' }
+            })} 
+            type="password" 
+            placeholder="Пароль" 
+            name="password" 
+            autoComplete="new-password" 
+            id="id_password1" 
+          />
           <FaLock className={styles.icon} />
         </div>
-
-        <div className={styles.rememberForgot}>
-          <Link to="/password_reset">Забыли пароль?</Link>
-        </div>
+        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
         <button type="submit" className={styles.btn}>Вход</button>
         <div className={styles.registerLink}>
@@ -35,4 +68,4 @@ const loginModal = () => {
   );
 }
 
-export default loginModal;
+export default LoginModal;

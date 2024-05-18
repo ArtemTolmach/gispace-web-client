@@ -36,7 +36,7 @@ const Header = () => {
             {user ? (
               <>
                 <li className={styles.menuItem}>
-                  <a id="user-name" href="#">{user.username}</a>
+                  <a id="user-name">{user.username}</a>
                 </li>
                 <form id="logout-form" className={styles.menuItem}>
                   <input type="hidden" />
