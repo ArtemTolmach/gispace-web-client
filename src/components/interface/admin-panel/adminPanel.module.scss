@@ -57,7 +57,6 @@
             backdrop-filter: blur(48px);
 }
 
-
 .adminPanel.open .adminAddPoint {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -70,8 +69,9 @@
             backdrop-filter: blur(0px);
 }
 
-
 .formInfoPoint, .formImagePoint, .formMovePoint, .formVideoPoint, .formPolygonePoint, .formPolylinePoint {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: relative;
     left: 30px;

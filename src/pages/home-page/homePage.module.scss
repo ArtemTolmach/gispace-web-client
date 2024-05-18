@@ -43,16 +43,16 @@ body::-webkit-scrollbar-thumb {
 .otherContainer {
     position: relative;
     display: block;
+    background: -o-linear-gradient(bottom,
+        #0C1122 0%,
+        #0C1122 50%,
+        #060108 100%
+    );
     background: -webkit-gradient(linear,
         left bottom, left top,
         from(#0C1122),
         color-stop(50%, #0C1122),
         to(#060108)
-    );
-    background: -o-linear-gradient(bottom,
-        #0C1122 0%,
-        #0C1122 50%,
-        #060108 100%
     );
     background: linear-gradient(to top,
         #0C1122 0%,

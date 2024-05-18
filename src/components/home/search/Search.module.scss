@@ -95,9 +95,12 @@ input[type="search"]::-webkit-search-cancel-button {
     max-height: 50vh;
     line-height: 50px;
     border-radius: 0 0 10px 10px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
     transition: 0.3s;
     background: #20232aba;
-    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+            backdrop-filter: blur(50px);
     z-index: 1;
     list-style: none;
     padding: 0;
@@ -120,17 +123,31 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .suggestionHrefToProject {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
     text-decoration: none;
 }
 
 .suggestionText {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: nowrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
     height: 10vh;
 }
 
@@ -153,7 +170,8 @@ input[type="search"]::-webkit-search-cancel-button {
     margin: 0 0 0 20px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
     max-width: 42vh;
 }
 
