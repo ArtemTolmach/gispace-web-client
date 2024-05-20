@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom'
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 
 const AuthContext = createContext();
 
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
 
   let loginUser = async (data) => {
-    let response = await fetch('http://127.0.0.1:8000/api/token/', {
+    let response = await fetch(`${BACKEND_HOST}/api/token/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   let registerUser = async (data)=> {
-    let response = await fetch('http://127.0.0.1:8000/register', {
+    let response = await fetch(`${BACKEND_HOST}/register`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
     let updateToken = async ()=> {
 
-        let response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+        let response = await fetch(`${BACKEND_HOST}/api/token/refresh/`, {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'

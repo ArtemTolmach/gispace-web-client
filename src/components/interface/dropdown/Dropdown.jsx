@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Dropdown.module.scss';
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 
 const Dropdown = ({ selected, setSelected, location, setTargetSphereId, photosphere }) => {
     const [isActive, setIsActive] = useState(false);
@@ -7,7 +8,7 @@ const Dropdown = ({ selected, setSelected, location, setTargetSphereId, photosph
     const shouldShowDropdown = options.length > 1;
 
     useEffect(() => {
-        const res = fetch('http://127.0.0.1:8000/api/photospheres/' + location)
+        const res = fetch(`${BACKEND_HOST}/api/photospheres/` + location)
             .then(response => response.json())
             .then(data => {
                 setOptions(data);

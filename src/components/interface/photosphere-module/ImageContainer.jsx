@@ -11,6 +11,7 @@ import moveImage from '@Assets/images/move.png';
 
 import styles from './ImageContainer.module.scss';
 import AuthContext from '../../../context/AuthContext';
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 
 const ImageContainer = ({ project, location, photosphere }) => {
   const containerRef = useRef(null);
@@ -20,7 +21,7 @@ const ImageContainer = ({ project, location, photosphere }) => {
   const [markersPlugin, setMarkersPlugin] = useState(null);
 
   function renderMarkers(viewer, markersPlugin){
-    fetch(`http://127.0.0.1:8000/api/photosphere/${photosphere}/`)
+    fetch(`${BACKEND_HOST}/api/photosphere/${photosphere}/`)
             .then(response => response.json())
             .then(data => {
                 const panorama = data.image_path;

@@ -17,6 +17,8 @@ import RangeInput from "@Components/interface/rangeInput/rangeInput";
 import ColorPicker from "@Components/interface/colorPicker/colorPicker";
 import AuthContext from "../../../context/AuthContext";
 
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
+
 const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarkers }) => {
     const [currentButton, setCurrentButton] = useState(null);
     const [positionData, setPosition] = useState({});
@@ -267,7 +269,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         const title = document.getElementById(styles.titleInputInfo).value;
 
 
-        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/information-points/`, {
+        const response = await fetch(`${BACKEND_HOST}/api/photospheres/information-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -320,7 +322,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         formData.append('enable_chroma_key', checkBox);
         formData.append('color_chroma_key', colorChromoKeyValue);
 
-            const response = await fetch(`http://127.0.0.1:8000/api/photospheres/video-points/`, {
+            const response = await fetch(`${BACKEND_HOST}/api/photospheres/video-points/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + authTokens.access
@@ -354,7 +356,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         formData.append('image', selectedImage);
         formData.append('coordinates', JSON.stringify(arrayDictsImages));
 
-            const response = await fetch(`http://127.0.0.1:8000/api/photospheres/image-points/`, {
+            const response = await fetch(`${BACKEND_HOST}/api/photospheres/image-points/`, {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + authTokens.access
@@ -380,7 +382,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
     }
 
     const createMovePoint = async (outputPosition) => {
-        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/move-points/`, {
+        const response = await fetch(`${BACKEND_HOST}/api/photospheres/move-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -425,7 +427,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         const colorElement = document.getElementById('color-picker-polyline-fill');
         const colorPolyline = colorElement.style.getPropertyValue('background');
 
-        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polyline-points/`, {
+        const response = await fetch(`${BACKEND_HOST}/api/photospheres/polyline-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -478,7 +480,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         const inputPolygone = document.getElementById('title-input-polygone').value;
         const descriptionPolygone = document.getElementById('description-input-polygone').value;
 
-        const response = await fetch(`http://127.0.0.1:8000/api/photospheres/polygon-points/`, {
+        const response = await fetch(`${BACKEND_HOST}/api/photospheres/polygon-points/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

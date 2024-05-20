@@ -7,6 +7,7 @@ import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss'
 import AuthContext from '../../../context/AuthContext';
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 
 const Header = ({ project, location, photosphere }) => {
   let {user, logoutUser} = useContext(AuthContext)
@@ -43,11 +44,11 @@ const Header = ({ project, location, photosphere }) => {
   
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/locations/' + project + '/')
+    fetch(`${BACKEND_HOST}/api/locations/` + project + '/')
       .then(response => response.json())
       .then(data => setLocations(data));
     
-    fetch('http://127.0.0.1:8000/api/photospheres/' + location + '/')
+    fetch(`${BACKEND_HOST}/api/photospheres/` + location + '/')
       .then(response => response.json())
       .then(data => setPhotoSpheres(data));
 

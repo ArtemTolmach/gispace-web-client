@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 
 import styles from'./OverViewContainer.module.scss'
 
@@ -9,7 +10,7 @@ const OverViewContainer = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/photospheres/get-project-list/');
+        const response = await fetch(`${BACKEND_HOST}/api/photospheres/get-project-list/`);
         if (!response.ok) {
           throw new Error('Ошибка при получении данных');
         }
