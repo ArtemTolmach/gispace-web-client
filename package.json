@@ -1,44 +1,22 @@
 {
   "dependencies": {
-    "@craco/craco": "7.1.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "@fortawesome/free-brands-svg-icons": "^6.5.2",
-    "@fortawesome/free-regular-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@hookform/resolvers": "^3.4.0",
     "@photo-sphere-viewer/core": "5.7.1",
     "@photo-sphere-viewer/markers-plugin": "5.7.1",
-    "@simonwep/pickr": "^1.9.0",
-    "@testing-library/jest-dom": "5.17.0",
-    "@testing-library/react": "13.4.0",
-    "@testing-library/user-event": "13.5.0",
-    "@thednp/react-color-picker": "^0.0.9",
     "@vitejs/plugin-react": "^4.2.1",
-    "boxicons": "^2.1.4",
-    "css-loader": "7.1.1",
-    "file-loader": "6.2.0",
-    "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "panolens": "0.11.0",
-    "pickr": "^0.1.4",
-    "primereact": "^10.6.5",
     "react": "18.2.0",
-    "react-boxicons": "^0.0.28",
     "react-color-palette": "^7.1.1",
     "react-dom": "18.2.0",
-    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.51.4",
     "react-icons": "^5.1.0",
     "react-router-dom": "6.22.3",
-    "react-use-cookie": "^1.6.1",
     "sass": "^1.77.1",
-    "style-loader": "4.0.0",
     "sweetalert2": "^11.10.8",
-    "three": "0.163.0",
-    "url-loader": "4.1.1",
-    "web-vitals": "3.5.2",
-    "yup": "^1.4.0"
+    "three": "0.163.0"
   },
   "scripts": {
     "start": "vite",
@@ -58,8 +36,6 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "postcss-loader": "^8.1.1",
     "vite": "^5.2.11"
   }
 }
