@@ -1,6 +1,9 @@
 import React from 'react';
-import eyedropperIcon from '@Assets/images/eyedropper-icon.png';
+
+import eyedropperIcon from '@Assets/images/eyedropperIcon.png';
+
 import styles from './eyedropper.module.scss';
+
 function ChromaKeyInput() {
     const handleEyedropperClick = async (event) => {
         event.preventDefault();

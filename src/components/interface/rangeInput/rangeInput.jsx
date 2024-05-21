@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+
 import styles from './rangeInput.module.scss';
 
 const RangeInput = ({ id, min, max, step, startValue, percent }) => {
@@ -48,7 +49,7 @@ const RangeInput = ({ id, min, max, step, startValue, percent }) => {
           id={`range-input-${id}`}
           min={min}
           max={max}
-          defaultValue={(max - min) / 2} // Set initial value to the middle of min and max
+          defaultValue={(max - min) / 2}
           step={step}
         />
       </div>

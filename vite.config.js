@@ -11,6 +11,7 @@ export default defineConfig({
       '@Assets': resolve(__dirname, 'src/assets'),
       '@Pages': resolve(__dirname, 'src/pages'),
       '@Router': resolve(__dirname, 'src/router'),
+      '@Context': resolve(__dirname, 'src/context'),
       '@Utils': resolve(__dirname, 'src/utils'),
       '@So_on': resolve(__dirname, 'src/so_on')
     }

@@ -1,7 +1,8 @@
-import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/css";
-import styles from "./colorPicker.module.scss";
 import { useState, useEffect, useRef } from "react";
+import { ColorPicker, useColor } from "react-color-palette";
+
+import styles from "./colorPicker.module.scss";
+import "react-color-palette/css";
 
 export default function ColorPickerGfg({ id }) {
     const [color, setColor] = useColor("hex", "#121212");

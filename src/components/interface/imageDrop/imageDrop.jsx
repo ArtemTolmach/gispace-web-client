@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
+
 import styles from './imageDrop.module.scss';
-import uploadIcon from "@Assets/images/upload-icon.png";
+
+import uploadIcon from "@Assets/images/uploadIcon.png";
 
 function ImageUploader({ onImageChange }) {
     const [imageKey, setImageKey] = useState(Date.now());

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
+
 import styles from './videoDrop.module.scss';
-import uploadIcon from "@Assets/images/upload-icon.png";
+
+import uploadIcon from "@Assets/images/uploadIcon.png";
 
 function VideoUploader({ onVideoChange }) {
     const [videoKey, setVideoKey] = useState(Date.now());
