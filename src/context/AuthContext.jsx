@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   let registerUser = async (data)=> {
-    let response = await fetch(`${BACKEND_HOST}/register`, {
+    let response = await fetch(`${BACKEND_HOST}/api/register`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
