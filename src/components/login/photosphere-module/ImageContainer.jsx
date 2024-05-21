@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import * as PANOLENS from 'panolens';
-import imageUrl from "@Assets/images/login.jpg";
+import imageUrl from "@Assets/images/login.webp";
 import styles from './ImageContainer.module.scss'
 
 const ImageContainer = () => {

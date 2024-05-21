@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as PANOLENS from 'panolens';
-import imageUrl from "@Assets/images/register.jpg";
+import imageUrl from "@Assets/images/register.webp";
 import styles from './ImageContainer.module.scss'
 
 const ImageContainer = () => {

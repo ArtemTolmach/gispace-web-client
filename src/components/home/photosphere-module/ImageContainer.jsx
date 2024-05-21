@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import * as PANOLENS from 'panolens';
-import imageUrl from "@Assets/images/home-sphere.jpg";
+import imageUrl from "@Assets/images/home-sphere.webp";
 
 import styles from './ImageContainer.module.scss'
 
