@@ -48,26 +48,3 @@ body {
         top: 9vh;
     }
 }
-
-@media only screen and (max-device-width: 1000px) and (orientation: landscape) {
-    body {
-        display: none
-    }
-
-    html:before {
-        content: 'Переверните устройство в портретный режим или откройте сайт с компьютера.';
-        color: #fff;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        background: #102A39;
-        z-index: 999;
-        text-align: center;
-        width: 80%;
-        height: 100px;
-        font-size: 25px;
-    }
-}

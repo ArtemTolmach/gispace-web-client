@@ -214,9 +214,12 @@ const ImageContainer = ({ project, location, photosphere }) => {
 
         renderMarkers(viewer, markersPlugin);
 
+        return () => {
+            markersPlugin.clearMarkers();
+        };
     }
   }, [containerRef]);
-
+  
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
