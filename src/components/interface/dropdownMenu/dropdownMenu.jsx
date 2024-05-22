@@ -10,7 +10,7 @@ const Dropdown = ({ selected, setSelected, location, setTargetSphereId, photosph
     const shouldShowDropdown = options.length > 1;
 
     useEffect(() => {
-        fetch(`${BACKEND_HOST}/api/photospheres/` + location)
+        fetch(`${BACKEND_HOST}/api/photospheres/` + location + '/')
             .then(response => response.json())
             .then(data => {
                 setOptions(data);

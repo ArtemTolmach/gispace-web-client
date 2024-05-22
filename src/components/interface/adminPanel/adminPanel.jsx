@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from 'react-router-dom';
 
 import styles from "./adminPanel.module.scss";
 
@@ -26,6 +27,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
     const [selectedVideo, setSelectedVideo] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [targetSphereId, setTargetSphereId] = useState(null);
+    let locationUrl = useLocation();
 
     const handleVideoChange = (video) => {
         setSelectedVideo(video);
@@ -215,6 +217,10 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         }
     }, [modeInfoMarker, modeMoveMarker, modePolygonMarker, modeVideoMarker, modeImageMarker, modePolyLineMarker, viewer]);
 
+    useEffect(() => {
+        resetModes();
+    }, [locationUrl.pathname]);
+
     const handleClick = (target) => {
         if (target.classList.contains(styles.ActiveItem) && currentButton === target) {
             resetModes();
@@ -287,6 +293,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
+        } else {
+            resetModes();
+            deleteTemporaryMarkers();
         }
     };
 
@@ -332,6 +341,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             });
             if (response.ok) {
                 renderMarkers(viewer, markersPlugin);
+            } else {
+                resetModes();
+                deleteTemporaryMarkers();
             }
     };
 
@@ -366,6 +378,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
             });
             if (response.ok) {
                 renderMarkers(viewer, markersPlugin);
+            } else {
+                resetModes();
+                deleteTemporaryMarkers();
             }
     };
 
@@ -399,6 +414,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
+        } else {
+            resetModes();
+            deleteTemporaryMarkers();
         }
     };
 
@@ -447,6 +465,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         });
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
+        } else {
+            resetModes();
+            deleteTemporaryMarkers();
         }
     };
 
@@ -501,6 +522,9 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
         if (response.ok) {
             renderMarkers(viewer, markersPlugin);
+        } else {
+            resetModes();
+            deleteTemporaryMarkers();
         }
     };
 
