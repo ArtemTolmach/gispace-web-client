@@ -65,7 +65,7 @@ const RegisterModal = () => {
                 value: 8,
                 message: 'Минимум 8 символов',
               },
-              pattern: { value: /^[A-Za-z0-9]+$/, message: 'Пароль должен содержать только буквы и цифры' }
+              pattern: { value: /^[A-Za-z0-9!@#$%^&*()_+{}|:"<>?[\]\\;'./]+$/, message: 'Пароль должен содержать буквы, цифры и символы' }
             })} 
             type="password" 
             placeholder="Пароль" 
@@ -77,7 +77,7 @@ const RegisterModal = () => {
         </div>
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
-        <button type="submit" className={styles.btn}>Регистрация</button>
+        <button id='registerButton' type="submit" className={styles.btn}>Регистрация</button>
         <div className={styles.registerLink}>
           <p>Уже есть аккаунт? <Link to="/login">Войти</Link> </p>
         </div>

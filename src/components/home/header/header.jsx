@@ -32,7 +32,7 @@ const Header = () => {
             }
           >
             <li className={styles.menuItem} onClick={clickMenuItem}>
-              <Link onClick={scrollToAboutUs}>О Нас</Link>
+              <Link onClick={scrollToAboutUs} id='aboutUs'>О Нас</Link>
             </li>
             {user ? (
               <>
@@ -41,16 +41,16 @@ const Header = () => {
                 </li>
                 <form id="logout-form" className={styles.menuItem}>
                   <input type="hidden" />
-                  <a onClick={logoutUser}>Выйти</a>
+                  <a onClick={logoutUser} id='logoutButton'>Выйти</a>
                 </form>
               </>
             ) : (
               <>
                 <li className={styles.menuItem}>
-                  <Link to="/login">Войти</Link>
+                  <Link id='login' to="/login">Войти</Link>
                 </li>
                 <li className={styles.menuItem}>
-                  <Link to="/register">Регистрация</Link>
+                  <Link id='register' to="/register">Регистрация</Link>
                 </li>
               </>
             )}

@@ -49,7 +49,7 @@ const LoginModal = () => {
                 value: 8,
                 message: 'Минимум 8 символов',
               },
-              pattern: { value: /^[A-Za-z0-9]+$/, message: 'Пароль должен содержать только буквы и цифры' }
+              pattern: { value: /^[A-Za-z0-9!@#$%^&*()_+{}|:"<>?[\]\\;'./]+$/, message: 'Пароль должен содержать буквы, цифры и символы' }
             })} 
             type="password" 
             placeholder="Пароль" 
@@ -61,7 +61,7 @@ const LoginModal = () => {
         </div>
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
-        <button type="submit" className={styles.btn}>Вход</button>
+        <button id='loginButton' type="submit" className={styles.btn}>Вход</button>
         <div className={styles.registerLink}>
           <p>Нет аккаунта? <Link to="/register">Регистрация</Link> </p>
         </div>

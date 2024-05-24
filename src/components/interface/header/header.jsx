@@ -19,7 +19,7 @@ const Header = ({ project, location }) => {
   const [photoSpheres, setPhotoSpheres] = useState([]);
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenPhotosphere, setIsOpenPhotosphere] = useState(false);
-  const validIds = ['sub-btn-projects', 'sub-btn-photospheres', 'svg', 'svg1'];
+  const validIds = ['sub-btn-location', 'sub-btn-photospheres', 'svg', 'svg1'];
 
   const subMenuRef = useRef(null);
   
@@ -69,7 +69,7 @@ const Header = ({ project, location }) => {
             >
             <ul className={styles.menuHeader}>
               <li className={styles.menuItem}>
-                <Link  className={styles.subBtn} id="sub-btn-projects" onClick={toogleDropdownLocation}>Локации <FontAwesomeIcon id='svg' icon={faAngleDown}/></Link>
+                <Link  className={styles.subBtn} id="sub-btn-location" onClick={toogleDropdownLocation}>Локации <FontAwesomeIcon id='svg' icon={faAngleDown}/></Link>
                 {isOpenLocation && (
                   <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-locations">
                     {locations.map(location => (
