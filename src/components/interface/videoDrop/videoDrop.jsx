@@ -39,7 +39,7 @@ function VideoUploader({ onVideoChange }) {
             <div id={styles.videoView} onClick={handleVideoViewClick}>
                 {!videoLink && (
                     <>
-                        <img src={uploadIcon} alt="Upload" />
+                        <img src={uploadIcon} alt="Upload" draggable="false"/>
                         <p>Перенесите сюда видео или нажмите для загрузки видео</p>
                     </>
                 )}

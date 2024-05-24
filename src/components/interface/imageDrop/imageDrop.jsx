@@ -39,12 +39,12 @@ function ImageUploader({ onImageChange }) {
             <div id={styles.imageView} onClick={handleImageViewClick}>
                 {!imageLink && (
                     <>
-                        <img src={uploadIcon} alt="Upload" style={{ width: '55px', marginTop: '30px' }}/>
+                        <img src={uploadIcon} alt="Upload" style={{ width: '55px', marginTop: '30px' }} draggable="false"/>
                         <p>Перенесите сюда изображение или нажмите для загрузки изображения</p>
                     </>
                 )}
                 {imageLink && (
-                    <img key={imageKey} src={imageLink} alt="Uploaded" style={{ width: '100%', height: '100%', objectFit: 'contain' }}/>
+                    <img key={imageKey} src={imageLink} alt="Uploaded" style={{ width: '100%', height: '100%', objectFit: 'contain' }} draggable="false"/>
                 )}
             </div>
         </label>

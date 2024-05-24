@@ -14,7 +14,7 @@ const AboutUsContainer = () => {
         <p>От культурных объектов и природных чудес до городских пейзажей и музеев,
         GISPACE предоставляет возможность исследовать разнообразные места прямо из дома или офиса, используя только телефон или компьютер.</p>
       </a>
-      <img className={styles.imgSteps} src={steps} alt="Steps" />
+      <img draggable="false" className={styles.imgSteps} src={steps} alt="Steps" />
     </div>
   );
 }

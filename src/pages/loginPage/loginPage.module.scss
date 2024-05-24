@@ -4,20 +4,6 @@
     font-family: Roboto, sans-serif;
 }
 
-html {
-    background: #102A39;
-    overflow: hidden;
-    width: 100vw;
-    height: 100vh;
-}
-
-body {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow-y: auto;
-}
-
 .mainContainer {
     display: block;
     -webkit-box-align: center;
@@ -45,6 +31,5 @@ body {
         -webkit-transform: translateX(-50%);
             -ms-transform: translateX(-50%);
                 transform: translateX(-50%);
-        top: 9vh;
     }
 }

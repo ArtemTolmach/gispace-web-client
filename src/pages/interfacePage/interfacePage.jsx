@@ -8,6 +8,9 @@ import ImageContainer from '@Components/interface/photosphereContainer/photosphe
 
 function InterfacePage() {
   const { project, location, photosphere } = useParams();
+
+  document.documentElement.style.height = "100vh";
+  document.body.style.overflow= 'hidden';
   
   return (
     <div className={styles.mainContainer}>

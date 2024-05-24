@@ -23,7 +23,7 @@ function ChromaKeyInput() {
         <div className={styles.chromakeyInput}>
             <p>Выберите цвет хромакея на видео</p>
             <div className={styles.chromakeyEyedrop} style={{background: 'rgb(167, 34, 244)'}} id="chromakey-color">
-                <img id="eyedropper" src={eyedropperIcon} alt="Eyedropper" onClick={handleEyedropperClick} />
+                <img id="eyedropper" src={eyedropperIcon} alt="Eyedropper" onClick={handleEyedropperClick}  draggable="false"/>
             </div>
         </div>
     );

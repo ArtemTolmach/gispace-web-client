@@ -7,6 +7,10 @@ import ImageContainer from '@Components/login/photosphereContainer/photosphereCo
 import LoginModal from '@Components/login/loginModal/loginModal';
 
 function LoginPage() {
+
+  document.body.style.overflow = "hidden";
+  document.body.style.height = "100vh";
+  document.documentElement.style.height = "100vh";
   
   return (
     <div className={styles.mainContainer}>

@@ -553,22 +553,22 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
                     }
                 }}>
                     <div id="info-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={infoIcon}/>
+                        <img className={styles.imageItem} src={infoIcon} draggable="false"/>
                     </div>
                     <div id="move-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={moveIcon}/>
+                        <img className={styles.imageItem} src={moveIcon} draggable="false"/>
                     </div>
                     <div id="polygon-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={polygonIcon}/>
+                        <img className={styles.imageItem} src={polygonIcon} draggable="false"/>
                     </div>
                     <div id="polyline-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={lineIcon}/>
+                        <img className={styles.imageItem} src={lineIcon} draggable="false"/>
                     </div>
                     <div id="video-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={videoIcon}/>
+                        <img className={styles.imageItem} src={videoIcon} draggable="false"/>
                     </div>
                     <div id="image-button" className={styles.buttonItem} >
-                        <img className={styles.imageItem} src={imageIcon}/>
+                        <img className={styles.imageItem} src={imageIcon} draggable="false"/>
                     </div>
                 </div>
 

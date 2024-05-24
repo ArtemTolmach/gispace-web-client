@@ -7,6 +7,10 @@ import ImageContainer from '@Components/register/photosphereContainer/photospher
 import RegisterModal from '@Components/register/registerModal/registerModal';
 
 function RegisterPage() {
+
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.height = "100vh";
+
   return (
     <div className={styles.mainContainer}>
         <ImageContainer />

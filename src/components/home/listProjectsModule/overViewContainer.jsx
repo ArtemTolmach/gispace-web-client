@@ -40,7 +40,7 @@ const OverViewContainer = () => {
           <div key={project.id} className={styles.oneProjectContainer}>
             <Link className={styles.hrefToProject} to={`/interface/${project.name}/${project.main_location.id}/${project.main_location.main_sphere}`}>
               <div className={styles.wrapperImgProject}>
-                <img className={styles.imgProject} src={project.cover} alt={project.name} />
+                <img draggable="false" className={styles.imgProject} src={project.cover} alt={project.name} />
               </div>
               <span className={styles.projectName}>{project.name}</span>
               <span className={styles.projectBio}>{project.bio}</span>

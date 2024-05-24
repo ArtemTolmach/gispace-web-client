@@ -49,7 +49,7 @@ const SearchForm = () => {
   return (
     <div className={styles.searchContainer}>
       <form className={styles.search}>
-        <img src={search} className={styles.searchIcon} alt="Search Icon" />
+        <img src={search} className={styles.searchIcon} alt="Search Icon" draggable="false"/>
         <input className={styles.searchInput} type="search" placeholder="Поиск" onChange={handleSearch} />
       </form>
       <ul className={styles.suggestions}>
@@ -57,7 +57,7 @@ const SearchForm = () => {
           filteredProjects.map(project => (
             <li key={project.id} className={styles.suggestionItem}>
               <Link className={styles.suggestionHrefToProject} to={`/interface/${project.name}/${project.main_location.id}/${project.main_location.main_sphere}`}>
-                <img className={styles.suggestionImgProject} src={project.cover} alt={project.name} />
+                <img className={styles.suggestionImgProject} src={project.cover} alt={project.name} draggable="false"/>
                 <div className={styles.suggestionText}>
                   <span className={styles.suggestionProjectName}>{project.name}</span>
                   <span className={styles.suggestionProjectBio}>{project.bio}</span>

@@ -10,6 +10,10 @@ import Search from '@Components/home/search/search';
 
 function HomePage() {
 
+  document.body.style.overflowX= 'hidden';
+  document.body.style.overflowY= 'auto';
+  document.documentElement.style.height = "auto";
+
   return (
     <div className={styles.mainContainer}>
         <Header />
