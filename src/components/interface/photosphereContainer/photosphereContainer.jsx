@@ -20,6 +20,15 @@ const ImageContainer = ({ project, location, photosphere }) => {
   const [viewer, setViewer] = useState(null);
   let {is_superuser} = useContext(AuthContext);
   const [markersPlugin, setMarkersPlugin] = useState(null);
+  const [shouldRenderAdminPanel, setShouldRenderAdminPanel] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setShouldRenderAdminPanel(is_superuser);
+    }, 200);
+
+    return () => clearTimeout(timeoutId);
+  }, [is_superuser]);
 
   function renderMarkers(viewer, markersPlugin){
     fetch(`${BACKEND_HOST}/api/photosphere/${photosphere}/`)
@@ -224,7 +233,7 @@ const ImageContainer = ({ project, location, photosphere }) => {
   return (
     <>
       <div className={styles.imageContainer} ref={containerRef}>
-            {Boolean(is_superuser) && window.innerWidth >= 1100 &&(
+            {shouldRenderAdminPanel && window.innerWidth >= 1100 &&(
                 <AdminPanel renderMarkers={renderMarkers} viewer={viewer} markersPlugin={markersPlugin} location={location} photosphere={photosphere} initialized={initialized}/>
             )}
       </div>
