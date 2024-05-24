@@ -19,7 +19,8 @@
     "react-icons": "^5.1.0",
     "react-router-dom": "6.22.3",
     "sass": "^1.77.1",
-    "sweetalert2": "^11.10.8"
+    "sweetalert2": "^11.10.8",
+    "three": "^0.164.1"
   },
   "scripts": {
     "start": "vite",
