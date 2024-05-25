@@ -30,6 +30,17 @@
     width: 65vh;
     max-width: 70vh;
     min-width: 200px;
+    transition: color 1s, box-shadow 1s;
+    box-shadow: 0 0 10px rgba(117, 40, 233, 0),
+                0 0 20px rgba(117, 40, 233, 0),
+                0 0 30px rgba(117, 40, 233, 0),
+}
+
+.oneProjectContainer:hover {
+    color: #0ff;
+    box-shadow: 0 0 10px rgba(117, 40, 233, 0.7),
+                0 0 20px rgba(117, 40, 233, 0.7),
+                0 0 30px rgba(117, 40, 233, 0.7),
 }
 
 .imgProject {
@@ -78,7 +89,6 @@
     color: #89888E;
     font-size: 25px;
     font-family: Roboto, system-ui;
-    font-weight: 300;
     text-align: left;
     margin: 15px 40px 35px 40px;
 }
@@ -105,7 +115,21 @@
     }
 
     .oneProjectContainer {
-        margin: 20px 30px 10px 30px;
+        margin: 20px 30px 20px 30px;
+        animation: neonGlow 2s infinite alternate;
+    }
+
+    @keyframes neonGlow {
+        0% {
+            box-shadow: 0 0 5px rgba(117, 40, 233, 0),
+                        0 0 10px rgba(117, 40, 233, 0.1),
+                        0 0 15px rgba(117, 40, 233, 0.1),
+                        0 0 20px rgba(117, 40, 233, 0.1),
+        }
+        100% {
+            box-shadow: 0 0 10px rgba(117, 40, 233, 0.8),
+                        0 0 20px rgba(117, 40, 233, 0.8),
+        }
     }
 
     .wrapperImgProject {
