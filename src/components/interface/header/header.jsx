@@ -11,7 +11,7 @@ import styles from './header.module.scss'
 
 import AuthContext from '@Context/authContext/authContext';
 
-const Header = ({ project, location }) => {
+const Header = ({ project, location, photosphere }) => {
   let {user, logoutUser} = useContext(AuthContext)
 
   const [nav, setNav] = useState(false);
@@ -39,7 +39,6 @@ const Header = ({ project, location }) => {
       setIsOpenPhotosphere(false);
     }
   };
-  
 
   useEffect(() => {
     fetch(`${BACKEND_HOST}/api/locations/` + project + '/')
@@ -68,34 +67,42 @@ const Header = ({ project, location }) => {
             }
             >
             <ul className={styles.menuHeader}>
-              <li className={styles.menuItem}>
-                <Link  className={styles.subBtn} id="sub-btn-location" onClick={toogleDropdownLocation}>Локации <FontAwesomeIcon id='svg' icon={faAngleDown}/></Link>
-                {isOpenLocation && (
-                  <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-locations">
-                    {locations.map(location => (
-                      <li key={location.id} className={styles.subItem}>
-                        <a href={`/interface/${project}/${location.id}/${location.main_sphere}/`}>
-                          {location.name}
-                        </a>
-                      </li>
-                    ))}
+              {locations.length > 1 ? (
+                <li className={styles.menuItem}>
+                  <Link  className={styles.subBtn} id="sub-btn-location" onClick={toogleDropdownLocation}>Локации <FontAwesomeIcon id='svg' icon={faAngleDown}/></Link>
+                  {isOpenLocation && (
+                    <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-locations">
+                      {locations.map(locationMap => (
+                        locationMap.id != location ? (
+                          <li key={locationMap.id} className={styles.subItem}>
+                            <a href={`/interface/${project}/${locationMap.id}/${locationMap.main_sphere}/`}>
+                              {locationMap.name}
+                            </a>
+                          </li>
+                        ) : null
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ) : null}
+              {photoSpheres.length > 1 ? (
+                <li className={styles.menuItem}>
+                  <Link  className={styles.subBtn} id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы <FontAwesomeIcon id='svg1' icon={faAngleDown}/></Link>
+                  {isOpenPhotosphere && (
+                    <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-photospheres">
+                      {photoSpheres.map(photoSphere => (
+                        photoSphere.id != photosphere ? (
+                          <li key={photoSphere.id} className={styles.subItem}>
+                            <a href={`/interface/${project}/${location}/${photoSphere.id}/`}>
+                              {photoSphere.name}
+                            </a>
+                          </li>
+                        ) : null
+                      ))}
                   </ul>
-                )}
-              </li>
-              <li className={styles.menuItem}>
-                <Link  className={styles.subBtn} id="sub-btn-photospheres" onClick={toogleDropdownPhotopshere}>Фотосферы <FontAwesomeIcon id='svg1' icon={faAngleDown}/></Link>
-                {isOpenPhotosphere && (
-                  <ul ref={subMenuRef} className={styles.subMenu} id="sub-menu-photospheres">
-                    {photoSpheres.map(photoSphere => (
-                      <li key={photoSphere.id} className={styles.subItem}>
-                        <a href={`/interface/${project}/${location}/${photoSphere.id}/`}>
-                          {photoSphere.name}
-                        </a>
-                      </li>
-                    ))}
-                </ul>
-                )}
-              </li>
+                  )}
+                </li>
+              ) : null }
             </ul>
             {user ? (
               <ul className={styles.authContainer}>

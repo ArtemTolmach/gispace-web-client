@@ -99,9 +99,9 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     list-style: none;
     -webkit-user-select: none;
        -moz-user-select: none;
@@ -110,6 +110,7 @@
     min-width: 28vw;
     margin: auto;
     gap: 5vw;
+    padding: 0;
 }
 
 .menuHeader .menuItem {
@@ -128,6 +129,7 @@
         -ms-flex-align: center;
             align-items: center;
     height: 70px;
+    padding: 0;
 }
 
 .authContainer {
@@ -181,12 +183,8 @@
 }
 
 .subMenu::-webkit-scrollbar-thumb {
-    background-color: #2d456e;
     border-radius: 3px;
-}
-
-.subMenu::-webkit-scrollbar-track {
-    background: #172338;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .menuItem:hover .subMenu {
