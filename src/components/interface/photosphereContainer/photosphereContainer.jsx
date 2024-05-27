@@ -7,6 +7,7 @@ import AdminPanel from '@Components/interface/adminPanel/adminPanel';
 
 import infoImage from '@Assets/images/info.png';
 import moveImage from '@Assets/images/move.png';
+import loadingImage from '@Assets/images/loadingImage.png';
 
 import styles from './photosphereContainer.module.scss';
 
@@ -206,6 +207,7 @@ const ImageContainer = ({ project, location, photosphere }) => {
         const viewer = new Viewer({
             container: containerRef.current,
             defaultZoomLvl: defaultZoomLvl,
+            loadingImg: loadingImage,
             plugins: [
                 [MarkersPlugin, {
                     defaultHoverScale: true,
