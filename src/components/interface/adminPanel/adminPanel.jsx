@@ -91,21 +91,27 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         }
     }
 
-    function handleKeyPress(event) {
-        if (event.keyCode === 13) {
-            if (modePolyLineMarker) {
-                setPolygoneForm(false);
-                setModePolyLineMarker(false);
-                handlePolyLinePoint();
-            } else if (modePolygonMarker) {
-                setPolyLineForm(false);
-                setModePolygonMarker(false);
-                handlePolygonPoint();
+    useEffect(() => {
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                if (modePolyLineMarker === true) {
+                    setPolygoneForm(false);
+                    setModePolyLineMarker(false);
+                    handlePolyLinePoint();
+                } else if (modePolygonMarker === true) {
+                    setPolyLineForm(false);
+                    setModePolygonMarker(false);
+                    handlePolygonPoint();
+                }
             }
         }
-    }
-
-    document.addEventListener('keypress', handleKeyPress);
+    
+        window.addEventListener('keypress', handleKeyPress);
+    
+        return () => {
+            window.removeEventListener('keypress', handleKeyPress);
+        };
+    }, [modePolyLineMarker, modePolygonMarker]);
 
     function createTemporaryMarker(sequenceCoordinates) {
         if (sequenceCoordinates.length === 1) {
@@ -575,7 +581,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
                 <div className={styles.adminAddPoint}>
                     {moveForm && (
                         <div className={styles.formMovePoint}>
-                            <h1>Создать точку перемещения</h1>
+                            <h1>Создать маркер перемещения</h1>
 
                             <Dropdown selected={selected} setSelected={setSelected} location={location} photosphere={photosphere} setTargetSphereId={setTargetSphereId}/>
 
@@ -584,7 +590,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
                     )}
                     {infoForm && (
                         <div className={styles.formInfoPoint}>
-                            <h1>Создать точку информации</h1>
+                            <h1>Создать маркер информации</h1>
                 
                             <div className={styles.inputBox}>
                                 <input type="text" placeholder="Название" id={styles.titleInputInfo}/>
@@ -600,7 +606,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
                     {imageForm && (
                         <div className={styles.formImagePoint}>
-                            <h1>Создать точку изображения</h1>
+                            <h1>Создать маркер изображения</h1>
 
                             <ImageDropArea onImageChange={handleImageChange}/>
 
@@ -610,7 +616,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
                     {videoForm && (
                         <div className={styles.formVideoPoint}>
-                            <h1>Создать точку видео</h1>
+                            <h1>Создать маркер видео</h1>
 
                             <div className={styles.chromakeySwitch}>
                                 <p>Вырезать хромакей</p>
@@ -628,7 +634,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
                     {polygoneForm && (
                         <div className={styles.formPolygonePoint}>
-                            <h1>Создать точку полигона</h1>
+                            <h1>Создать маркер полигона</h1>
                             <div className={styles.fillPolygone}>
                                 <p>Цвет заливки полигона</p>
                                 <ColorPicker id={'polygone-fill'} />
@@ -657,7 +663,7 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
 
                     {polyLineForm && (
                         <div className={styles.formPolylinePoint}>
-                            <h1>Создать точку линии</h1>
+                            <h1>Создать маркер линии</h1>
 
                             <div className={styles.strokePolyline}>
                                 <p>Цвет линии</p>
