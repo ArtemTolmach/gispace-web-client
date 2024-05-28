@@ -27,14 +27,14 @@ const OverViewContainer = () => {
   if (!projects) {
     return (    
       <div className={styles.overviewContainer}>
-        <a className={styles.caption}>Проекты</a>
+        <a className={styles.caption} href='#'>Проекты</a>
       </div>
     );
   }
 
   return (
     <div className={styles.overviewContainer}>
-      <a className={styles.caption}>Проекты</a>
+      <a className={styles.caption} href='#'>Проекты</a>
       <div className={styles.projectsContainer}>
         {projects.map(project => (
           <div key={project.id} className={styles.oneProjectContainer}>
