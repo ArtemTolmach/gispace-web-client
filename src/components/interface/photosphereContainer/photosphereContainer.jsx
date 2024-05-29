@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useContext } from 'react'
-import { Viewer } from '@photo-sphere-viewer/core';
+import { Viewer, events } from '@photo-sphere-viewer/core';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
 import Swal from 'sweetalert2';
 
@@ -31,6 +31,37 @@ const ImageContainer = ({ project, location, photosphere }) => {
     return () => clearTimeout(timeoutId);
   }, [is_superuser]);
 
+    function addMarkerEventHandlers(element, clickHandler) {
+        let StartTime = 0;
+
+        element.addEventListener('mousedown', () => {
+            StartTime = Date.now();
+        });
+
+        element.addEventListener('mouseup', (event) => {
+            const clickDuration = Date.now() - StartTime;
+            if (clickDuration < 200) {
+                clickHandler();
+            }
+            StartTime = 0;
+            event.preventDefault();
+        });
+
+        element.addEventListener('touchstart', () => {
+            StartTime = Date.now();
+        });
+
+        element.addEventListener('touchend', (event) => {
+            const touchDuration = Date.now() - StartTime;
+            if (touchDuration < 100) {
+                clickHandler();
+            }
+            StartTime = 0;
+            event.preventDefault();
+        });
+    }
+
+
   function renderMarkers(viewer, markersPlugin){
     fetch(`${BACKEND_HOST}/api/photosphere/${photosphere}/`)
             .then(response => response.json())
@@ -56,9 +87,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
                             window.location.href = '/interface/' + project + '/' + location + '/' + point.target_photo_sphere;
                         }
 
-                        const element = markersPlugin.markers[point.id.toString()].element
-                        element.addEventListener('click', markerClickHandler);
-                        element.addEventListener('touchstart', markerClickHandler);
+                        const element = markersPlugin.markers[point.id.toString()].element;
+                        addMarkerEventHandlers(element, markerClickHandler);
 
                     });
 
@@ -89,9 +119,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
                                 });
                             }
 
-                            const element = markersPlugin.markers[point.id.toString()].element
-                            element.addEventListener('click', markerClickHandler);
-                            element.addEventListener('touchstart', markerClickHandler);
+                            const element = markersPlugin.markers[point.id.toString()].element;
+                            addMarkerEventHandlers(element, markerClickHandler);
                         }
 
                     });
@@ -126,9 +155,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
                                 });
                             }
     
-                            const element = markersPlugin.markers[point.id.toString()].element
-                            element.addEventListener('click', markerClickHandler);
-                            element.addEventListener('touchstart', markerClickHandler);
+                            const element = markersPlugin.markers[point.id.toString()].element;
+                            addMarkerEventHandlers(element, markerClickHandler);
                         }
                     });
                     
@@ -190,9 +218,8 @@ const ImageContainer = ({ project, location, photosphere }) => {
                                 });
                             }
     
-                            const element = markersPlugin.markers[point.id.toString()].element
-                            element.addEventListener('click', markerClickHandler);
-                            element.addEventListener('touchstart', markerClickHandler);
+                            const element = markersPlugin.markers[point.id.toString()].element;
+                            addMarkerEventHandlers(element, markerClickHandler);
                         }
                     });
                 });
