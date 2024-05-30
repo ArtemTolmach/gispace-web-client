@@ -16,11 +16,23 @@
     -webkit-transition: 0.6s;
     -o-transition: 0.6s;
     transition: 0.6s;
-    background: #172338;
     height: 70px;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+}
+
+.headerInterface::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(48px);
+        backdrop-filter: blur(48px);
 }
 
 .container {
@@ -158,7 +170,9 @@
     position: absolute;
     max-height: 50vh;
     overflow-y: auto;
-    background: #172338;
+    background-color: rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(48px);
+        backdrop-filter: blur(48px);
     top: 70px;
     line-height: 40px;
     list-style: none;
@@ -223,7 +237,7 @@
 }
 
 .subItem:hover {
-    background: #161736;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .subItem:last-child:hover {
@@ -272,13 +286,22 @@
         -o-transition: left 0.3s;
         transition: left 0.3s;
         height: 100vh;
-        background: -o-linear-gradient(315deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-        -webkit-backdrop-filter: blur(20px);
-                backdrop-filter: blur(20px);
         margin: 0px;
         padding: 0;
         overflow: hidden;
+    }
+
+    .menu::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-color: rgba(0, 0, 0, 0.3);
+        -webkit-backdrop-filter: blur(48px);
+            backdrop-filter: blur(48px);
     }
 
     .menuItem {
@@ -340,7 +363,6 @@
         border-radius: 5px;
         width: 90vw;
         max-height: 25vh;
-        background: #1d1e33;
     }
 
     .subItem a {
@@ -367,7 +389,7 @@
     }
 
     .subItem:hover {
-        background: none;
+        background-color: rgba(0, 0, 0, 0.3);
     }
 
     .subItem a:hover {
