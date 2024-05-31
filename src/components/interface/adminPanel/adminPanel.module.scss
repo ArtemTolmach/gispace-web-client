@@ -18,7 +18,6 @@
     width: 90px;
     height: 650px;
     z-index: 999;
-    top: 24vh;
     right: 11px;
     -webkit-backdrop-filter: blur(48px);
             backdrop-filter: blur(48px);
@@ -51,10 +50,18 @@
     width: 600px;
     height: 650px;
     z-index: 998;
-    top: 24vh;
     right: 11px;
     -webkit-backdrop-filter: blur(48px);
             backdrop-filter: blur(48px);
+}
+
+.adminPanel{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    top: 0px;
+    position: absolute;
 }
 
 .adminPanel.open .adminAddPoint {
