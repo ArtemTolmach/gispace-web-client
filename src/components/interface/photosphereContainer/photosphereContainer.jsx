@@ -249,6 +249,9 @@ const ImageContainer = ({ project, location, photosphere }) => {
 
         viewer.addEventListener('ready', () => {
             viewer.navbar.getButton('download').hide();
+            if (window.innerWidth < 900) {
+                viewer.navbar.hide();
+            }
         }, { once: true });
 
         renderMarkers(viewer, markersPlugin);
