@@ -5,7 +5,7 @@ import styles from "./colorPicker.module.scss";
 import "react-color-palette/css";
 
 export default function ColorPickerGfg({ id }) {
-    const [color, setColor] = useColor("hex", "#121212");
+    const [color, setColor] = useColor("hex", "#23252B");
     const [colorPickerActive, setColorPickerActive] = useState(false);
     const colorPickerRef = useRef(null);
 
@@ -17,7 +17,7 @@ export default function ColorPickerGfg({ id }) {
     };
 
     useEffect(() => {
-        document.getElementById(`color-picker-${id}`).style.background = `rgba(23, 35, 56, 0.99)`;
+        document.getElementById(`color-picker-${id}`).style.background = `rgba(35, 37, 43, 0.99)`;
     },[])
 
     useEffect(() => {
@@ -61,7 +61,7 @@ export default function ColorPickerGfg({ id }) {
             <div
                 className={styles.colorButton}
                 id={`color-picker-${id}`}
-                background='rgba(23, 35, 56, 0.99)'
+                background='rgba(35, 37, 43, 0.99)'
                 onClick={() => setColorPickerActive(!colorPickerActive)}
             ></div>
         </div>
