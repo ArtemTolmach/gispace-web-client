@@ -30,6 +30,10 @@ const LoginModal = () => {
               minLength: {
                 value: 5,
                 message: 'Минимум 5 символов',
+              },
+              maxLength: {
+                value: 28,
+                message: 'Максимум 28 символов',
               }
             })} 
             type="text" 
@@ -49,7 +53,7 @@ const LoginModal = () => {
                 value: 8,
                 message: 'Минимум 8 символов',
               },
-              pattern: { value: /^[A-Za-z0-9!@#$%^&*()_+{}|:"<>?[\]\\;'./]+$/, message: 'Пароль должен содержать буквы, цифры и символы' }
+              pattern: { value: /^[A-Za-z0-9!@#$%^&*()_+{}|:"<>?[\]\\;'./]+$/, message: 'Недопустимые символы в пароле' }
             })} 
             type="password" 
             placeholder="Пароль" 
