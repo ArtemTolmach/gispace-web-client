@@ -5,6 +5,8 @@ describe("Photospheres tests", () => {
   let browser;
   let page;
 
+  const targetSphere = "http://localhost:3000/interface/kjrbf%20wpiwhjgfw[ghwr%20hg=wh%20gw=08ghwhg08wg0hwh%20h80w/1/1"
+
   beforeAll(async () => {
 
     browser = await puppeteer.launch({
@@ -15,18 +17,18 @@ describe("Photospheres tests", () => {
   });
 
   it("Test render markers on photosphere", async () => {
-        await page.goto("http://localhost:3000/interface/CusDeb/1/10/");
+    await page.goto(targetSphere);
 
-        await page.waitForSelector('.psv-marker', { timeout: 60000 });
+    await page.waitForSelector('.psv-marker');
 
-        await page.evaluate(() => {
-          const markers = document.querySelectorAll('.psv-marker');
-          return markers.length > 0;
-        });
-  });
+    await page.evaluate(() => {
+      const markers = document.querySelectorAll('.psv-marker');
+      return markers.length > 0;
+    });
+  }, 10000);
 
   it("Test show dropdown menu", async () => {
-    await page.goto("http://localhost:3000/interface/CusDeb/1/1/");
+    await page.goto(targetSphere);
 
     await page.waitForSelector('#sub-btn-location');
 
@@ -55,7 +57,7 @@ describe("Authentication tests", () => {
       });
     });
 
-    const username = faker.internet.userName();
+    const username = faker.internet.userName().substring(0, 28);
 
     const email = faker.internet.email();
 
@@ -69,8 +71,8 @@ describe("Authentication tests", () => {
       await page.type('#id_password1', password);
 
       await Promise.all([
-          page.$eval('#registerButton', elem => elem.click()),
-          page.waitForNavigation()
+        page.$eval('#registerButton', elem => elem.click()),
+        page.waitForNavigation()
       ]);
     });
     
@@ -81,16 +83,17 @@ describe("Authentication tests", () => {
         await page.type('#id_password1', password);
 
         await Promise.all([
-            page.$eval('#loginButton', elem => elem.click()),
-            page.waitForNavigation()
+          page.$eval('#loginButton', elem => elem.click()),
+          page.waitForNavigation()
         ]);
     });
 
     it("Test logout user", async () => {
-        await page.$eval('#logoutButton', elem => elem.click());
-
-        await page.waitForSelector('#logoutButton', { hidden: true, timeout: 60000 });
-    });
+        await Promise.all([
+          page.$eval('#logoutButton', elem => elem.click()),
+          page.waitForSelector('#login')
+        ]);
+      });
 
     afterAll(() => browser.close());
 });

@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './homePage.module.scss';
 
-import AboutUs from '@Components/home/aboutUsModule/containerAboutUs';
+import AboutUs from '@Components/home/aboutUsModule/aboutUsModule';
 import Header from '@Components/home/header/header';
 import ImageContainer from '@Components/home/photosphereContainer/photosphereContainer';
-import OverviewContainer from '@Components/home/listProjectsModule/overViewContainer'; 
+import OverviewContainer from '@Components/home/listProjectsModule/listProjectsModule'; 
 import Search from '@Components/home/search/search';
 
 function HomePage() {

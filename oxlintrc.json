@@ -1,171 +1,38 @@
 {
-    "env": {
-      "browser": true,
-      "es2021": true,
-      "node": true
-    },
-    "extends": [
-      "airbnb",
-      "airbnb/hooks",
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:import/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:jsx-a11y/strict",
-      "prettier"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "plugins": [
-      "react",
-      "@typescript-eslint",
-      "eslint-plugin-import",
-      "simple-import-sort",
-      "unicorn"
-    ],
-    "rules": {
-      "unicorn/no-abusive-eslint-disable": "error",
-      "unicorn/filename-case": [
-        "error",
-        {
-          "cases": {
-            "camelCase": true,
-            "pascalCase": true
-          }
-        }
-      ],
-      "eol-last": [
-        "warn",
-        "always"
-      ],
-      "block-spacing": "warn",
-      "indent": [
-        "warn",
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "linebreak-style": [
-        "error",
-        "unix"
-      ],
-      "no-multiple-empty-lines": [
-        "warn",
-        {
-          "max": 1,
-          "maxBOF": 0,
-          "maxEOF": 0
-        }
-      ],
-      "import/extensions": "off",
-      "no-console": [
-        "warn",
-        {
-          "allow": [
-            "warn",
-            "error"
-          ]
-        }
-      ],
-      "object-curly-spacing": [
-        "warn",
-        "always"
-      ],
-      "quotes": [
-        "error",
-        "double",
-        {
-          "avoidEscape": true
-        }
-      ],
-      "semi": [
-        "error",
-        "always"
-      ],
-      "semi-spacing": [
-        "warn"
-      ],
-      "sort-imports": "off",
-      "simple-import-sort/imports": "warn",
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
-      "comma-style": [
-        "warn"
-      ],
-      "no-unused-vars": "on",
-      "import/no-unresolved": [
-        "error",
-        {
-          "commonjs": true,
-          "amd": true
-        }
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 100,
-          "ignorePattern": "className=\".*\""
-        }
-      ],
-      "@typescript-eslint/no-non-null-assertion": [
-        "off"
-      ],
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          "argsIgnorePattern": "^_"
-        }
-      ],
-      "no-multi-spaces": "warn",
-      "react/display-name": [
-        "warn",
-        {
-          "ignoreTranspilerName": true
-        }
-      ],
-      "react/jsx-filename-extension": [
-        "error",
-        {
-          "extensions": [
-            ".tsx",
-            ".jsx"
-          ]
-        }
-      ],
-      "react/function-component-definition": [
-        "warn",
-        {
-          "namedComponents": "arrow-function",
-          "unnamedComponents": "arrow-function"
-        }
-      ],
-      "react/react-in-jsx-scope": "off",
-      "no-shadow": "off",
-      "@typescript-eslint/no-shadow": ["warn"]
-    },
-    "settings": {
-      "react": {
-        "version": "detect"
-      },
-      "import/resolver": {
-        "typescript": {},
-        "node": {
-          "extensions": [
-            ".js",
-            ".jsx",
-            ".ts",
-            ".tsx"
-          ]
-        }
-      }
-    }
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "foo": "readonly"
+  },
+  "settings": {},
+  "rules": {
+    "no-array-constructor": "error",
+    "max-params": ["warn", 3],
+    "array-callback-return": "error",
+    "no-case-declarations": "error",
+    "no-constructor-return": "error",
+    "no-new-wrappers": "error",
+    "no-prototype-builtins": "error",
+    "no-redeclare": "error",
+    "no-self-compare": "error",
+    "radix": "error",
+    "require-await": "error",
+    "symbol-description": "error",
+    "default-case-last": "error",
+    "default-param-last": "error",
+    "guard-for-in": "error",
+    "no-continue": "error",
+    "no-script-url": "error",
+    "no-template-curly-in-string": "error",
+    "prefer-exponentiation-operator": "warn",
+    "sort-imports": ["warn", {
+      "ignoreCase": true,
+      "ignoreDeclarationSort": true,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+    }],
+    "no-new": "error",
+    "no-useless-concat": "error"
   }
+}

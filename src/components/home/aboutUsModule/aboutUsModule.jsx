@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './containerAboutUs.module.scss'
+import styles from './aboutUsModule.module.scss'
 
 import steps from '@Assets/images/steps.png'
 

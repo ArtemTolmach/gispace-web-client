@@ -1,362 +1,543 @@
+$darkening: rgba(0, 0, 0, 0.3);
+$colorText: #fff;
+
+@mixin justify-content($value) {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+    justify-content: $value;
+}
+
+@mixin align-items($value) {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+    align-items: $value;
+}
+
 .buttonsPanel {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 50px;
-    position: absolute;
-    width: 90px;
-    height: 650px;
-    z-index: 999;
-    right: 11px;
-    -webkit-backdrop-filter: blur(48px);
-            backdrop-filter: blur(48px);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	background-color: $darkening;
+	border-radius: 50px;
+	position: absolute;
+	width: 90px;
+	height: 650px;
+	z-index: 999;
+	right: 11px;
+	-webkit-backdrop-filter: blur(48px);
+	backdrop-filter: blur(48px);
 }
 
 .buttonItem {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    padding: 15px 0px 15px 0px;
-    margin: 17px 0 17px 0;
-    max-height: 78px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	@include justify-content(center);
+	padding: 15px 0px 15px 0px;
+	margin: 17px 0 17px 0;
+	max-height: 78px;
 }
 
 .buttonItem.ActiveItem {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-radius: 40px;
-    width: 78px;
-    height: 78px;
+	background-color: rgba(255, 255, 255, 0.12);
+	border-radius: 40px;
+	width: 78px;
+	height: 78px;
 }
 
 .adminAddPoint {
-    display: none;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 35px;
-    position: absolute;
-    width: 600px;
-    height: 650px;
-    z-index: 998;
-    right: 11px;
-    -webkit-backdrop-filter: blur(48px);
-            backdrop-filter: blur(48px);
+	display: none;
+	background-color: $darkening;
+	border-radius: 35px;
+	position: absolute;
+	width: 600px;
+	height: 650px;
+	z-index: 998;
+	right: 11px;
+	-webkit-backdrop-filter: blur(48px);
+	backdrop-filter: blur(48px);
+	h1 {
+		font-size: 40px;
+		text-align: center;
+		color: $colorText;
+		height: 96px;
+		width: 336px;
+		margin: 0 0 30px 0;
+		font-weight: 600;
+	}
 }
 
-.adminPanel{
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    top: 0px;
-    position: absolute;
+.adminPanel {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	align-items: center;
+	top: 0px;
+	position: absolute;
 }
 
-.adminPanel.open .adminAddPoint {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+.adminPanel.open {
+	.adminAddPoint {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.buttonsPanel {
+		background-color: rgba(0, 0, 0, 0);
+		-webkit-backdrop-filter: blur(0px);
+		backdrop-filter: blur(0px);
+	}
 }
 
-.adminPanel.open .buttonsPanel {
-    background-color: rgba(0, 0, 0, 0);
-    -webkit-backdrop-filter: blur(0px);
-            backdrop-filter: blur(0px);
+.formInfoPoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
+	.inputBox {
+		width: 380px;
+		position: relative;
+		height: 50px;
+		margin: 20px 0 30px 0;
+	}
 }
 
-.formInfoPoint, .formImagePoint, .formMovePoint, .formVideoPoint, .formPolygonePoint, .formPolylinePoint {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    position: relative;
-    left: 30px;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    padding: 15px 0 15px 0;
-    min-height: 637px;
-    min-width: 480px;
+.formImagePoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
 }
 
-.adminAddPoint h1 {
-    font-size: 40px;
-    text-align: center;
-    color: #fff;
-    height: 96px;
-    width: 336px;
-    margin: 0 0 30px 0;
-    font-weight: 600;
+.formMovePoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
 }
 
-.submitInfoBtn, .submitMoveBtn, .submitImageBtn, .submitVideoBtn, .submitPolygonBtn, .submitPolylineBtn {
-    width: 310px;
-    height: 50px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-            box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
+.formVideoPoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
+	.chromakeySwitch {
+		max-width: 480px;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: justify;
+		-ms-flex-pack: justify;
+		justify-content: space-between;
+		margin: 0 0 15px 0;
+		width: 260px;
+	}
 }
 
-.formInfoPoint .inputBox {
-    width: 380px;
-    position: relative;
-    height: 50px;
-    margin: 20px 0 30px 0;
+.formPolygonePoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
+	.inputBox {
+		width: 480px;
+		position: relative;
+		height: 50px;
+		margin: 0 0 30px 0;
+	}
+}
+
+.formPolylinePoint {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	position: relative;
+	left: 30px;
+	@include justify-content(center);
+	@include align-items(center);
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 15px 0 15px 0;
+	min-height: 637px;
+	min-width: 480px;
+	.inputBox {
+		width: 480px;
+		position: relative;
+		height: 50px;
+		margin: 0 0 30px 0;
+	}
+}
+
+.submitInfoBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+
+.submitMoveBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+
+.submitImageBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+
+.submitVideoBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+
+.submitPolygonBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
+}
+
+.submitPolylineBtn {
+	width: 310px;
+	height: 50px;
+	background: $colorText;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+	cursor: pointer;
+	font-size: 16px;
+	color: #333;
+	font-weight: 600;
 }
 
 #titleInputInfo {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid #EBEBEB;
-    border-radius: 15px;
-    font-size: 16px;
-    color: #fff;
-    padding-left: 20px;
-    position: relative;
-    z-index: 100;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	border: 2px solid #EBEBEB;
+	border-radius: 15px;
+	font-size: 16px;
+	color: $colorText;
+	padding-left: 20px;
+	position: relative;
+	z-index: 100;
 }
 
-.inputBox input::-webkit-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::-moz-placeholder {
-    color: #fff;
-}
-
-.inputBox input:-ms-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::-ms-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::placeholder {
-    color: #fff;
+.inputBox {
+	input {
+		&::-webkit-input-placeholder {
+			color: $colorText;
+		}
+		&::-moz-placeholder {
+			color: $colorText;
+		}
+		&:-ms-input-placeholder {
+			color: $colorText;
+		}
+		&::-ms-input-placeholder {
+			color: $colorText;
+		}
+		&::placeholder {
+			color: $colorText;
+		}
+		width: 100%;
+		height: 100%;
+		background: transparent;
+		outline: none;
+		border: 2px solid #EBEBEB;
+		border-radius: 15px;
+		font-size: 16px;
+		color: $colorText;
+		padding-left: 20px;
+		position: relative;
+		z-index: 100;
+	}
 }
 
 #descriptionInputInfo {
-    width: 380px;
-    height: 250px;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid #EBEBEB;
-    border-radius: 15px;
-    font-size: 16px;
-    color: #fff;
-    padding: 10px 20px 10px 20px;
-    margin-bottom: 50px;
-    max-width: 380px;
-    max-height: 250px;
-    min-height: 250px;
+	width: 380px;
+	height: 250px;
+	background: transparent;
+	border: none;
+	outline: none;
+	border: 2px solid #EBEBEB;
+	border-radius: 15px;
+	font-size: 16px;
+	color: $colorText;
+	padding: 10px 20px 10px 20px;
+	margin-bottom: 50px;
+	max-width: 380px;
+	max-height: 250px;
+	min-height: 250px;
 }
 
-#videoView video {
-    border-radius: 20px;
+#videoView {
+	video {
+		border-radius: 20px;
+	}
 }
 
-.chromakeySwitch p {
-    color: #E6E6E7;
-    font-size: 15px;
-    margin: 0;
-    width: 110px;
+.chromakeySwitch {
+	p {
+		color: #E6E6E7;
+		font-size: 15px;
+		margin: 0;
+		width: 110px;
+	}
+	.button {
+		-webkit-backdrop-filter: blur(15px);
+		backdrop-filter: blur(15px);
+		width: 56px;
+		height: 30px;
+		border-radius: 140px;
+		cursor: pointer;
+		position: relative;
+		-webkit-transition: 0.2s;
+		-o-transition: 0.2s;
+		transition: 0.2s;
+		right: 34px;
+	}
+	input {
+		display: none;
+	}
 }
 
-.formVideoPoint .chromakeySwitch {
-    max-width: 480px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    margin: 0 0 15px 0;
-    width: 260px;
+.button {
+	&::before {
+		position: absolute;
+		content: '';
+		background-color: #EBEBEB;
+		width: 22px;
+		height: 22px;
+		border-radius: 200px;
+		margin: 3px;
+		-webkit-transition: 0.2s;
+		-o-transition: 0.2s;
+		transition: 0.2s;
+	}
 }
 
-.chromakeySwitch .button {
-    -webkit-backdrop-filter: blur(15px);
-            backdrop-filter: blur(15px);
-    width: 56px;
-    height: 30px;
-    border-radius: 140px;
-    cursor: pointer;
-    position: relative;
-    -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
-    right: 34px;
+input {
+	&:checked {
+		+ {
+			.button {
+				background: -o-linear-gradient(355deg, hsl(286, 97%, 57%) -7%, hsl(256, 84%, 48%) 112%);
+				background: linear-gradient(95deg, hsl(286, 97%, 57%) -7%, hsl(256, 84%, 48%) 112%);
+				&::before {
+					-webkit-transform: translateX(28px);
+					-ms-transform: translateX(28px);
+					transform: translateX(28px);
+				}
+			}
+		}
+	}
 }
 
-.button::before {
-    position: absolute;
-    content: '';
-    background-color: #EBEBEB;
-    width: 22px;
-    height: 22px;
-    border-radius: 200px;
-    margin: 3px;
-    -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
+.fillPolygone {
+	max-width: 480px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	@include align-items(center);
+	margin: 0 0 30px 0;
+	p {
+		color: #E6E6E7;
+		font-size: 15px;
+		margin: 0;
+		width: 119px;
+		max-width: 199px;
+	}
 }
 
-input:checked + .button {
-    background:-o-linear-gradient(355deg,
-              hsl(286, 97%, 57%) -7%,
-              hsl(256, 84%, 48%) 112%);
-    background:linear-gradient(95deg,
-              hsl(286, 97%, 57%) -7%,
-              hsl(256, 84%, 48%) 112%);
+.strokePolygone {
+	max-width: 480px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	@include align-items(center);
+	margin: 0 0 30px 0;
+	p {
+		color: #E6E6E7;
+		font-size: 15px;
+		margin: 0;
+		width: 119px;
+		max-width: 199px;
+	}
 }
 
-input:checked + .button::before {
-    -webkit-transform: translateX(28px);
-        -ms-transform: translateX(28px);
-            transform: translateX(28px);
-}
-
-.chromakeySwitch input {
-    display: none;
-}
-
-.fillPolygone, .strokePolygone, .strokePolyline {
-    max-width: 480px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    margin: 0 0 30px 0;
-}
-
-.fillPolygone p, .strokePolygone p, .strokePolyline p {
-    color: #E6E6E7;
-    font-size: 15px;
-    margin: 0;
-    width: 119px;
-    max-width: 199px;
-}
-
-.formPolygonePoint .inputBox, .formPolylinePoint .inputBox {
-    width: 480px;
-    position: relative;
-    height: 50px;
-    margin: 0 0 30px 0;
-}
-
-.inputBox input {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    border: 2px solid #EBEBEB;
-    border-radius: 15px;
-    font-size: 16px;
-    color: #fff;
-    padding-left: 20px;
-    position: relative;
-    z-index: 100;
-}
-
-.inputBox input::-webkit-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::-moz-placeholder {
-    color: #fff;
-}
-
-.inputBox input:-ms-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::-ms-input-placeholder {
-    color: #fff;
-}
-
-.inputBox input::placeholder {
-    color: #fff;
-}
-
-.areaBox > textarea {
-    width: 480px;
-    height: 150px;
-    background: transparent;
-    border: none;
-    outline: none;
-    border: 2px solid #EBEBEB;
-    border-radius: 15px;
-    font-size: 16px;
-    color: #fff;
-    padding: 10px 20px 10px 20px;
-    margin-bottom: 30px;
-    max-width: 480px;
-    max-height: 150px;
-}
-
-.areaBox > textarea::-webkit-input-placeholder {
-    color: #fff;
-}
-
-.areaBox > textarea::-moz-placeholder {
-    color: #fff;
-}
-
-.areaBox > textarea:-ms-input-placeholder {
-    color: #fff;
-}
-
-.areaBox > textarea::-ms-input-placeholder {
-    color: #fff;
-}
-
-.areaBox > textarea::placeholder {
-    color: #fff;
+.strokePolyline {
+	max-width: 480px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	@include align-items(center);
+	margin: 0 0 30px 0;
+	p {
+		color: #E6E6E7;
+		font-size: 15px;
+		margin: 0;
+		width: 119px;
+		max-width: 199px;
+	}
 }
 
 .areaBox {
-    resize: vertical;
+	>textarea {
+		width: 480px;
+		height: 150px;
+		background: transparent;
+		border: none;
+		outline: none;
+		border: 2px solid #EBEBEB;
+		border-radius: 15px;
+		font-size: 16px;
+		color: $colorText;
+		padding: 10px 20px 10px 20px;
+		margin-bottom: 30px;
+		max-width: 480px;
+		max-height: 150px;
+		&::-webkit-input-placeholder {
+			color: $colorText;
+		}
+		&::-moz-placeholder {
+			color: $colorText;
+		}
+		&:-ms-input-placeholder {
+			color: $colorText;
+		}
+		&::-ms-input-placeholder {
+			color: $colorText;
+		}
+		&::placeholder {
+			color: $colorText;
+		}
+	}
+	resize: vertical;
 }

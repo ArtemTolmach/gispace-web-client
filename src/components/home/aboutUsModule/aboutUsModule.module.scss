@@ -1,9 +1,24 @@
+$colorText: #fff;
+
+@mixin justify-content($value) {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+    justify-content: $value;
+}
+
+
+@mixin align-items($value) {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+    align-items: $value;
+}
+
 .describeGispy {
     display: block;
     width: 90%;
     font-family: Roboto, system-ui;
     font-size: 25px;
-    color: #fff;
+    color: $colorText;
     margin: 2.5vh 0 0 0;
     line-height: 38px;
     text-indent: 65px;
@@ -15,9 +30,7 @@
     display: -ms-grid;
     display: grid;
     text-align: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    @include justify-content(center);
     place-items: center;
 }
 
@@ -36,12 +49,8 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    @include justify-content(center);
+    @include align-items(center);
     height: 25vh;
     margin: 3%;
 }
@@ -53,7 +62,7 @@
     text-decoration: none;
     font-family: Roboto, system-ui;
     font-size: 40px;
-    color: #fff;
+    color: $colorText;
     position: relative;
     font-weight: 500;
 }

@@ -125,7 +125,7 @@ const Header = ({ project, location, photosphere }) => {
               </ul>
             )}
           </ul>
-          <div onClick={() => setNav(!nav)} className={styles.mobile_btn}>
+          <div onClick={() => setNav(!nav)} className={styles.mobileBtn}>
             {nav ? <AiOutlineClose style={{ color: 'white', width: '53px', height: '53px' }} /> : <AiOutlineMenu style={{ color: 'white', width: '53px', height: '53px' }} />}
           </div>
         </div>

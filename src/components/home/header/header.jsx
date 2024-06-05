@@ -55,7 +55,7 @@ const Header = () => {
               </>
             )}
           </ul>
-          <div onClick={() => setNav(!nav)} className={styles.mobile_btn}>
+          <div onClick={() => setNav(!nav)} className={styles.mobileBtn}>
             {nav ? <AiOutlineClose style={{ color: 'white', width: '40px', height: '40px' }} /> : <AiOutlineMenu style={{ color: 'white', width: '40px', height: '40px' }} />}
           </div>
         </div>

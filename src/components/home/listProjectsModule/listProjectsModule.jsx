@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import styles from'./overViewContainer.module.scss'
+import styles from'./listProjectsModule.module.scss'
 
 import { BACKEND_HOST } from '@Utils/exportDataFromEnv/exportDataFromEnv';
 

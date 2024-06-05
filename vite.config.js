@@ -5,9 +5,6 @@ import autoprefixer from 'autoprefixer'
 
 export default defineConfig({
   plugins: [react()],
-  build: {
-    sourcemap: true,
-  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -25,10 +22,6 @@ export default defineConfig({
     port: 3000,
   },
   css: {
-    devSourcemap: true,
-    modules: {
-      scopeBehaviour: 'local'
-    },
     postcss: {
       plugins: [
         autoprefixer({})

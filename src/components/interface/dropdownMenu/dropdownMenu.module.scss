@@ -1,71 +1,68 @@
 .dropdown {
-    min-width: 15em;
-    position: relative;
-    margin: 50px 0 150px 0;
+	min-width: 15em;
+	position: relative;
+	margin: 50px 0 150px 0;
 }
 
 .dropdownBtn {
-    background: #23252B;
-    color: #fff;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    border-radius: 0.5em;
-    padding: 1em;
-    cursor: pointer;
-    -webkit-transition: background 0.3s;
-    -o-transition: background 0.3s;
-    transition: background 0.3s;
-    width: 330px;
-    height: 56px;
+	background: #23252B;
+	color: #fff;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	border-radius: 0.5em;
+	padding: 1em;
+	cursor: pointer;
+	-webkit-transition: background 0.3s;
+	-o-transition: background 0.3s;
+	transition: background 0.3s;
+	width: 330px;
+	height: 56px;
 }
 
 .dropdownContent {
-    list-style: none;
-    padding: 0.2em 0.5em;
-    background: #23252B;
-    border: 1px #23252B solid;
-    -webkit-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
-    border-radius: 0.5em;
-    color: #9fa5b5;
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    width: 100%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    -webkit-transition: 0.2s;
-    -o-transition: 0.2s;
-    transition: 0.2s;
-    z-index: 1;
-    overflow-y: auto;
-    max-height: 130px;
+	list-style: none;
+	padding: 0.2em 0.5em;
+	background: #23252B;
+	border: 1px #23252B solid;
+	-webkit-box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+	border-radius: 0.5em;
+	color: #9fa5b5;
+	position: absolute;
+	top: 50px;
+	left: 50%;
+	width: 100%;
+	-webkit-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	-webkit-transition: 0.2s;
+	-o-transition: 0.2s;
+	transition: 0.2s;
+	z-index: 1;
+	overflow-y: auto;
+	max-height: 130px;
+	&::-webkit-scrollbar {
+		width: 0.1em;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: #5d5d5d;
+	}
+	&::-webkit-scrollbar-track {
+		background: #323741;
+	}
 }
 
 .dropdownItem {
-    padding: 10px;
-    cursor: pointer;
-    -webkit-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    transition: all 0.2s;
-}
-
-.dropdownContent::-webkit-scrollbar {
-    width: 0.1em;
-}
-
-.dropdownContent::-webkit-scrollbar-thumb {
-    background-color: #5d5d5d;
-}
-
-.dropdownContent::-webkit-scrollbar-track {
-    background: #323741;
+	padding: 10px;
+	cursor: pointer;
+	-webkit-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	transition: all 0.2s;
 }

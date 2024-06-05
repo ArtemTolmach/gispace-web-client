@@ -1,23 +1,26 @@
-
 html {
     background: #0C1122;
 }
 
-body.no-scroll, html.no-scroll {
-    overflow: hidden;
+body.no-scroll {
+	overflow: hidden;
 }
 
-body::-webkit-scrollbar {
-    width: 5px;
+html.no-scroll {
+	overflow: hidden;
 }
 
-body::-webkit-scrollbar-track {
-    background: #0C1122;
-}
-
-body::-webkit-scrollbar-thumb {
-    background: #DB73EE;
-    border-radius: 20px;
+body {
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+	&::-webkit-scrollbar-track {
+		background: #0C1122;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #DB73EE;
+		border-radius: 20px;
+	}
 }
 
 .mainContainer {

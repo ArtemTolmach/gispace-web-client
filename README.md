@@ -18,7 +18,7 @@ $ yarn install
 Создайте файл `.env` со следующим содержимым:
 
 ```dotenv
-VITE_BACKEND_HOST = "the_host_of_the_server_part"
+GISPACE_BACKEND_HOST = "the_host_of_the_server_part"
 ```
 
 Запустить приложение:

@@ -1,3 +1,18 @@
+$colorText: #fff;
+$colorBioText: #89888E;
+
+@mixin justify-content($value) {
+    -webkit-box-pack: $value;
+    -ms-flex-pack: $value;
+    justify-content: $value;
+}
+
+@mixin align-items($value) {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+    align-items: $value;
+}
+
 .overviewContainer {
     position: relative;
     display: block;
@@ -11,9 +26,7 @@
     display: flex;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    @include justify-content(center);
 }
 
 .oneProjectContainer {
@@ -33,14 +46,13 @@
     transition: color 1s, box-shadow 1s;
     box-shadow: 0 0 10px rgba(117, 40, 233, 0),
                 0 0 20px rgba(117, 40, 233, 0),
-                0 0 30px rgba(117, 40, 233, 0),
-}
-
-.oneProjectContainer:hover {
-    color: #0ff;
-    box-shadow: 0 0 10px rgba(117, 40, 233, 0.7),
-                0 0 20px rgba(117, 40, 233, 0.7),
-                0 0 30px rgba(117, 40, 233, 0.7),
+                0 0 30px rgba(117, 40, 233, 0);
+    &:hover {
+        color: #0ff;
+        box-shadow: 0 0 10px rgba(117, 40, 233, 0.7),
+                    0 0 20px rgba(117, 40, 233, 0.7),
+                    0 0 30px rgba(117, 40, 233, 0.7),
+    }
 }
 
 .imgProject {
@@ -53,12 +65,8 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    @include justify-content(center);
+    @include align-items(center);
     height: 25vh;
     margin: 3%;
 }
@@ -77,7 +85,7 @@
 }
 
 .projectName {
-    color: #fff;
+    color: $colorText;
     font-size: 35px;
     font-family: Roboto, system-ui;
     font-weight: 500;
@@ -86,7 +94,7 @@
 }
 
 .projectBio {
-    color: #89888E;
+    color: $colorBioText;
     font-size: 25px;
     font-family: Roboto, system-ui;
     text-align: left;
@@ -94,13 +102,14 @@
 }
 
 .caption {
+    padding-top: 34px;
     display: block;
     width: 100%;
     text-align: center;
     text-decoration: none;
     font-family: Roboto, system-ui;
     font-size: 40px;
-    color: #fff;
+    color: $colorText;
     position: relative;
     font-weight: 500;
 }
