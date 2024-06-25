@@ -71,6 +71,7 @@ describe("Authentication tests", () => {
       await page.type('#id_password1', password);
 
       await Promise.all([
+        page.$eval('#terms', elem => elem.click()),
         page.$eval('#registerButton', elem => elem.click()),
         page.waitForNavigation()
       ]);

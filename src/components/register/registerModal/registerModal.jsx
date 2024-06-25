@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,11 @@ const RegisterModal = () => {
   });
 
   let {registerUser} = useContext(AuthContext)
+  const [isChecked, setIsChecked] = useState(false);
+  
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -81,7 +86,12 @@ const RegisterModal = () => {
         </div>
         {errors.password && <p className={styles.error}>{errors.password.message}</p>}
 
-        <button id='registerButton' type="submit" className={styles.btn}>Регистрация</button>
+        <div className={styles.checkboxСontainer}>
+          <input type="checkbox" id='terms' checked={isChecked} onChange={handleCheckboxChange} />
+          <span>Я согласен с политикой <Link to="/personalDataPolicy">обработки персональных данных</Link></span>
+        </div>
+
+        <button id='registerButton' type="submit" className={styles.btn} disabled={!isChecked}>Регистрация</button>
         <div className={styles.registerLink}>
           <p>Уже есть аккаунт? <Link to="/login">Войти</Link> </p>
         </div>

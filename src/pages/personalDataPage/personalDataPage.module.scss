@@ -1,0 +1,21 @@
+.logo{
+    position: relative;
+    color: #fff;
+    font-size: 70px;
+    font-weight: 700;
+    font-family: Roboto, system-ui;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 2vh 0 0 0;
+}
+
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#caption {
+    text-align: center;
+}

@@ -7,13 +7,15 @@ import HomePage from "@Pages/homePage/homePage";
 import InterfacePage from "@Pages/interfacePage/interfacePage";
 import LoginPage from "@Pages/loginPage/loginPage";
 import RegisterPage from "@Pages/registerPage/registerPage";
+import PersonalDataPage from "@Pages/personalDataPage/personalDataPage";
 
 function RouterCustom() {
   
   const ROUTES = {
     home: "/",
     login: "/login",
-    register: "/register"
+    register: "/register",
+    personalData: "/personalDataPolicy"
   };
 
   return (
@@ -24,6 +26,7 @@ function RouterCustom() {
           <Route path="/interface/:project/:location/:photosphere" element={<InterfacePage />} />
           <Route path={ROUTES.login} element={<LoginPage />} />
           <Route path={ROUTES.register} element={<RegisterPage />} />
+          <Route path={ROUTES.personalData} element={<PersonalDataPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </AuthProvider>
