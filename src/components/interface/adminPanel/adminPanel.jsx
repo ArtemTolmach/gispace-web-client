@@ -281,7 +281,6 @@ const AdminPanel = ({ viewer, markersPlugin, location, photosphere, renderMarker
         const description = document.getElementById(styles.descriptionInputInfo).value;
         const title = document.getElementById(styles.titleInputInfo).value;
 
-
         const response = await fetch(`${BACKEND_HOST}/api/photospheres/information-points/`, {
             method: 'POST',
             headers: {

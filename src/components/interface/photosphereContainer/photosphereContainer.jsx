@@ -228,7 +228,7 @@ const ImageContainer = ({ project, location, photosphere }) => {
 
   useEffect(() => {
 
-    if (!initialized && containerRef.current) {
+    if (!initialized) {
         const defaultZoomLvl = window.innerWidth < 900 ? 1 : 50;
 
         const viewer = new Viewer({

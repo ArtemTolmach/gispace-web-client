@@ -18,7 +18,7 @@ const ImageContainer = () => {
         container: containerRef.current,
         autoRotate: true,
         autoRotateSpeed: 1,
-        controlButtons: ['fullscreen'],
+        controlButtons: []
       });
 
       viewer.add(panorama);

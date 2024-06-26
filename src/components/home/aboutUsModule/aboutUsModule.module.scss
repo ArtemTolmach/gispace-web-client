@@ -22,7 +22,7 @@ $colorText: #fff;
     margin: 2.5vh 0 0 0;
     line-height: 38px;
     text-indent: 65px;
-    text-align: justify;
+    text-align: left;
 }
 
 .aboutUsContainer {
@@ -67,7 +67,7 @@ $colorText: #fff;
     font-weight: 500;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     .caption {
         font-size: 30px;
     }

@@ -39,10 +39,9 @@ const Header = () => {
                 <li className={styles.menuItem}>
                   <a id="user-name">{user.username}</a>
                 </li>
-                <form id="logout-form" className={styles.menuItem}>
-                  <input type="hidden" />
+                <li id="logout-form" className={styles.menuItem}>
                   <a onClick={logoutUser} id='logoutButton'>Выйти</a>
-                </form>
+                </li>
               </>
             ) : (
               <>

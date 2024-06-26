@@ -13,6 +13,7 @@ function RouterCustom() {
   
   const ROUTES = {
     home: "/",
+    interface: "/interface/:project/:location/:photosphere",
     login: "/login",
     register: "/register",
     personalData: "/personalDataPolicy"
@@ -23,7 +24,7 @@ function RouterCustom() {
       <AuthProvider>
         <Routes>
           <Route path={ROUTES.home} element={<HomePage />} />
-          <Route path="/interface/:project/:location/:photosphere" element={<InterfacePage />} />
+          <Route path={ROUTES.interface} element={<InterfacePage />} />
           <Route path={ROUTES.login} element={<LoginPage />} />
           <Route path={ROUTES.register} element={<RegisterPage />} />
           <Route path={ROUTES.personalData} element={<PersonalDataPage />} />

@@ -10,7 +10,7 @@ const ImageContainer = () => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!initialized) {
+    if (initialized==false) {
 
       const panorama = new PANOLENS.ImagePanorama(imageUrl);
 
@@ -18,7 +18,7 @@ const ImageContainer = () => {
         container: containerRef.current,
         autoRotate: true,
         autoRotateSpeed: 1,
-        controlButtons: ['fullscreen'],
+        controlButtons: []
       });
 
       viewer.add(panorama);

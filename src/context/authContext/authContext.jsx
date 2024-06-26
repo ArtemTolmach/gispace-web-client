@@ -9,24 +9,24 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({ children }) => {
-    let [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
-    let [user, setUser] = useState(()=> localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
-    let [is_superuser, setSuperUser] = useState(()=> localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null)
+    const [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null);
+    const [user, setUser] = useState(() => localStorage.getItem('authTokens') ? jwtDecode(localStorage.getItem('authTokens')) : null);
+    const [is_superuser, setSuperUser] = useState(() => user ? user.is_superuser : null);
 
-    let [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
 
   const navigate = useNavigate()
 
-  let loginUser = async (data) => {
-    let response = await fetch(`${BACKEND_HOST}/api/token/`, {
+  const loginUser = async (data) => {
+    const response = await fetch(`${BACKEND_HOST}/api/token/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 'username': data.username, 'password': data.password })
     });
-    let result = await response.json();
-
+    const result = await response.json();
+    console.log(result);
     if (response.status === 200) {
         setAuthTokens(result);
         setUser(jwtDecode(result.access));
@@ -38,8 +38,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let registerUser = async (data)=> {
-    let response = await fetch(`${BACKEND_HOST}/api/register`, {
+  const registerUser = async (data)=> {
+    const response = await fetch(`${BACKEND_HOST}/api/register`, {
         method:'POST',
         headers:{
             'Content-Type':'application/json'
@@ -58,24 +58,24 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-    let logoutUser = () => {
+    const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
         setSuperUser(null)
         localStorage.removeItem('authTokens')
     }
 
-    let updateToken = async ()=> {
+    const updateToken = async ()=> {
 
-        let response = await fetch(`${BACKEND_HOST}/api/token/refresh/`, {
+        const response = await fetch(`${BACKEND_HOST}/api/token/refresh/`, {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify({'refresh':authTokens?.refresh})
+            body:JSON.stringify({'refresh':authTokens.refresh})
         })
 
-        let data = await response.json()
+        const data = await response.json()
         
         if (response.status === 200){
             setAuthTokens(data)
@@ -91,24 +91,22 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-  let contextData = {
-    user: user,
-    is_superuser: is_superuser,
-    authTokens:authTokens,
-    loginUser: loginUser,
-    registerUser: registerUser,
-    logoutUser: logoutUser,
+   const contextData = {
+    user,
+    is_superuser,
+    authTokens,
+    loginUser,
+    registerUser,
+    logoutUser,
   };
 
     useEffect(()=> {
 
-        if(loading && authTokens){
-            updateToken()
-        }
+        if(loading && authTokens ) updateToken()
 
-        let fourMinutes = 1000 * 60 * 4
+        const fourMinutes = 1000 * 60 * 4
 
-        let interval =  setInterval(()=> {
+        const interval =  setInterval(()=> {
             if(authTokens){
                 updateToken()
             }
@@ -116,7 +114,7 @@ export const AuthProvider = ({ children }) => {
         return ()=> clearInterval(interval)
 
     }, [authTokens, loading])
-  
+
   return (
     <AuthContext.Provider value={contextData}>
       {children}

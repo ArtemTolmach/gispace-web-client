@@ -10,7 +10,6 @@ import search from "@Assets/images/search.png";
 const SearchForm = () => {
   const [projects, setProjects] = useState(null);
   const [filteredProjects, setFilteredProjects] = useState(null);
-  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -27,33 +26,31 @@ const SearchForm = () => {
     };
     
     fetchProjects();
-  }, []); 
+  }, []);
 
   const handleSearch = (e) => {
-    const inputValue = e.target.value.toLowerCase();
+    const inputValue = e.target.value;
     const regex = new RegExp(inputValue, 'i');
     let filtered = projects.filter(project => 
-      regex.test(project.name.toLowerCase()) || 
-      regex.test(project.bio.toLowerCase())
+      regex.test(project.name) || 
+      regex.test(project.bio)
     );
   
     if (inputValue === '') {
       setFilteredProjects(null);
-      setSearched(false);
     } else {
       setFilteredProjects(filtered);
-      setSearched(true);
     }
   };
 
   return (
     <div className={styles.searchContainer}>
-      <form className={styles.search}>
+      <div className={styles.search}>
         <img src={search} className={styles.searchIcon} alt="Search Icon" draggable="false"/>
         <input className={styles.searchInput} type="search" placeholder="Поиск" onChange={handleSearch} />
-      </form>
+      </div>
       <ul className={styles.suggestions}>
-        {searched && filteredProjects ? (
+        {filteredProjects ? (
           filteredProjects.map(project => (
             <li key={project.id} className={styles.suggestionItem}>
               <Link className={styles.suggestionHrefToProject} to={`/interface/${project.name}/${project.main_location.id}/${project.main_location.main_sphere}`}>

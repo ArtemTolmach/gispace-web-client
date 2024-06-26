@@ -10,7 +10,7 @@ const ImageContainer = () => {
   const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!initialized) {
+    if (initialized==false) {
 
       const panorama = new PANOLENS.ImagePanorama(imageUrl);
 
@@ -33,8 +33,6 @@ const ImageContainer = () => {
       setInitialized(true);
     }
 
-    return () => {
-    };
   }, [initialized]);
 
   return <div className={styles.imageContainer} ref={containerRef}></div>;
